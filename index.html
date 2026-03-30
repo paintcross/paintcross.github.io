@@ -365,7 +365,6 @@
       </div>
       <div class="dl-formats">
         <a class="dl-tag" id="dl-tag-dmg">.dmg</a>
-        <a class="dl-tag" id="dl-tag-universal">Universal Binary</a>
         <span class="dl-tag">macOS 11+</span>
       </div>
       <a class="dl-btn" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
@@ -484,9 +483,7 @@
         var el = document.getElementById(id);
         if (el && url) el.href = url;
       }
-      const universal = findAsset('.app.tar.gz');
-      setTag('dl-tag-dmg',      dmg       && dmg.browser_download_url);
-      setTag('dl-tag-universal', universal && universal.browser_download_url);
+      setTag('dl-tag-dmg', dmg && dmg.browser_download_url);
       setTag('dl-tag-exe',      exe    && exe.browser_download_url);
       setTag('dl-tag-msi',      msi    && msi.browser_download_url);
       setTag('dl-tag-appimage', appimg && appimg.browser_download_url);
