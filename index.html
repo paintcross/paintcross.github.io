@@ -363,7 +363,7 @@
         <span class="dl-tag">Universal Binary</span>
         <span class="dl-tag">macOS 11+</span>
       </div>
-      <a class="dl-btn" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest" target="_blank">
+      <a class="dl-btn" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
@@ -386,7 +386,7 @@
         <span class="dl-tag">.msi</span>
         <span class="dl-tag">Windows 10+</span>
       </div>
-      <a class="dl-btn outline" id="dl-win-btn" href="https://github.com/paintcross/PaintCross/releases/latest" target="_blank">
+      <a class="dl-btn outline" id="dl-win-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
@@ -409,7 +409,7 @@
         <span class="dl-tag">.rpm</span>
         <span class="dl-tag">.AppImage</span>
       </div>
-      <a class="dl-btn outline" id="dl-linux-btn" href="https://github.com/paintcross/PaintCross/releases/latest" target="_blank">
+      <a class="dl-btn outline" id="dl-linux-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
@@ -508,7 +508,7 @@
     if (heroBtn && btn) {
       heroBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        btn.click();
+        window.location.href = btn.href;
       });
     }
   }
