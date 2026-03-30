@@ -529,8 +529,6 @@
       const data = await res.json();
       const ver = data.tag_name || 'v0.1.0';
 
-      document.getElementById('version-badge').textContent = ver;
-      document.getElementById('hero-ver').textContent = ver;
       document.getElementById('dl-version-badge').textContent = ver;
 
       const assets = Array.isArray(data.assets) ? data.assets : [];
@@ -585,18 +583,26 @@
   }
 
   function highlightPlatform(os) {
-    var cards  = { mac: 'dl-mac',      win: 'dl-win',      linux: 'dl-linux'     };
-    var btns   = { mac: 'dl-mac-btn',  win: 'dl-win-btn',  linux: 'dl-linux-btn' };
-    var labels = { mac: 'Download for macOS', win: 'Download for Windows', linux: 'Download for Linux' };
+    var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
+    var btns    = { mac: 'dl-mac-btn', win: 'dl-win-btn', linux: 'dl-linux-btn' };
+    var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
+    var labels  = { mac: 'Download for macOS', win: 'Download for Windows', linux: 'Download for Linux' };
+    var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
     if (!os || !cards[os]) return;
 
-    var card = document.getElementById(cards[os]);
-    var btn  = document.getElementById(btns[os]);
-    if (card) card.classList.add('primary');
-    if (btn)  btn.classList.remove('outline');
+    // Download section — highlight detected OS card
+    var dlCard = document.getElementById(cards[os]);
+    var dlBtn  = document.getElementById(btns[os]);
+    if (dlCard) { dlCard.classList.add('primary'); dlCard.dataset.ribbon = ribbons[os]; }
+    if (dlBtn)  dlBtn.classList.remove('outline');
 
-    var heroBtn = document.getElementById('hero-download');
-    if (heroBtn) heroBtn.href = '#download';
+    // Hero — highlight platform card
+    var platCard = document.getElementById(plats[os]);
+    if (platCard) platCard.classList.add('active');
+
+    // Hero — update CTA label
+    var heroDlLabel = document.getElementById('hero-dl-label');
+    if (heroDlLabel) heroDlLabel.textContent = labels[os];
   }
 
   loadRelease();
