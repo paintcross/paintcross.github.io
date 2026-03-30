@@ -337,13 +337,13 @@
       <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
       </svg>
-      <span id="hero-dl-label">Download</span>
+      <span id="hero-dl-label">Download — It's Free</span>
     </a>
   </div>
   <div class="hero-trust">
     <span><span class="trust-check">✓</span> Free forever</span>
     <span><span class="trust-check">✓</span> No account needed</span>
-    <span><span class="trust-check">✓</span> Native binary</span>
+    <!-- <span><span class="trust-check">✓</span> Native binary</span> -->
   </div>
 </section>
 
@@ -595,9 +595,6 @@
     var platCard = document.getElementById(plats[os]);
     if (platCard) platCard.classList.add('active');
 
-    // Hero — update CTA label
-    var heroDlLabel = document.getElementById('hero-dl-label');
-    if (heroDlLabel) heroDlLabel.textContent = labels[os];
   }
 
   loadRelease();
