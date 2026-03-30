@@ -199,6 +199,11 @@
       padding: 3px 10px; border-radius: 6px;
       background: rgba(255,255,255,.06); border: 1px solid var(--border);
       font-size: 11px; color: var(--muted); font-family: monospace;
+      text-decoration: none;
+    }
+    a.dl-tag[href]:hover {
+      background: rgba(91,141,239,.15); border-color: var(--accent);
+      color: var(--accent); cursor: pointer;
     }
     .dl-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -359,7 +364,7 @@
         </div>
       </div>
       <div class="dl-formats">
-        <span class="dl-tag">.dmg</span>
+        <a class="dl-tag" id="dl-tag-dmg">.dmg</a>
         <span class="dl-tag">Universal Binary</span>
         <span class="dl-tag">macOS 11+</span>
       </div>
@@ -382,8 +387,8 @@
         </div>
       </div>
       <div class="dl-formats">
-        <span class="dl-tag">.exe</span>
-        <span class="dl-tag">.msi</span>
+        <a class="dl-tag" id="dl-tag-exe">.exe</a>
+        <a class="dl-tag" id="dl-tag-msi">.msi</a>
         <span class="dl-tag">Windows 10+</span>
       </div>
       <a class="dl-btn outline" id="dl-win-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
@@ -405,9 +410,9 @@
         </div>
       </div>
       <div class="dl-formats">
-        <span class="dl-tag">.deb</span>
-        <span class="dl-tag">.rpm</span>
-        <span class="dl-tag">.AppImage</span>
+        <a class="dl-tag" id="dl-tag-deb">.deb</a>
+        <a class="dl-tag" id="dl-tag-rpm">.rpm</a>
+        <a class="dl-tag" id="dl-tag-appimage">.AppImage</a>
       </div>
       <a class="dl-btn outline" id="dl-linux-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -465,12 +470,26 @@
       }
 
       const dmg    = findAsset('.dmg');
-      const exe    = findAsset('_x64-setup.exe', '.msi', '.exe');
+      const exe    = findAsset('_x64-setup.exe', '.exe');
+      const msi    = findAsset('.msi');
       const appimg = findAsset('.appimage');
+      const deb    = findAsset('.deb');
+      const rpm    = findAsset('.rpm');
 
       if (dmg)    updateBtn('dl-mac-btn',   dmg.browser_download_url,    'Download .dmg');
       if (exe)    updateBtn('dl-win-btn',   exe.browser_download_url,    'Download .exe');
       if (appimg) updateBtn('dl-linux-btn', appimg.browser_download_url, 'Download .AppImage');
+
+      function setTag(id, url) {
+        var el = document.getElementById(id);
+        if (el && url) el.href = url;
+      }
+      setTag('dl-tag-dmg',      dmg    && dmg.browser_download_url);
+      setTag('dl-tag-exe',      exe    && exe.browser_download_url);
+      setTag('dl-tag-msi',      msi    && msi.browser_download_url);
+      setTag('dl-tag-appimage', appimg && appimg.browser_download_url);
+      setTag('dl-tag-deb',      deb    && deb.browser_download_url);
+      setTag('dl-tag-rpm',      rpm    && rpm.browser_download_url);
     } catch (e) { /* keep fallback href */ }
   }
 
