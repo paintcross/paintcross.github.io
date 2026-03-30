@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paint.Cross — Cross-Platform Paint App</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0c0c0e;
+      --surface:   #13131a;
+      --card:      #1a1a24;
+      --border:    #2a2a3a;
+      --accent:    #5b8def;
+      --accent2:   #9b6ef7;
+      --text:      #f0f0f5;
+      --muted:     #7c7c9a;
+      --success:   #34d399;
+      --radius:    12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 60px;
+      background: rgba(12,12,14,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo span { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.3px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-gh {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 14px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; font-size: 13px; color: var(--text);
+      text-decoration: none; transition: border-color .2s;
+    }
+    .nav-gh:hover { border-color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 100px 24px 80px; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% -10%,
+        rgba(91,141,239,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px;
+      background: rgba(91,141,239,.12); border: 1px solid rgba(91,141,239,.3);
+      border-radius: 100px; font-size: 12px; color: var(--accent);
+      margin-bottom: 28px; letter-spacing: .3px;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 {
+      font-size: clamp(42px, 7vw, 76px); font-weight: 800;
+      letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px; color: var(--muted); max-width: 540px;
+      line-height: 1.7; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; background: var(--accent); border: none;
+      border-radius: 10px; color: #fff; font-size: 15px; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: opacity .2s, transform .2s;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-size: 15px;
+      cursor: pointer; text-decoration: none; transition: border-color .2s, transform .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .hero-version { margin-top: 20px; font-size: 13px; color: var(--muted); }
+    .hero-version span { color: var(--success); }
+
+    /* APP PREVIEW */
+    .preview-wrap { max-width: 960px; margin: 0 auto 100px; padding: 0 24px; }
+    .preview-frame {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+      background: var(--surface); aspect-ratio: 16/10;
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .preview-chrome {
+      position: absolute; top: 0; left: 0; right: 0; height: 36px;
+      background: #1e1e28; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 14px; gap: 7px;
+    }
+    .chrome-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .chrome-dot.r { background: #ff5f57; }
+    .chrome-dot.y { background: #febc2e; }
+    .chrome-dot.g { background: #28c840; }
+    .preview-screenshot {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      display: block;
+    }
+
+    /* FEATURES */
+    section { padding: 80px 24px; }
+    .section-label {
+      text-align: center; font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+    }
+    h2 {
+      text-align: center; font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;
+    }
+    .section-sub { text-align: center; color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto 60px; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; max-width: 1000px; margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .feature-card:hover { border-color: rgba(91,141,239,.4); transform: translateY(-2px); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(91,141,239,.1); border: 1px solid rgba(91,141,239,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 18px;
+    }
+    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .feature-card code { font-size: 12px; color: var(--accent); }
+
+    /* STATS */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 60px;
+      padding: 60px 24px;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* DOWNLOAD */
+    #download { background: var(--surface); }
+    .download-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; max-width: 900px; margin: 0 auto;
+    }
+    .dl-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: border-color .25s, transform .2s; position: relative; overflow: hidden;
+    }
+    .dl-card.primary { border-color: var(--accent); }
+    .dl-card.primary::before {
+      content: 'Recommended'; position: absolute; top: 14px; right: -22px;
+      background: var(--accent); color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing: .5px;
+      padding: 3px 32px; transform: rotate(45deg);
+    }
+    .dl-card:hover { border-color: rgba(91,141,239,.5); transform: translateY(-2px); }
+    .dl-platform { display: flex; align-items: center; gap: 12px; }
+    .dl-platform svg { width: 32px; height: 32px; flex-shrink: 0; }
+    .dl-platform-name { font-size: 16px; font-weight: 700; }
+    .dl-platform-sub { font-size: 12px; color: var(--muted); }
+    .dl-formats { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dl-tag {
+      padding: 3px 10px; border-radius: 6px;
+      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      font-size: 11px; color: var(--muted); font-family: monospace;
+    }
+    .dl-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 20px; background: var(--accent); border: none; border-radius: 8px;
+      color: #fff; font-size: 14px; font-weight: 600; text-decoration: none;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .dl-btn:hover { opacity: .85; }
+    .dl-btn.outline {
+      background: transparent; border: 1px solid var(--border); color: var(--text);
+    }
+    .dl-btn.outline:hover { border-color: var(--accent); }
+    .dl-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+    .dl-note a { color: var(--accent); text-decoration: none; }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border);
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; }
+    .footer-logo span { font-weight: 700; font-size: 15px; }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-links a:not(.nav-gh) { display: none; }
+      footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+      .stats-bar { gap: 32px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <rect width="28" height="28" rx="7" fill="#5b8def"/>
+      <path d="M8 20 L12 10 L16 17 L18 13 L22 20" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="9" cy="9" r="2" fill="white" opacity=".9"/>
+    </svg>
+    <span>Paint.Cross</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#download">Download</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Latest release: <strong id="version-badge">v0.1.0</strong>
+  </div>
+  <h1>Paint for<br><span class="gradient-text">Every Platform</span></h1>
+  <p class="hero-sub">
+    A fast, lightweight image editor that runs natively on macOS, Windows, and Linux.
+    Layers, selection tools, text formatting — everything you need, nothing you don't.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" id="hero-download" href="#download">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+      <span id="hero-dl-label">Download</span>
+    </a>
+  </div>
+  <p class="hero-version">Free &middot; <span id="hero-ver">v0.1.0</span></p>
+</section>
+
+<!-- APP PREVIEW -->
+<div class="preview-wrap">
+  <div class="preview-frame">
+    <img class="preview-screenshot" src="app-screenshot.png" alt="Paint.Cross 실행 화면" />
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <p class="section-label">Features</p>
+  <h2>Everything you need to create</h2>
+  <p class="section-sub">Built for speed. Designed to stay out of your way.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🖌️</div>
+      <h3>Rich Brush Tools</h3>
+      <p>Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📐</div>
+      <h3>Layer System</h3>
+      <p>Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✂️</div>
+      <h3>Smart Selection</h3>
+      <p>Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✍️</div>
+      <h3>Text Tool</h3>
+      <p>Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⌨️</div>
+      <h3>Keyboard Shortcuts</h3>
+      <p>Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💾</div>
+      <h3>Open Formats</h3>
+      <p>Export to PNG, open JPG, JPEG, WebP images. Save projects as <code>.paintx</code> to preserve layers and history.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num gradient-text">3</div>
+    <div class="stat-label">Platforms</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num gradient-text">13+</div>
+    <div class="stat-label">Tools</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num gradient-text">50</div>
+    <div class="stat-label">Undo Steps</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num gradient-text">Free</div>
+    <div class="stat-label">Always</div>
+  </div>
+</div>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <p class="section-label">Download</p>
+  <h2>Available on every desktop</h2>
+  <p class="section-sub">Native binaries — no Electron, no JVM. Just fast.</p>
+  <div class="download-grid">
+
+    <div class="dl-card" id="dl-mac">
+      <div class="dl-platform">
+        <svg viewBox="0 0 32 32" fill="var(--text)">
+          <path d="M22.3 17.6c0-3.1 2.5-4.6 2.6-4.7-1.4-2.1-3.6-2.3-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-.9 0-2.4-1.1-4-1-2 0-3.9 1.2-4.9 3-2.1 3.6-.5 9 1.5 12 1 1.4 2.1 3 3.6 3 1.4-.1 2-.9 3.7-.9 1.7 0 2.2.9 3.7.9 1.6 0 2.6-1.5 3.6-2.9 1.1-1.6 1.6-3.2 1.6-3.3-.1-.1-3-1.2-3-4.8zm-2.8-8.8c.8-1 1.4-2.4 1.2-3.8-1.2.1-2.6.8-3.5 1.8-.8.9-1.5 2.3-1.3 3.7 1.4.1 2.8-.6 3.6-1.7z"/>
+        </svg>
+        <div>
+          <div class="dl-platform-name">macOS</div>
+          <div class="dl-platform-sub">Universal (Intel + Apple Silicon)</div>
+        </div>
+      </div>
+      <div class="dl-formats">
+        <span class="dl-tag">.dmg</span>
+        <span class="dl-tag">Universal Binary</span>
+        <span class="dl-tag">macOS 11+</span>
+      </div>
+      <a class="dl-btn" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        <span class="dl-btn-label">Download .dmg</span>
+      </a>
+    </div>
+
+    <div class="dl-card" id="dl-win">
+      <div class="dl-platform">
+        <svg viewBox="0 0 32 32" fill="var(--text)">
+          <path d="M4 7.3L14.1 5.8V15H4V7.3zM15.1 5.6L28 3.5V15H15.1V5.6zM4 16H14.1V25.2L4 23.7V16zM15.1 16H28V28.5L15.1 26.4V16z"/>
+        </svg>
+        <div>
+          <div class="dl-platform-name">Windows</div>
+          <div class="dl-platform-sub">x64 Installer</div>
+        </div>
+      </div>
+      <div class="dl-formats">
+        <span class="dl-tag">.exe</span>
+        <span class="dl-tag">.msi</span>
+        <span class="dl-tag">Windows 10+</span>
+      </div>
+      <a class="dl-btn outline" id="dl-win-btn" href="https://github.com/paintcross/PaintCross/releases/latest" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        <span class="dl-btn-label">Download .exe</span>
+      </a>
+    </div>
+
+    <div class="dl-card" id="dl-linux">
+      <div class="dl-platform">
+        <svg viewBox="0 0 32 32" fill="var(--text)">
+          <path d="M16 3C8.8 3 3 8.8 3 16s5.8 13 13 13 13-5.8 13-13S23.2 3 16 3zm6.4 19.5L9.5 9.6C11.2 7.9 13.5 7 16 7s4.8.9 6.5 2.6c1.7 1.7 2.5 3.9 2.5 6.4 0 2.4-.8 4.6-2.6 6.5zM9.6 22.5C7.9 20.8 7 18.5 7 16c0-2.5.9-4.8 2.6-6.5l12.9 12.9c-1.7 1.6-4 2.6-6.5 2.6s-4.7-.9-6.4-2.5z"/>
+        </svg>
+        <div>
+          <div class="dl-platform-name">Linux</div>
+          <div class="dl-platform-sub">Ubuntu · Fedora · AppImage</div>
+        </div>
+      </div>
+      <div class="dl-formats">
+        <span class="dl-tag">.deb</span>
+        <span class="dl-tag">.rpm</span>
+        <span class="dl-tag">.AppImage</span>
+      </div>
+      <a class="dl-btn outline" id="dl-linux-btn" href="https://github.com/paintcross/PaintCross/releases/latest" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        <span class="dl-btn-label">Download .AppImage</span>
+      </a>
+    </div>
+
+  </div>
+  <p class="dl-note" style="margin-top:32px">
+    All releases are signed and notarized &middot;
+    <a href="https://github.com/paintcross" target="_blank">View all releases on GitHub &rarr;</a>
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+      <rect width="28" height="28" rx="7" fill="#5b8def"/>
+      <path d="M8 20 L12 10 L16 17 L18 13 L22 20" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="9" cy="9" r="2" fill="white" opacity=".9"/>
+    </svg>
+    <span>Paint.Cross</span>
+  </div>
+  <p class="footer-copy">&copy; 2026 JK Apps</p>
+  <div class="footer-links">
+    <a href="#download">Download</a>
+  </div>
+</footer>
+
+<script>
+  const REPO = 'Joonk72/PaintS';
+
+  async function loadRelease() {
+    try {
+      const res = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest');
+      if (!res.ok) return;
+      const data = await res.json();
+      const ver = data.tag_name || 'v0.1.0';
+
+      document.getElementById('version-badge').textContent = ver;
+      document.getElementById('hero-ver').textContent = ver;
+
+      const assets = Array.isArray(data.assets) ? data.assets : [];
+
+      function findAsset() {
+        const args = Array.from(arguments);
+        return assets.find(function(a) {
+          return args.some(function(e) {
+            return a.name.toLowerCase().endsWith(e);
+          });
+        });
+      }
+
+      const dmg    = findAsset('.dmg');
+      const exe    = findAsset('_x64-setup.exe', '.msi', '.exe');
+      const appimg = findAsset('.appimage');
+
+      if (dmg)    updateBtn('dl-mac-btn',   dmg.browser_download_url,    'Download .dmg');
+      if (exe)    updateBtn('dl-win-btn',   exe.browser_download_url,    'Download .exe');
+      if (appimg) updateBtn('dl-linux-btn', appimg.browser_download_url, 'Download .AppImage');
+    } catch (e) { /* keep fallback href */ }
+  }
+
+  function updateBtn(id, url, label) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.href = url;
+    var labelEl = btn.querySelector('.dl-btn-label');
+    if (labelEl) labelEl.textContent = label;
+  }
+
+  function detectOS() {
+    var ua = navigator.userAgent;
+    if (/Macintosh|Mac OS X/i.test(ua)) return 'mac';
+    if (/Windows/i.test(ua))            return 'win';
+    if (/Linux/i.test(ua))              return 'linux';
+    return null;
+  }
+
+  function highlightPlatform(os) {
+    var cards  = { mac: 'dl-mac',      win: 'dl-win',      linux: 'dl-linux'     };
+    var btns   = { mac: 'dl-mac-btn',  win: 'dl-win-btn',  linux: 'dl-linux-btn' };
+    var labels = { mac: 'Download for macOS', win: 'Download for Windows', linux: 'Download for Linux' };
+    if (!os || !cards[os]) return;
+
+    var card = document.getElementById(cards[os]);
+    var btn  = document.getElementById(btns[os]);
+    if (card) card.classList.add('primary');
+    if (btn)  btn.classList.remove('outline');
+
+    var heroLabel = document.getElementById('hero-dl-label');
+    if (heroLabel) heroLabel.textContent = labels[os];
+
+    var heroBtn = document.getElementById('hero-download');
+    if (heroBtn && btn) {
+      heroBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        btn.click();
+      });
+    }
+  }
+
+  loadRelease();
+  highlightPlatform(detectOS());
+</script>
+</body>
+</html>
