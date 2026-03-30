@@ -353,6 +353,12 @@
   <p class="section-label">Download</p>
   <h2>Available on every desktop</h2>
   <p class="section-sub">Native binaries — no Electron, no JVM. Just fast.</p>
+  <div style="display:flex;justify-content:center;margin-bottom:40px">
+    <div class="hero-badge" style="margin-bottom:0">
+      <span class="dot"></span>
+      Latest release: <strong id="dl-version-badge">v0.1.0</strong>
+    </div>
+  </div>
   <div class="download-grid">
 
     <div class="dl-card" id="dl-mac">
@@ -421,7 +427,7 @@
   </div>
   <p class="dl-note" style="margin-top:32px">
     All releases are signed and notarized &middot;
-    <a href="https://github.com/paintcross" target="_blank">View all releases on GitHub &rarr;</a>
+    <a href="https://github.com/paintcross/PaintCross/releases" target="_blank">View all releases on GitHub &rarr;</a>
   </p>
 </section>
 
@@ -436,9 +442,9 @@
     <span>Paint.Cross</span>
   </div>
   <p class="footer-copy">&copy; 2026 JK Apps</p>
-  <div class="footer-links">
+  <!-- <div class="footer-links">
     <a href="#download">Download</a>
-  </div>
+  </div> -->
 </footer>
 
 <script>
@@ -453,6 +459,7 @@
 
       document.getElementById('version-badge').textContent = ver;
       document.getElementById('hero-ver').textContent = ver;
+      document.getElementById('dl-version-badge').textContent = ver;
 
       const assets = Array.isArray(data.assets) ? data.assets : [];
 
