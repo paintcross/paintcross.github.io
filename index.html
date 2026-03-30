@@ -518,12 +518,7 @@
     if (heroLabel) heroLabel.textContent = labels[os];
 
     var heroBtn = document.getElementById('hero-download');
-    if (heroBtn && btn) {
-      heroBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = btn.href;
-      });
-    }
+    if (heroBtn) heroBtn.href = '#download';
   }
 
   loadRelease();
