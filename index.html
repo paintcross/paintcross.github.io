@@ -163,6 +163,8 @@
     .chrome-dot.r { background: #ff5f57; }
     .chrome-dot.y { background: #febc2e; }
     .chrome-dot.g { background: #28c840; }
+    .chrome-title { font-size: 11px; color: var(--muted); margin: 0 auto; }
+    .preview-caption { text-align: center; font-size: 13px; color: var(--muted); margin-top: 16px; }
     .preview-screenshot {
       width: 100%; height: 100%;
       object-fit: cover; object-position: top;
@@ -346,8 +348,15 @@
 <!-- APP PREVIEW -->
 <div class="preview-wrap">
   <div class="preview-frame">
+    <div class="preview-chrome">
+      <div class="chrome-dot r"></div>
+      <div class="chrome-dot y"></div>
+      <div class="chrome-dot g"></div>
+      <span class="chrome-title">Paint.Cross — Untitled.paintx</span>
+    </div>
     <img class="preview-screenshot" src="app-screenshot.png" alt="Paint.Cross 실행 화면" />
   </div>
+  <p class="preview-caption">Native window — no browser shell, no Electron overhead</p>
 </div>
 
 <!-- FEATURES -->
