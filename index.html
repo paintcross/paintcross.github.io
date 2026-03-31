@@ -44,6 +44,48 @@
     .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
+    .lang-dropdown { position: relative; }
+    .lang-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .lang-trigger:hover,
+    .lang-trigger[aria-expanded="true"] { border-color: var(--accent); }
+    .lang-caret { font-size: 10px; color: var(--muted); }
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 170px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, .35);
+      padding: 6px;
+      display: none;
+      z-index: 300;
+    }
+    .lang-menu.open { display: block; }
+    .lang-item {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 13px;
+      text-align: left;
+      border-radius: 7px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    .lang-item:hover { background: rgba(91,141,239,.15); }
     .nav-gh {
       display: flex; align-items: center; gap: 6px;
       padding: 7px 14px;
@@ -296,8 +338,26 @@
     <span>Paint.Cross</span>
   </a>
   <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#download">Download</a>
+    <a href="#features" id="nav-features">Features</a>
+    <a href="#download" id="nav-download">Download</a>
+    <div class="lang-dropdown">
+      <button id="lang-trigger" class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
+        <span id="lang-label">English</span>
+        <span class="lang-caret">▾</span>
+      </button>
+      <div id="lang-menu" class="lang-menu" role="menu">
+        <button type="button" class="lang-item" data-lang="en" role="menuitem">English</button>
+        <button type="button" class="lang-item" data-lang="ko" role="menuitem">한국어</button>
+        <button type="button" class="lang-item" data-lang="zh" role="menuitem">中文</button>
+        <button type="button" class="lang-item" data-lang="es" role="menuitem">Español</button>
+        <button type="button" class="lang-item" data-lang="ar" role="menuitem">العربية</button>
+        <button type="button" class="lang-item" data-lang="hi" role="menuitem">हिन्दी</button>
+        <button type="button" class="lang-item" data-lang="ja" role="menuitem">日本語</button>
+        <button type="button" class="lang-item" data-lang="fr" role="menuitem">Français</button>
+        <button type="button" class="lang-item" data-lang="de" role="menuitem">Deutsch</button>
+        <button type="button" class="lang-item" data-lang="pt" role="menuitem">Português</button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -305,12 +365,10 @@
 <section class="hero">
   <div class="hero-badge" style="margin-bottom:28px">
     <span class="dot"></span>
-    Simple &middot; Lightweight &middot; Native
+    <span id="hero-badge-text">Simple · Lightweight · Native</span>
   </div>
-  <h1>One App.<br><span class="gradient-text">Every Platform.</span></h1>
-  <p class="hero-sub">
-    A fast, native image editor — no Electron, no bloat. Just draw.<br>
-  </p>
+  <h1><span id="hero-title-line1">One App.</span><br><span class="gradient-text" id="hero-title-line2">Every Platform.</span></h1>
+  <p class="hero-sub" id="hero-sub">A fast, native image editor — no Electron, no bloat. Just draw.</p>
   <div class="platform-row">
     <div class="plat-card" id="plat-mac">
       <svg viewBox="0 0 32 32" fill="var(--text)">
@@ -340,8 +398,8 @@
     </a>
   </div>
   <div class="hero-trust">
-    <span><span class="trust-check">✓</span> Free forever</span>
-    <span><span class="trust-check">✓</span> No account needed</span>
+    <span><span class="trust-check">✓</span> <span id="trust-free">Free forever</span></span>
+    <span><span class="trust-check">✓</span> <span id="trust-account">No account needed</span></span>
     <!-- <span><span class="trust-check">✓</span> Native binary</span> -->
   </div>
 </section>
@@ -353,67 +411,67 @@
       <div class="chrome-dot r"></div>
       <div class="chrome-dot y"></div>
       <div class="chrome-dot g"></div>
-      <span class="chrome-title">Paint.Cross — Untitled.paintx</span>
+      <span class="chrome-title" id="preview-title">Paint.Cross — Untitled.paintx</span>
     </div>
-    <img class="preview-screenshot" src="app-screenshot.png" alt="Paint.Cross 실행 화면" />
+    <img class="preview-screenshot" src="app-screenshot.png" id="preview-image" alt="Paint.Cross screenshot" />
   </div>
-  <p class="preview-caption">Native window — no browser shell, no Electron overhead</p>
+  <p class="preview-caption" id="preview-caption">Native window — no browser shell, no Electron overhead</p>
 </div>
 
 <!-- FEATURES -->
 <section id="features">
-  <p class="section-label">Features</p>
-  <h2>Everything you need to create</h2>
-  <p class="section-sub">Built for speed. Designed to stay out of your way.</p>
+  <p class="section-label" id="features-label">Features</p>
+  <h2 id="features-title">Everything you need to create</h2>
+  <p class="section-sub" id="features-sub">Built for speed. Designed to stay out of your way.</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">🖌️</div>
-      <h3>Rich Brush Tools</h3>
-      <p>Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.</p>
+      <h3 id="feature-1-title">Rich Brush Tools</h3>
+      <p id="feature-1-desc">Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📐</div>
-      <h3>Layer System</h3>
-      <p>Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.</p>
+      <h3 id="feature-2-title">Layer System</h3>
+      <p id="feature-2-desc">Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">✂️</div>
-      <h3>Smart Selection</h3>
-      <p>Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.</p>
+      <h3 id="feature-3-title">Smart Selection</h3>
+      <p id="feature-3-desc">Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">✍️</div>
-      <h3>Text Tool</h3>
-      <p>Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.</p>
+      <h3 id="feature-4-title">Text Tool</h3>
+      <p id="feature-4-desc">Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⌨️</div>
-      <h3>Keyboard Shortcuts</h3>
-      <p>Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.</p>
+      <h3 id="feature-5-title">Keyboard Shortcuts</h3>
+      <p id="feature-5-desc">Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">💾</div>
-      <h3>Open Formats</h3>
-      <p>Export to PNG, open JPG, JPEG, WebP images. Save projects as <code>.paintx</code> to preserve layers and history.</p>
+      <h3 id="feature-6-title">Open Formats</h3>
+      <p id="feature-6-desc">Export to PNG, open JPG, JPEG, WebP images. Save projects as <code>.paintx</code> to preserve layers and history.</p>
     </div>
   </div>
   <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:40px">
     <div class="stats-bar">
       <div class="stat">
         <div class="stat-num gradient-text">3</div>
-        <div class="stat-label">Platforms</div>
+        <div class="stat-label" id="stat-platforms">Platforms</div>
       </div>
       <div class="stat">
         <div class="stat-num gradient-text">13+</div>
-        <div class="stat-label">Tools</div>
+        <div class="stat-label" id="stat-tools">Tools</div>
       </div>
       <div class="stat">
         <div class="stat-num gradient-text">50</div>
-        <div class="stat-label">Undo Steps</div>
+        <div class="stat-label" id="stat-undo">Undo Steps</div>
       </div>
       <div class="stat">
         <div class="stat-num gradient-text">Free</div>
-        <div class="stat-label">Always</div>
+        <div class="stat-label" id="stat-always">Always</div>
       </div>
     </div>
   </div>
@@ -421,13 +479,13 @@
 
 <!-- DOWNLOAD -->
 <section id="download">
-  <p class="section-label">Download</p>
-  <h2>Available on every desktop</h2>
-  <p class="section-sub">Native binaries — no Electron, no JVM. Just fast.</p>
+  <p class="section-label" id="download-label">Download</p>
+  <h2 id="download-title">Available on every desktop</h2>
+  <p class="section-sub" id="download-sub">Native binaries — no Electron, no JVM. Just fast.</p>
   <div style="display:flex;justify-content:center;margin-bottom:40px">
     <div class="hero-badge" style="margin-bottom:0">
       <span class="dot"></span>
-      Latest release: <strong id="dl-version-badge">v0.1.0</strong>
+      <span id="latest-release-label">Latest release:</span> <strong id="dl-version-badge">v0.1.0</strong>
     </div>
   </div>
   <div class="download-grid">
@@ -439,14 +497,14 @@
         </svg>
         <div>
           <div class="dl-platform-name">macOS</div>
-          <div class="dl-platform-sub">Universal (Intel + Apple Silicon)</div>
+          <div class="dl-platform-sub" id="mac-sub">Universal (Intel + Apple Silicon)</div>
         </div>
       </div>
       <a class="dl-btn" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
-        <span class="dl-btn-label">Download .dmg</span>
+        <span class="dl-btn-label" id="mac-btn-label">Download .dmg</span>
       </a>
     </div>
 
@@ -457,7 +515,7 @@
         </svg>
         <div>
           <div class="dl-platform-name">Windows</div>
-          <div class="dl-platform-sub">x64 Installer</div>
+          <div class="dl-platform-sub" id="win-sub">x64 Installer</div>
         </div>
       </div>
       <div class="dl-formats">
@@ -468,7 +526,7 @@
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
-        <span class="dl-btn-label">Download .exe</span>
+        <span class="dl-btn-label" id="win-btn-label">Download .exe</span>
       </a>
     </div>
 
@@ -479,7 +537,7 @@
         </svg>
         <div>
           <div class="dl-platform-name">Linux</div>
-          <div class="dl-platform-sub">Ubuntu · Fedora · AppImage</div>
+          <div class="dl-platform-sub" id="linux-sub">Ubuntu · Fedora · AppImage</div>
         </div>
       </div>
       <div class="dl-formats">
@@ -491,14 +549,14 @@
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
-        <span class="dl-btn-label">Download .AppImage</span>
+        <span class="dl-btn-label" id="linux-btn-label">Download .AppImage</span>
       </a>
     </div>
 
   </div>
   <p class="dl-note" style="margin-top:32px">
-    All releases are signed and notarized &middot;
-    <a href="https://github.com/paintcross/PaintCross/releases" target="_blank">View all releases on GitHub &rarr;</a>
+    <span id="release-note-prefix">All releases are signed and notarized</span> &middot;
+    <a href="https://github.com/paintcross/PaintCross/releases" id="release-note-link" target="_blank">View all releases on GitHub &rarr;</a>
   </p>
 </section>
 
@@ -516,6 +574,89 @@
 
 <script>
   const REPO = 'paintcross/PaintCross';
+  const LANG_NAMES = {
+    en: 'English',
+    ko: '한국어',
+    zh: '中文',
+    es: 'Español',
+    ar: 'العربية',
+    hi: 'हिन्दी',
+    ja: '日本語',
+    fr: 'Français',
+    de: 'Deutsch',
+    pt: 'Português'
+  };
+  const I18N = {
+    en: { htmlLang: 'en', navFeatures: 'Features', navDownload: 'Download', heroBadge: 'Simple · Lightweight · Native', heroTitleLine1: 'One App.', heroTitleLine2: 'Every Platform.', heroSub: 'A fast, native image editor — no Electron, no bloat. Just draw.', heroDownload: "Download — It's Free", trustFree: 'Free forever', trustAccount: 'No account needed', previewTitle: 'Paint.Cross — Untitled.paintx', previewAlt: 'Paint.Cross screenshot', previewCaption: 'Native window — no browser shell, no Electron overhead', featuresLabel: 'Features', featuresTitle: 'Everything you need to create', featuresSub: 'Built for speed. Designed to stay out of your way.', feature1Title: 'Rich Brush Tools', feature1Desc: 'Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.', feature2Title: 'Layer System', feature2Desc: 'Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.', feature3Title: 'Smart Selection', feature3Desc: 'Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.', feature4Title: 'Text Tool', feature4Desc: 'Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.', feature5Title: 'Keyboard Shortcuts', feature5Desc: 'Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.', feature6Title: 'Open Formats', feature6Desc: 'Export to PNG, open JPG, JPEG, WebP images. Save projects as .paintx to preserve layers and history.', statPlatforms: 'Platforms', statTools: 'Tools', statUndo: 'Undo Steps', statAlways: 'Always', downloadLabel: 'Download', downloadTitle: 'Available on every desktop', downloadSub: 'Native binaries — no Electron, no JVM. Just fast.', latestReleaseLabel: 'Latest release:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'x64 Installer', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Download .dmg', winBtnLabel: 'Download .exe', linuxBtnLabel: 'Download .AppImage', releaseNotePrefix: 'All releases are signed and notarized', releaseNoteLink: 'View all releases on GitHub →' },
+    ko: { htmlLang: 'ko', navFeatures: '기능', navDownload: '다운로드', heroBadge: '심플 · 가벼움 · 네이티브', heroTitleLine1: '하나의 앱.', heroTitleLine2: '모든 플랫폼.', heroSub: '빠른 네이티브 이미지 에디터 — Electron 없이, 군더더기 없이. 바로 그리세요.', heroDownload: '다운로드 — 무료', trustFree: '영구 무료', trustAccount: '계정 필요 없음', previewTitle: 'Paint.Cross — 제목 없음.paintx', previewAlt: 'Paint.Cross 실행 화면', previewCaption: '네이티브 창 — 브라우저 셸 없음, Electron 오버헤드 없음', featuresLabel: '기능', featuresTitle: '창작에 필요한 모든 기능', featuresSub: '속도를 위해 만들고, 작업 흐름을 방해하지 않도록 설계했습니다.', feature1Title: '강력한 브러시 도구', feature1Desc: '브러시, 연필, 지우개, 버킷 채우기, 스포이드까지. 크기/불투명도/경도를 자유롭게 조절할 수 있습니다.', feature2Title: '레이어 시스템', feature2Desc: '여러 레이어를 독립 불투명도로 쌓고, 순서를 바꾸고, 캔버스에 비파괴적으로 합성할 수 있습니다.', feature3Title: '스마트 선택', feature3Desc: '사각 선택, 자유 올가미, 허용오차 조절 매직완드 지원. 복사, 잘라내기, 붙여넣기, 이동까지 가능합니다.', feature4Title: '텍스트 도구', feature4Desc: '12개 이상 글꼴, 굵게/기울임/밑줄/취소선/외곽선/그림자를 지원합니다. 확정 전 크기와 위치를 조절할 수 있습니다.', feature5Title: '키보드 단축키', feature5Desc: '모든 도구와 동작에 단축키가 있습니다. 실행 취소, 다시 실행, 복사, 붙여넣기, 확대/축소를 마우스 없이 빠르게 처리하세요.', feature6Title: '오픈 포맷', feature6Desc: 'PNG로 내보내고, JPG/JPEG/WebP 이미지를 열 수 있습니다. 레이어와 히스토리를 유지하려면 .paintx로 저장하세요.', statPlatforms: '플랫폼', statTools: '도구', statUndo: '되돌리기 단계', statAlways: '항상 무료', downloadLabel: '다운로드', downloadTitle: '모든 데스크톱에서 사용 가능', downloadSub: '네이티브 바이너리 — Electron, JVM 없이 빠르게 실행됩니다.', latestReleaseLabel: '최신 릴리스:', macSub: '유니버설 (Intel + Apple Silicon)', winSub: 'x64 설치 파일', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg 다운로드', winBtnLabel: '.exe 다운로드', linuxBtnLabel: '.AppImage 다운로드', releaseNotePrefix: '모든 릴리스는 서명 및 공증되었습니다', releaseNoteLink: 'GitHub에서 모든 릴리스 보기 →' },
+    zh: { htmlLang: 'zh', navFeatures: '功能', navDownload: '下载', heroBadge: '简洁 · 轻量 · 原生', heroTitleLine1: '一个应用。', heroTitleLine2: '全平台可用。', heroSub: '快速原生图像编辑器——无需 Electron，无臃肿。专注绘画。', heroDownload: '下载 — 免费', trustFree: '永久免费', trustAccount: '无需账号', previewTitle: 'Paint.Cross — 未命名.paintx', previewAlt: 'Paint.Cross 截图', previewCaption: '原生窗口——无浏览器外壳，无 Electron 额外开销', featuresLabel: '功能', featuresTitle: '创作所需一应俱全', featuresSub: '为速度而生，尽量不打断你的创作流程。', feature1Title: '丰富画笔工具', feature1Desc: '画笔、铅笔、橡皮、油漆桶、取色器一应俱全，支持大小、不透明度和硬度调节。', feature2Title: '图层系统', feature2Desc: '支持多图层叠加，独立不透明度，自由排序，并在画布上进行非破坏合成。', feature3Title: '智能选区', feature3Desc: '支持矩形选区、套索和魔棒（容差可调），可复制、剪切、粘贴并移动选区。', feature4Title: '文字工具', feature4Desc: '支持 12+ 字体、加粗、斜体、下划线、删除线、描边和阴影，提交前可调整大小和位置。', feature5Title: '键盘快捷键', feature5Desc: '所有工具和操作均有快捷键：撤销、重做、复制、粘贴、缩放，让你保持高效。', feature6Title: '开放格式', feature6Desc: '可导出 PNG，打开 JPG/JPEG/WebP。保存为 .paintx 可保留图层和历史记录。', statPlatforms: '平台', statTools: '工具', statUndo: '撤销步数', statAlways: '永久免费', downloadLabel: '下载', downloadTitle: '支持所有桌面平台', downloadSub: '原生二进制——无 Electron、无 JVM，纯粹快速。', latestReleaseLabel: '最新版本：', macSub: '通用版（Intel + Apple Silicon）', winSub: 'x64 安装包', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '下载 .dmg', winBtnLabel: '下载 .exe', linuxBtnLabel: '下载 .AppImage', releaseNotePrefix: '所有版本均已签名和公证', releaseNoteLink: '在 GitHub 查看全部版本 →' },
+    es: { htmlLang: 'es', navFeatures: 'Funciones', navDownload: 'Descargar', heroBadge: 'Simple · Ligero · Nativo', heroTitleLine1: 'Una app.', heroTitleLine2: 'Todas las plataformas.', heroSub: 'Editor de imágenes nativo y rápido — sin Electron, sin bloat. Solo dibuja.', heroDownload: 'Descargar — Gratis', trustFree: 'Gratis para siempre', trustAccount: 'Sin cuenta', previewTitle: 'Paint.Cross — Sin título.paintx', previewAlt: 'Captura de Paint.Cross', previewCaption: 'Ventana nativa — sin shell de navegador, sin sobrecarga de Electron', featuresLabel: 'Funciones', featuresTitle: 'Todo lo que necesitas para crear', featuresSub: 'Hecho para velocidad. Diseñado para no estorbar.', feature1Title: 'Herramientas de pincel', feature1Desc: 'Pincel, lápiz, borrador, bote de pintura y cuentagotas con tamaño, opacidad y dureza configurables.', feature2Title: 'Sistema de capas', feature2Desc: 'Apila capas con opacidad independiente, reordena libremente y combina sin destruir el lienzo.', feature3Title: 'Selección inteligente', feature3Desc: 'Selección rectangular, lazo y varita mágica con tolerancia. Copia, corta, pega y mueve selecciones.', feature4Title: 'Herramienta de texto', feature4Desc: 'Añade texto con 12+ fuentes, negrita, cursiva, subrayado, tachado, contorno y sombra.', feature5Title: 'Atajos de teclado', feature5Desc: 'Cada herramienta y acción tiene atajo. Deshacer, rehacer, copiar, pegar y zoom sin tocar el ratón.', feature6Title: 'Formatos abiertos', feature6Desc: 'Exporta a PNG, abre JPG/JPEG/WebP. Guarda como .paintx para conservar capas e historial.', statPlatforms: 'Plataformas', statTools: 'Herramientas', statUndo: 'Pasos de deshacer', statAlways: 'Siempre gratis', downloadLabel: 'Descargar', downloadTitle: 'Disponible en cualquier escritorio', downloadSub: 'Binarios nativos — sin Electron, sin JVM. Simplemente rápido.', latestReleaseLabel: 'Última versión:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'Instalador x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Descargar .dmg', winBtnLabel: 'Descargar .exe', linuxBtnLabel: 'Descargar .AppImage', releaseNotePrefix: 'Todas las versiones están firmadas y notarizadas', releaseNoteLink: 'Ver todas las versiones en GitHub →' },
+    ar: { htmlLang: 'ar', navFeatures: 'الميزات', navDownload: 'تنزيل', heroBadge: 'بسيط · خفيف · أصلي', heroTitleLine1: 'تطبيق واحد.', heroTitleLine2: 'لكل المنصات.', heroSub: 'محرر صور أصلي وسريع — بدون Electron وبدون انتفاخ. فقط ارسم.', heroDownload: 'تنزيل — مجاني', trustFree: 'مجاني دائمًا', trustAccount: 'لا يحتاج حسابًا', previewTitle: 'Paint.Cross — بدون اسم.paintx', previewAlt: 'لقطة شاشة Paint.Cross', previewCaption: 'نافذة أصلية — بدون غلاف متصفح وبدون حمل Electron', featuresLabel: 'الميزات', featuresTitle: 'كل ما تحتاجه للإبداع', featuresSub: 'مصمم للسرعة ويبقى بعيدًا عن طريقك.', feature1Title: 'أدوات فرشاة قوية', feature1Desc: 'فرشاة، قلم، ممحاة، تعبئة دلو، وقاطف ألوان مع إعدادات للحجم والشفافية والحدة.', feature2Title: 'نظام الطبقات', feature2Desc: 'كدّس طبقات متعددة مع شفافية مستقلة، وأعد ترتيبها بحرية، وادمجها دون إتلاف اللوحة.', feature3Title: 'تحديد ذكي', feature3Desc: 'تحديد مستطيل، لاسو حر، وعصا سحرية مع تحكم في الحساسية. انسخ واقصص والصق وحرك التحديد.', feature4Title: 'أداة النص', feature4Desc: 'أضف نصًا مع أكثر من 12 خطًا، عريض، مائل، تحته خط، يتوسطه خط، حدود وظل.', feature5Title: 'اختصارات لوحة المفاتيح', feature5Desc: 'لكل أداة وعملية اختصار. تراجع، إعادة، نسخ، لصق، تكبير — حافظ على التدفق.', feature6Title: 'صيغ مفتوحة', feature6Desc: 'صدّر إلى PNG وافتح JPG/JPEG/WebP. احفظ المشاريع بصيغة .paintx للحفاظ على الطبقات والسجل.', statPlatforms: 'المنصات', statTools: 'الأدوات', statUndo: 'خطوات التراجع', statAlways: 'مجاني دائمًا', downloadLabel: 'تنزيل', downloadTitle: 'متاح على كل أنظمة سطح المكتب', downloadSub: 'ملفات أصلية — بدون Electron وبدون JVM. سريع فقط.', latestReleaseLabel: 'أحدث إصدار:', macSub: 'شامل (Intel + Apple Silicon)', winSub: 'مثبّت x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'تنزيل .dmg', winBtnLabel: 'تنزيل .exe', linuxBtnLabel: 'تنزيل .AppImage', releaseNotePrefix: 'كل الإصدارات موقعة وموثقة', releaseNoteLink: 'عرض كل الإصدارات على GitHub ←' },
+    hi: { htmlLang: 'hi', navFeatures: 'फ़ीचर्स', navDownload: 'डाउनलोड', heroBadge: 'सरल · हल्का · नेटिव', heroTitleLine1: 'एक ऐप।', heroTitleLine2: 'हर प्लेटफ़ॉर्म।', heroSub: 'तेज़, नेटिव इमेज एडिटर — न Electron, न bloat. बस ड्रॉ करें।', heroDownload: 'डाउनलोड — मुफ़्त', trustFree: 'हमेशा मुफ़्त', trustAccount: 'खाते की ज़रूरत नहीं', previewTitle: 'Paint.Cross — Untitled.paintx', previewAlt: 'Paint.Cross स्क्रीनशॉट', previewCaption: 'नेटिव विंडो — न ब्राउज़र शेल, न Electron ओवरहेड', featuresLabel: 'फ़ीचर्स', featuresTitle: 'बनाने के लिए सब कुछ', featuresSub: 'गति के लिए बनाया गया। ताकि आपका फ़्लो बना रहे।', feature1Title: 'समृद्ध ब्रश टूल्स', feature1Desc: 'ब्रश, पेंसिल, इरेज़र, बकेट फिल, कलर पिकर — आकार, अपारदर्शिता और हार्डनेस सेटिंग्स सहित।', feature2Title: 'लेयर सिस्टम', feature2Desc: 'कई लेयर्स को स्वतंत्र अपारदर्शिता के साथ स्टैक करें, क्रम बदलें और नॉन-डिस्ट्रक्टिव तरीके से कंपोज़ करें।', feature3Title: 'स्मार्ट चयन', feature3Desc: 'रेक्टैंगुलर चयन, फ्रीहैंड लासो, और टॉलरेंस कंट्रोल वाली मैजिक वांड। कॉपी, कट, पेस्ट, मूव।', feature4Title: 'टेक्स्ट टूल', feature4Desc: '12+ फ़ॉन्ट, बोल्ड, इटैलिक, अंडरलाइन, स्ट्राइकथ्रू, आउटलाइन और ड्रॉप शैडो के साथ टेक्स्ट जोड़ें।', feature5Title: 'कीबोर्ड शॉर्टकट', feature5Desc: 'हर टूल और एक्शन का शॉर्टकट। Undo, redo, copy, paste, zoom — बिना माउस।', feature6Title: 'ओपन फ़ॉर्मेट्स', feature6Desc: 'PNG में एक्सपोर्ट करें, JPG/JPEG/WebP खोलें। लेयर्स और हिस्ट्री के लिए .paintx में सेव करें।', statPlatforms: 'प्लेटफ़ॉर्म', statTools: 'टूल्स', statUndo: 'Undo स्टेप्स', statAlways: 'हमेशा मुफ़्त', downloadLabel: 'डाउनलोड', downloadTitle: 'हर डेस्कटॉप पर उपलब्ध', downloadSub: 'नेटिव बाइनरी — न Electron, न JVM. बस तेज़।', latestReleaseLabel: 'नवीनतम रिलीज़:', macSub: 'यूनिवर्सल (Intel + Apple Silicon)', winSub: 'x64 इंस्टॉलर', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg डाउनलोड', winBtnLabel: '.exe डाउनलोड', linuxBtnLabel: '.AppImage डाउनलोड', releaseNotePrefix: 'सभी रिलीज़ साइन और नोटराइज़्ड हैं', releaseNoteLink: 'GitHub पर सभी रिलीज़ देखें →' },
+    ja: { htmlLang: 'ja', navFeatures: '機能', navDownload: 'ダウンロード', heroBadge: 'シンプル · 軽量 · ネイティブ', heroTitleLine1: '1つのアプリ。', heroTitleLine2: 'すべてのプラットフォームへ。', heroSub: '高速なネイティブ画像エディタ — Electron なし、無駄なし。描くことに集中。', heroDownload: 'ダウンロード — 無料', trustFree: 'ずっと無料', trustAccount: 'アカウント不要', previewTitle: 'Paint.Cross — 無題.paintx', previewAlt: 'Paint.Cross スクリーンショット', previewCaption: 'ネイティブウィンドウ — ブラウザシェルなし、Electron のオーバーヘッドなし', featuresLabel: '機能', featuresTitle: '創作に必要なものをすべて', featuresSub: '高速さを追求し、作業の邪魔をしない設計。', feature1Title: '豊富なブラシツール', feature1Desc: 'ブラシ、鉛筆、消しゴム、塗りつぶし、スポイトを搭載。サイズ・不透明度・硬さを調整可能。', feature2Title: 'レイヤーシステム', feature2Desc: '複数レイヤーを独立不透明度で重ね、自由に並べ替え、非破壊で合成できます。', feature3Title: 'スマート選択', feature3Desc: '矩形選択、フリーハンドラッソ、許容値調整付きマジックワンドを搭載。', feature4Title: 'テキストツール', feature4Desc: '12+フォント、太字、斜体、下線、取り消し線、アウトライン、ドロップシャドウに対応。', feature5Title: 'キーボードショートカット', feature5Desc: 'すべてのツールと操作にショートカット。Undo/Redo/コピー/貼り付け/ズームも素早く。', feature6Title: 'オープンフォーマット', feature6Desc: 'PNG へ書き出し、JPG/JPEG/WebP を読み込み可能。.paintx で保存すればレイヤーと履歴を保持。', statPlatforms: 'プラットフォーム', statTools: 'ツール', statUndo: 'Undo ステップ', statAlways: '常に無料', downloadLabel: 'ダウンロード', downloadTitle: 'すべてのデスクトップで利用可能', downloadSub: 'ネイティブバイナリ — Electron も JVM も不要。とにかく高速。', latestReleaseLabel: '最新リリース:', macSub: 'ユニバーサル (Intel + Apple Silicon)', winSub: 'x64 インストーラー', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg をダウンロード', winBtnLabel: '.exe をダウンロード', linuxBtnLabel: '.AppImage をダウンロード', releaseNotePrefix: 'すべてのリリースは署名・公証済みです', releaseNoteLink: 'GitHub ですべてのリリースを見る →' },
+    fr: { htmlLang: 'fr', navFeatures: 'Fonctionnalités', navDownload: 'Télécharger', heroBadge: 'Simple · Léger · Natif', heroTitleLine1: 'Une app.', heroTitleLine2: 'Toutes les plateformes.', heroSub: 'Éditeur d’images natif et rapide — sans Electron, sans lourdeur. Dessinez, simplement.', heroDownload: 'Télécharger — Gratuit', trustFree: 'Gratuit à vie', trustAccount: 'Aucun compte requis', previewTitle: 'Paint.Cross — Sans titre.paintx', previewAlt: 'Capture Paint.Cross', previewCaption: 'Fenêtre native — sans coque navigateur, sans surcharge Electron', featuresLabel: 'Fonctionnalités', featuresTitle: 'Tout ce qu’il faut pour créer', featuresSub: 'Pensé pour la vitesse. Conçu pour rester discret.', feature1Title: 'Outils de pinceau', feature1Desc: 'Pinceau, crayon, gomme, pot de peinture, pipette — avec taille, opacité et dureté réglables.', feature2Title: 'Système de calques', feature2Desc: 'Empilez des calques avec opacité indépendante, réordonnez librement et composez sans destruction.', feature3Title: 'Sélection intelligente', feature3Desc: 'Sélection rectangulaire, lasso libre et baguette magique avec tolérance ajustable.', feature4Title: 'Outil Texte', feature4Desc: 'Ajoutez du texte avec 12+ polices, gras, italique, souligné, barré, contour et ombre portée.', feature5Title: 'Raccourcis clavier', feature5Desc: 'Chaque outil et action a un raccourci. Annuler, refaire, copier, coller, zoomer sans souris.', feature6Title: 'Formats ouverts', feature6Desc: 'Exportez en PNG, ouvrez JPG/JPEG/WebP. Enregistrez en .paintx pour garder calques et historique.', statPlatforms: 'Plateformes', statTools: 'Outils', statUndo: 'Étapes d’annulation', statAlways: 'Toujours gratuit', downloadLabel: 'Télécharger', downloadTitle: 'Disponible sur tous les desktops', downloadSub: 'Binaires natifs — sans Electron, sans JVM. Juste rapide.', latestReleaseLabel: 'Dernière version :', macSub: 'Universel (Intel + Apple Silicon)', winSub: 'Installateur x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Télécharger .dmg', winBtnLabel: 'Télécharger .exe', linuxBtnLabel: 'Télécharger .AppImage', releaseNotePrefix: 'Toutes les versions sont signées et notariées', releaseNoteLink: 'Voir toutes les versions sur GitHub →' },
+    de: { htmlLang: 'de', navFeatures: 'Funktionen', navDownload: 'Download', heroBadge: 'Einfach · Leicht · Nativ', heroTitleLine1: 'Eine App.', heroTitleLine2: 'Jede Plattform.', heroSub: 'Schneller, nativer Bildeditor — kein Electron, kein Ballast. Einfach zeichnen.', heroDownload: 'Download — Kostenlos', trustFree: 'Für immer kostenlos', trustAccount: 'Kein Konto nötig', previewTitle: 'Paint.Cross — Unbenannt.paintx', previewAlt: 'Paint.Cross Screenshot', previewCaption: 'Natives Fenster — keine Browser-Hülle, kein Electron-Overhead', featuresLabel: 'Funktionen', featuresTitle: 'Alles, was du zum Erstellen brauchst', featuresSub: 'Für Geschwindigkeit gebaut. So designt, dass es nicht stört.', feature1Title: 'Umfangreiche Pinseltools', feature1Desc: 'Pinsel, Stift, Radierer, Farbeimer, Pipette — mit einstellbarer Größe, Deckkraft und Härte.', feature2Title: 'Ebenensystem', feature2Desc: 'Mehrere Ebenen mit eigener Deckkraft stapeln, frei anordnen und zerstörungsfrei kombinieren.', feature3Title: 'Intelligente Auswahl', feature3Desc: 'Rechteckauswahl, Freihand-Lasso und Zauberstab mit Toleranzkontrolle.', feature4Title: 'Textwerkzeug', feature4Desc: 'Text mit 12+ Schriftarten, Fett, Kursiv, Unterstrichen, Durchgestrichen, Kontur und Schatten.', feature5Title: 'Tastenkürzel', feature5Desc: 'Jedes Tool und jede Aktion hat ein Shortcut. Undo, Redo, Kopieren, Einfügen, Zoom.', feature6Title: 'Offene Formate', feature6Desc: 'Als PNG exportieren, JPG/JPEG/WebP öffnen. Als .paintx speichern für Ebenen und Verlauf.', statPlatforms: 'Plattformen', statTools: 'Tools', statUndo: 'Rückgängig-Schritte', statAlways: 'Immer kostenlos', downloadLabel: 'Download', downloadTitle: 'Auf jedem Desktop verfügbar', downloadSub: 'Native Binärdateien — ohne Electron, ohne JVM. Einfach schnell.', latestReleaseLabel: 'Neueste Version:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'x64 Installer', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg herunterladen', winBtnLabel: '.exe herunterladen', linuxBtnLabel: '.AppImage herunterladen', releaseNotePrefix: 'Alle Releases sind signiert und notariell beglaubigt', releaseNoteLink: 'Alle Releases auf GitHub ansehen →' },
+    pt: { htmlLang: 'pt', navFeatures: 'Recursos', navDownload: 'Download', heroBadge: 'Simples · Leve · Nativo', heroTitleLine1: 'Um app.', heroTitleLine2: 'Toda plataforma.', heroSub: 'Editor de imagem nativo e rápido — sem Electron, sem inchaço. Só desenhar.', heroDownload: 'Download — Grátis', trustFree: 'Grátis para sempre', trustAccount: 'Sem conta', previewTitle: 'Paint.Cross — Sem título.paintx', previewAlt: 'Captura do Paint.Cross', previewCaption: 'Janela nativa — sem shell de navegador, sem sobrecarga do Electron', featuresLabel: 'Recursos', featuresTitle: 'Tudo o que você precisa para criar', featuresSub: 'Feito para velocidade. Projetado para sair do seu caminho.', feature1Title: 'Ferramentas de pincel', feature1Desc: 'Pincel, lápis, borracha, balde de tinta e conta-gotas com tamanho, opacidade e dureza ajustáveis.', feature2Title: 'Sistema de camadas', feature2Desc: 'Empilhe várias camadas com opacidade independente, reordene livremente e componha sem destruir a tela.', feature3Title: 'Seleção inteligente', feature3Desc: 'Seleção retangular, laço livre e varinha mágica com controle de tolerância.', feature4Title: 'Ferramenta de texto', feature4Desc: 'Adicione texto com 12+ fontes, negrito, itálico, sublinhado, tachado, contorno e sombra.', feature5Title: 'Atalhos de teclado', feature5Desc: 'Toda ferramenta e ação tem atalho. Desfazer, refazer, copiar, colar, zoom — sem tirar a mão do fluxo.', feature6Title: 'Formatos abertos', feature6Desc: 'Exporte para PNG, abra JPG/JPEG/WebP. Salve projetos em .paintx para preservar camadas e histórico.', statPlatforms: 'Plataformas', statTools: 'Ferramentas', statUndo: 'Passos de desfazer', statAlways: 'Sempre grátis', downloadLabel: 'Download', downloadTitle: 'Disponível em qualquer desktop', downloadSub: 'Binários nativos — sem Electron, sem JVM. Só velocidade.', latestReleaseLabel: 'Último release:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'Instalador x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Baixar .dmg', winBtnLabel: 'Baixar .exe', linuxBtnLabel: 'Baixar .AppImage', releaseNotePrefix: 'Todos os releases são assinados e notarizados', releaseNoteLink: 'Ver todos os releases no GitHub →' }
+  };
+
+  function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function applyLanguage(lang) {
+    var dict = I18N[lang] || I18N.en;
+    document.documentElement.lang = dict.htmlLang;
+
+    setText('nav-features', dict.navFeatures);
+    setText('nav-download', dict.navDownload);
+    setText('hero-badge-text', dict.heroBadge);
+    setText('hero-title-line1', dict.heroTitleLine1);
+    setText('hero-title-line2', dict.heroTitleLine2);
+    setText('hero-sub', dict.heroSub);
+    setText('hero-dl-label', dict.heroDownload);
+    setText('trust-free', dict.trustFree);
+    setText('trust-account', dict.trustAccount);
+    setText('preview-title', dict.previewTitle);
+    setText('preview-caption', dict.previewCaption);
+    setText('features-label', dict.featuresLabel);
+    setText('features-title', dict.featuresTitle);
+    setText('features-sub', dict.featuresSub);
+    setText('feature-1-title', dict.feature1Title);
+    setText('feature-1-desc', dict.feature1Desc);
+    setText('feature-2-title', dict.feature2Title);
+    setText('feature-2-desc', dict.feature2Desc);
+    setText('feature-3-title', dict.feature3Title);
+    setText('feature-3-desc', dict.feature3Desc);
+    setText('feature-4-title', dict.feature4Title);
+    setText('feature-4-desc', dict.feature4Desc);
+    setText('feature-5-title', dict.feature5Title);
+    setText('feature-5-desc', dict.feature5Desc);
+    setText('feature-6-title', dict.feature6Title);
+    setText('feature-6-desc', dict.feature6Desc);
+    setText('stat-platforms', dict.statPlatforms);
+    setText('stat-tools', dict.statTools);
+    setText('stat-undo', dict.statUndo);
+    setText('stat-always', dict.statAlways);
+    setText('download-label', dict.downloadLabel);
+    setText('download-title', dict.downloadTitle);
+    setText('download-sub', dict.downloadSub);
+    setText('latest-release-label', dict.latestReleaseLabel);
+    setText('mac-sub', dict.macSub);
+    setText('win-sub', dict.winSub);
+    setText('linux-sub', dict.linuxSub);
+    setText('mac-btn-label', dict.macBtnLabel);
+    setText('win-btn-label', dict.winBtnLabel);
+    setText('linux-btn-label', dict.linuxBtnLabel);
+    setText('release-note-prefix', dict.releaseNotePrefix);
+    setText('release-note-link', dict.releaseNoteLink);
+
+    var previewImage = document.getElementById('preview-image');
+    if (previewImage) previewImage.alt = dict.previewAlt;
+    setText('lang-label', LANG_NAMES[lang] || LANG_NAMES.en);
+
+    try { localStorage.setItem('paintcross_lang', lang); } catch (_) {}
+  }
 
   async function loadRelease() {
     try {
@@ -598,6 +739,39 @@
 
   loadRelease();
   highlightPlatform(detectOS());
+  var langTrigger = document.getElementById('lang-trigger');
+  var langMenu = document.getElementById('lang-menu');
+  var langItems = document.querySelectorAll('.lang-item');
+  var browserLang = (navigator.language || 'en').slice(0, 2);
+  var initialLang = 'en';
+  try {
+    initialLang = localStorage.getItem('paintcross_lang') || browserLang;
+  } catch (_) {
+    initialLang = browserLang;
+  }
+  if (!I18N[initialLang]) initialLang = 'en';
+  if (langTrigger && langMenu) {
+    langTrigger.addEventListener('click', function() {
+      var open = langMenu.classList.toggle('open');
+      langTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    langItems.forEach(function(item) {
+      item.addEventListener('click', function() {
+        applyLanguage(item.dataset.lang);
+        langMenu.classList.remove('open');
+        langTrigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!langTrigger.contains(e.target) && !langMenu.contains(e.target)) {
+        langMenu.classList.remove('open');
+        langTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+  applyLanguage(initialLang);
 </script>
 </body>
 </html>
