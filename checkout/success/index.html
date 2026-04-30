@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paint.Cross Pro License</title>
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #101010;
+        color: #f5f5f5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 20% 20%, rgba(74, 158, 255, 0.18), transparent 34rem),
+          radial-gradient(circle at 80% 24%, rgba(255, 138, 0, 0.14), transparent 30rem),
+          #101010;
+      }
+
+      main {
+        width: min(720px, 100%);
+        border: 1px solid #343434;
+        border-radius: 18px;
+        background: rgba(31, 31, 31, 0.94);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+        overflow: hidden;
+      }
+
+      .stripe {
+        height: 4px;
+        background: linear-gradient(90deg, #4a9eff, #ff8a00, #8be36b);
+      }
+
+      .content {
+        padding: 32px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .brand img {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+      }
+
+      .brand span {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 5vw, 44px);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 14px 0 24px;
+        color: #c8c8c8;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .key-card {
+        border: 1px solid #3d3d3d;
+        border-radius: 14px;
+        background: #171717;
+        padding: 18px;
+        margin: 22px 0;
+      }
+
+      .label {
+        margin: 0 0 10px;
+        color: #9ca3af;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      code {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #303030;
+        border-radius: 10px;
+        background: #0f0f0f;
+        color: #8be36b;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: clamp(14px, 3vw, 20px);
+        line-height: 1.45;
+        word-break: break-all;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      button,
+      a.button {
+        appearance: none;
+        border: 0;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font: inherit;
+        font-weight: 750;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      button {
+        color: #fff;
+        background: #4a9eff;
+      }
+
+      a.button {
+        color: #f5f5f5;
+        background: #2d2d2d;
+      }
+
+      .steps {
+        margin: 20px 0 0;
+        padding-left: 22px;
+        color: #d8d8d8;
+        line-height: 1.7;
+      }
+
+      .muted {
+        color: #9ca3af;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .error {
+        border-color: #5b3a1f;
+        background: #1d1712;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="stripe"></div>
+      <div class="content">
+        <div class="brand">
+          <img src="/icon.png" alt="" />
+          <span>Paint.Cross</span>
+        </div>
+
+        <section id="success">
+          <h1>Your Pro license is ready.</h1>
+          <p class="lead">
+            Copy this license key, open Paint.Cross, paste it into the Pro activation box, and click Activate.
+          </p>
+
+          <div class="key-card">
+            <p class="label">License Key</p>
+            <code id="license-key"></code>
+            <div class="actions">
+              <button id="copy-button" type="button">Copy license key</button>
+              <a class="button" href="mailto:joonkn72@gmail.com">Contact support</a>
+            </div>
+          </div>
+
+          <ol class="steps">
+            <li>Open Paint.Cross.</li>
+            <li>Click Get Pro License.</li>
+            <li>Paste the key into the activation box.</li>
+            <li>Click Activate.</li>
+          </ol>
+
+          <p id="email-note" class="muted"></p>
+        </section>
+
+        <section id="missing" class="hidden">
+          <h1>Payment received.</h1>
+          <p class="lead">
+            We could not find a license key in this checkout redirect. Please check your email or contact support with your payment ID.
+          </p>
+          <div class="key-card error">
+            <p class="label">Payment ID</p>
+            <code id="payment-id">Unavailable</code>
+            <div class="actions">
+              <a id="support-link" class="button" href="mailto:joonkn72@gmail.com">Contact support</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const licenseKey = params.get('license_key') || '';
+      const email = params.get('email') || '';
+      const paymentId = params.get('payment_id') || params.get('subscription_id') || '';
+
+      const success = document.getElementById('success');
+      const missing = document.getElementById('missing');
+      const keyEl = document.getElementById('license-key');
+      const paymentEl = document.getElementById('payment-id');
+      const emailNote = document.getElementById('email-note');
+      const copyButton = document.getElementById('copy-button');
+      const supportLink = document.getElementById('support-link');
+
+      if (licenseKey) {
+        keyEl.textContent = licenseKey;
+        if (email) {
+          emailNote.textContent = `Receipt email: ${email}`;
+        }
+      } else {
+        success.classList.add('hidden');
+        missing.classList.remove('hidden');
+        if (paymentId) {
+          paymentEl.textContent = paymentId;
+          supportLink.href = `mailto:joonkn72@gmail.com?subject=Paint.Cross%20license%20key%20help&body=Payment%20ID:%20${encodeURIComponent(paymentId)}`;
+        }
+      }
+
+      copyButton?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(licenseKey);
+          copyButton.textContent = 'Copied';
+        } catch {
+          window.getSelection()?.selectAllChildren(keyEl);
+          copyButton.textContent = 'Select and copy the key';
+        }
+      });
+    </script>
+  </body>
+</html>
