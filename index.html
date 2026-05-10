@@ -515,19 +515,45 @@
         </svg>
         <div>
           <div class="dl-platform-name">Windows</div>
-          <div class="dl-platform-sub" id="win-sub">x64 Installer</div>
+          <div class="dl-platform-sub" id="win-sub">x64 &amp; arm64 Installers</div>
         </div>
       </div>
-      <div class="dl-formats">
-        <a class="dl-tag" id="dl-tag-exe">.exe</a>
-        <a class="dl-tag" id="dl-tag-msi">.msi</a>
+      
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px">
+        <!-- x64 -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13px;font-weight:600;color:var(--text)">x64</span>
+            <div class="dl-formats">
+              <a class="dl-tag" id="dl-tag-exe">.exe</a>
+              <a class="dl-tag" id="dl-tag-msi">.msi</a>
+            </div>
+          </div>
+          <a class="dl-btn outline" id="dl-win-btn" href="https://github.com/paintcross/PaintCross/releases/latest" style="padding:8px 16px;font-size:13px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            <span class="dl-btn-label" id="win-btn-label">Download x64</span>
+          </a>
+        </div>
+        
+        <!-- arm64 -->
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--border)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13px;font-weight:600;color:var(--text)">arm64</span>
+            <div class="dl-formats">
+              <a class="dl-tag" id="dl-tag-arm-exe">.exe</a>
+              <a class="dl-tag" id="dl-tag-arm-msi">.msi</a>
+            </div>
+          </div>
+          <a class="dl-btn outline" id="dl-win-arm-btn" href="https://github.com/paintcross/PaintCross/releases/latest" style="padding:8px 16px;font-size:13px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            <span class="dl-btn-label" id="win-arm-btn-label">Download arm64 .exe</span>
+          </a>
+        </div>
       </div>
-      <a class="dl-btn outline" id="dl-win-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-        </svg>
-        <span class="dl-btn-label" id="win-btn-label">Download .exe</span>
-      </a>
     </div>
 
     <div class="dl-card" id="dl-linux">
@@ -540,17 +566,44 @@
           <div class="dl-platform-sub" id="linux-sub">Ubuntu · Fedora · AppImage</div>
         </div>
       </div>
-      <div class="dl-formats">
-        <a class="dl-tag" id="dl-tag-deb">.deb</a>
-        <a class="dl-tag" id="dl-tag-rpm">.rpm</a>
-        <a class="dl-tag" id="dl-tag-appimage">.AppImage</a>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px">
+        <!-- x64 -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13px;font-weight:600;color:var(--text)">x64</span>
+            <div class="dl-formats">
+              <a class="dl-tag" id="dl-tag-deb">.deb</a>
+              <a class="dl-tag" id="dl-tag-rpm">.rpm</a>
+              <a class="dl-tag" id="dl-tag-appimage">.AppImage</a>
+            </div>
+          </div>
+          <a class="dl-btn outline" id="dl-linux-btn" href="https://github.com/paintcross/PaintCross/releases/latest" style="padding:8px 16px;font-size:13px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            <span class="dl-btn-label" id="linux-btn-label">Download x64</span>
+          </a>
+        </div>
+        
+        <!-- arm64 -->
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--border)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13px;font-weight:600;color:var(--text)">arm64</span>
+            <div class="dl-formats">
+              <a class="dl-tag" id="dl-tag-arm-deb">.deb</a>
+              <a class="dl-tag" id="dl-tag-arm-rpm">.rpm</a>
+              <a class="dl-tag" id="dl-tag-arm-appimage">.AppImage</a>
+            </div>
+          </div>
+          <a class="dl-btn outline" id="dl-linux-arm-btn" href="https://github.com/paintcross/PaintCross/releases/latest" style="padding:8px 16px;font-size:13px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            <span class="dl-btn-label" id="linux-arm-btn-label">Download arm64 .AppImage</span>
+          </a>
+        </div>
       </div>
-      <a class="dl-btn outline" id="dl-linux-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-        </svg>
-        <span class="dl-btn-label" id="linux-btn-label">Download .AppImage</span>
-      </a>
     </div>
 
   </div>
@@ -587,17 +640,19 @@
     pt: 'Português'
   };
   const I18N = {
-    en: { htmlLang: 'en', navFeatures: 'Features', navDownload: 'Download', heroBadge: 'Simple · Lightweight · Native', heroTitleLine1: 'One App.', heroTitleLine2: 'Every Platform.', heroSub: 'A fast, native image editor — no Electron, no bloat. Just draw.', heroDownload: "Download — It's Free", trustFree: 'Free forever', trustAccount: 'No account needed', previewTitle: 'Paint.Cross — Untitled.paintx', previewAlt: 'Paint.Cross screenshot', previewCaption: 'Native window — no browser shell, no Electron overhead', featuresLabel: 'Features', featuresTitle: 'Everything you need to create', featuresSub: 'Built for speed. Designed to stay out of your way.', feature1Title: 'Rich Brush Tools', feature1Desc: 'Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.', feature2Title: 'Layer System', feature2Desc: 'Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.', feature3Title: 'Smart Selection', feature3Desc: 'Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.', feature4Title: 'Text Tool', feature4Desc: 'Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.', feature5Title: 'Keyboard Shortcuts', feature5Desc: 'Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.', feature6Title: 'Open Formats', feature6Desc: 'Export to PNG, open JPG, JPEG, WebP images. Save projects as .paintx to preserve layers and history.', statPlatforms: 'Platforms', statTools: 'Tools', statUndo: 'Undo Steps', statAlways: 'Always', downloadLabel: 'Download', downloadTitle: 'Available on every desktop', downloadSub: 'Native binaries — no Electron, no JVM. Just fast.', latestReleaseLabel: 'Latest release:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'x64 Installer', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Download .dmg', winBtnLabel: 'Download .exe', linuxBtnLabel: 'Download .AppImage', releaseNotePrefix: 'All releases are signed and notarized', releaseNoteLink: 'View all releases on GitHub →' },
-    ko: { htmlLang: 'ko', navFeatures: '기능', navDownload: '다운로드', heroBadge: '심플 · 가벼움 · 네이티브', heroTitleLine1: '하나의 앱.', heroTitleLine2: '모든 플랫폼.', heroSub: '빠른 네이티브 이미지 에디터 — Electron 없이, 군더더기 없이. 바로 그리세요.', heroDownload: '다운로드 — 무료', trustFree: '영구 무료', trustAccount: '계정 필요 없음', previewTitle: 'Paint.Cross — 제목 없음.paintx', previewAlt: 'Paint.Cross 실행 화면', previewCaption: '네이티브 창 — 브라우저 셸 없음, Electron 오버헤드 없음', featuresLabel: '기능', featuresTitle: '창작에 필요한 모든 기능', featuresSub: '속도를 위해 만들고, 작업 흐름을 방해하지 않도록 설계했습니다.', feature1Title: '강력한 브러시 도구', feature1Desc: '브러시, 연필, 지우개, 버킷 채우기, 스포이드까지. 크기/불투명도/경도를 자유롭게 조절할 수 있습니다.', feature2Title: '레이어 시스템', feature2Desc: '여러 레이어를 독립 불투명도로 쌓고, 순서를 바꾸고, 캔버스에 비파괴적으로 합성할 수 있습니다.', feature3Title: '스마트 선택', feature3Desc: '사각 선택, 자유 올가미, 허용오차 조절 매직완드 지원. 복사, 잘라내기, 붙여넣기, 이동까지 가능합니다.', feature4Title: '텍스트 도구', feature4Desc: '12개 이상 글꼴, 굵게/기울임/밑줄/취소선/외곽선/그림자를 지원합니다. 확정 전 크기와 위치를 조절할 수 있습니다.', feature5Title: '키보드 단축키', feature5Desc: '모든 도구와 동작에 단축키가 있습니다. 실행 취소, 다시 실행, 복사, 붙여넣기, 확대/축소를 마우스 없이 빠르게 처리하세요.', feature6Title: '오픈 포맷', feature6Desc: 'PNG로 내보내고, JPG/JPEG/WebP 이미지를 열 수 있습니다. 레이어와 히스토리를 유지하려면 .paintx로 저장하세요.', statPlatforms: '플랫폼', statTools: '도구', statUndo: '되돌리기 단계', statAlways: '항상 무료', downloadLabel: '다운로드', downloadTitle: '모든 데스크톱에서 사용 가능', downloadSub: '네이티브 바이너리 — Electron, JVM 없이 빠르게 실행됩니다.', latestReleaseLabel: '최신 릴리스:', macSub: '유니버설 (Intel + Apple Silicon)', winSub: 'x64 설치 파일', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg 다운로드', winBtnLabel: '.exe 다운로드', linuxBtnLabel: '.AppImage 다운로드', releaseNotePrefix: '모든 릴리스는 서명 및 공증되었습니다', releaseNoteLink: 'GitHub에서 모든 릴리스 보기 →' },
-    zh: { htmlLang: 'zh', navFeatures: '功能', navDownload: '下载', heroBadge: '简洁 · 轻量 · 原生', heroTitleLine1: '一个应用。', heroTitleLine2: '全平台可用。', heroSub: '快速原生图像编辑器——无需 Electron，无臃肿。专注绘画。', heroDownload: '下载 — 免费', trustFree: '永久免费', trustAccount: '无需账号', previewTitle: 'Paint.Cross — 未命名.paintx', previewAlt: 'Paint.Cross 截图', previewCaption: '原生窗口——无浏览器外壳，无 Electron 额外开销', featuresLabel: '功能', featuresTitle: '创作所需一应俱全', featuresSub: '为速度而生，尽量不打断你的创作流程。', feature1Title: '丰富画笔工具', feature1Desc: '画笔、铅笔、橡皮、油漆桶、取色器一应俱全，支持大小、不透明度和硬度调节。', feature2Title: '图层系统', feature2Desc: '支持多图层叠加，独立不透明度，自由排序，并在画布上进行非破坏合成。', feature3Title: '智能选区', feature3Desc: '支持矩形选区、套索和魔棒（容差可调），可复制、剪切、粘贴并移动选区。', feature4Title: '文字工具', feature4Desc: '支持 12+ 字体、加粗、斜体、下划线、删除线、描边和阴影，提交前可调整大小和位置。', feature5Title: '键盘快捷键', feature5Desc: '所有工具和操作均有快捷键：撤销、重做、复制、粘贴、缩放，让你保持高效。', feature6Title: '开放格式', feature6Desc: '可导出 PNG，打开 JPG/JPEG/WebP。保存为 .paintx 可保留图层和历史记录。', statPlatforms: '平台', statTools: '工具', statUndo: '撤销步数', statAlways: '永久免费', downloadLabel: '下载', downloadTitle: '支持所有桌面平台', downloadSub: '原生二进制——无 Electron、无 JVM，纯粹快速。', latestReleaseLabel: '最新版本：', macSub: '通用版（Intel + Apple Silicon）', winSub: 'x64 安装包', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '下载 .dmg', winBtnLabel: '下载 .exe', linuxBtnLabel: '下载 .AppImage', releaseNotePrefix: '所有版本均已签名和公证', releaseNoteLink: '在 GitHub 查看全部版本 →' },
-    es: { htmlLang: 'es', navFeatures: 'Funciones', navDownload: 'Descargar', heroBadge: 'Simple · Ligero · Nativo', heroTitleLine1: 'Una app.', heroTitleLine2: 'Todas las plataformas.', heroSub: 'Editor de imágenes nativo y rápido — sin Electron, sin bloat. Solo dibuja.', heroDownload: 'Descargar — Gratis', trustFree: 'Gratis para siempre', trustAccount: 'Sin cuenta', previewTitle: 'Paint.Cross — Sin título.paintx', previewAlt: 'Captura de Paint.Cross', previewCaption: 'Ventana nativa — sin shell de navegador, sin sobrecarga de Electron', featuresLabel: 'Funciones', featuresTitle: 'Todo lo que necesitas para crear', featuresSub: 'Hecho para velocidad. Diseñado para no estorbar.', feature1Title: 'Herramientas de pincel', feature1Desc: 'Pincel, lápiz, borrador, bote de pintura y cuentagotas con tamaño, opacidad y dureza configurables.', feature2Title: 'Sistema de capas', feature2Desc: 'Apila capas con opacidad independiente, reordena libremente y combina sin destruir el lienzo.', feature3Title: 'Selección inteligente', feature3Desc: 'Selección rectangular, lazo y varita mágica con tolerancia. Copia, corta, pega y mueve selecciones.', feature4Title: 'Herramienta de texto', feature4Desc: 'Añade texto con 12+ fuentes, negrita, cursiva, subrayado, tachado, contorno y sombra.', feature5Title: 'Atajos de teclado', feature5Desc: 'Cada herramienta y acción tiene atajo. Deshacer, rehacer, copiar, pegar y zoom sin tocar el ratón.', feature6Title: 'Formatos abiertos', feature6Desc: 'Exporta a PNG, abre JPG/JPEG/WebP. Guarda como .paintx para conservar capas e historial.', statPlatforms: 'Plataformas', statTools: 'Herramientas', statUndo: 'Pasos de deshacer', statAlways: 'Siempre gratis', downloadLabel: 'Descargar', downloadTitle: 'Disponible en cualquier escritorio', downloadSub: 'Binarios nativos — sin Electron, sin JVM. Simplemente rápido.', latestReleaseLabel: 'Última versión:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'Instalador x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Descargar .dmg', winBtnLabel: 'Descargar .exe', linuxBtnLabel: 'Descargar .AppImage', releaseNotePrefix: 'Todas las versiones están firmadas y notarizadas', releaseNoteLink: 'Ver todas las versiones en GitHub →' },
-    ar: { htmlLang: 'ar', navFeatures: 'الميزات', navDownload: 'تنزيل', heroBadge: 'بسيط · خفيف · أصلي', heroTitleLine1: 'تطبيق واحد.', heroTitleLine2: 'لكل المنصات.', heroSub: 'محرر صور أصلي وسريع — بدون Electron وبدون انتفاخ. فقط ارسم.', heroDownload: 'تنزيل — مجاني', trustFree: 'مجاني دائمًا', trustAccount: 'لا يحتاج حسابًا', previewTitle: 'Paint.Cross — بدون اسم.paintx', previewAlt: 'لقطة شاشة Paint.Cross', previewCaption: 'نافذة أصلية — بدون غلاف متصفح وبدون حمل Electron', featuresLabel: 'الميزات', featuresTitle: 'كل ما تحتاجه للإبداع', featuresSub: 'مصمم للسرعة ويبقى بعيدًا عن طريقك.', feature1Title: 'أدوات فرشاة قوية', feature1Desc: 'فرشاة، قلم، ممحاة، تعبئة دلو، وقاطف ألوان مع إعدادات للحجم والشفافية والحدة.', feature2Title: 'نظام الطبقات', feature2Desc: 'كدّس طبقات متعددة مع شفافية مستقلة، وأعد ترتيبها بحرية، وادمجها دون إتلاف اللوحة.', feature3Title: 'تحديد ذكي', feature3Desc: 'تحديد مستطيل، لاسو حر، وعصا سحرية مع تحكم في الحساسية. انسخ واقصص والصق وحرك التحديد.', feature4Title: 'أداة النص', feature4Desc: 'أضف نصًا مع أكثر من 12 خطًا، عريض، مائل، تحته خط، يتوسطه خط، حدود وظل.', feature5Title: 'اختصارات لوحة المفاتيح', feature5Desc: 'لكل أداة وعملية اختصار. تراجع، إعادة، نسخ، لصق، تكبير — حافظ على التدفق.', feature6Title: 'صيغ مفتوحة', feature6Desc: 'صدّر إلى PNG وافتح JPG/JPEG/WebP. احفظ المشاريع بصيغة .paintx للحفاظ على الطبقات والسجل.', statPlatforms: 'المنصات', statTools: 'الأدوات', statUndo: 'خطوات التراجع', statAlways: 'مجاني دائمًا', downloadLabel: 'تنزيل', downloadTitle: 'متاح على كل أنظمة سطح المكتب', downloadSub: 'ملفات أصلية — بدون Electron وبدون JVM. سريع فقط.', latestReleaseLabel: 'أحدث إصدار:', macSub: 'شامل (Intel + Apple Silicon)', winSub: 'مثبّت x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'تنزيل .dmg', winBtnLabel: 'تنزيل .exe', linuxBtnLabel: 'تنزيل .AppImage', releaseNotePrefix: 'كل الإصدارات موقعة وموثقة', releaseNoteLink: 'عرض كل الإصدارات على GitHub ←' },
-    hi: { htmlLang: 'hi', navFeatures: 'फ़ीचर्स', navDownload: 'डाउनलोड', heroBadge: 'सरल · हल्का · नेटिव', heroTitleLine1: 'एक ऐप।', heroTitleLine2: 'हर प्लेटफ़ॉर्म।', heroSub: 'तेज़, नेटिव इमेज एडिटर — न Electron, न bloat. बस ड्रॉ करें।', heroDownload: 'डाउनलोड — मुफ़्त', trustFree: 'हमेशा मुफ़्त', trustAccount: 'खाते की ज़रूरत नहीं', previewTitle: 'Paint.Cross — Untitled.paintx', previewAlt: 'Paint.Cross स्क्रीनशॉट', previewCaption: 'नेटिव विंडो — न ब्राउज़र शेल, न Electron ओवरहेड', featuresLabel: 'फ़ीचर्स', featuresTitle: 'बनाने के लिए सब कुछ', featuresSub: 'गति के लिए बनाया गया। ताकि आपका फ़्लो बना रहे।', feature1Title: 'समृद्ध ब्रश टूल्स', feature1Desc: 'ब्रश, पेंसिल, इरेज़र, बकेट फिल, कलर पिकर — आकार, अपारदर्शिता और हार्डनेस सेटिंग्स सहित।', feature2Title: 'लेयर सिस्टम', feature2Desc: 'कई लेयर्स को स्वतंत्र अपारदर्शिता के साथ स्टैक करें, क्रम बदलें और नॉन-डिस्ट्रक्टिव तरीके से कंपोज़ करें।', feature3Title: 'स्मार्ट चयन', feature3Desc: 'रेक्टैंगुलर चयन, फ्रीहैंड लासो, और टॉलरेंस कंट्रोल वाली मैजिक वांड। कॉपी, कट, पेस्ट, मूव।', feature4Title: 'टेक्स्ट टूल', feature4Desc: '12+ फ़ॉन्ट, बोल्ड, इटैलिक, अंडरलाइन, स्ट्राइकथ्रू, आउटलाइन और ड्रॉप शैडो के साथ टेक्स्ट जोड़ें।', feature5Title: 'कीबोर्ड शॉर्टकट', feature5Desc: 'हर टूल और एक्शन का शॉर्टकट। Undo, redo, copy, paste, zoom — बिना माउस।', feature6Title: 'ओपन फ़ॉर्मेट्स', feature6Desc: 'PNG में एक्सपोर्ट करें, JPG/JPEG/WebP खोलें। लेयर्स और हिस्ट्री के लिए .paintx में सेव करें।', statPlatforms: 'प्लेटफ़ॉर्म', statTools: 'टूल्स', statUndo: 'Undo स्टेप्स', statAlways: 'हमेशा मुफ़्त', downloadLabel: 'डाउनलोड', downloadTitle: 'हर डेस्कटॉप पर उपलब्ध', downloadSub: 'नेटिव बाइनरी — न Electron, न JVM. बस तेज़।', latestReleaseLabel: 'नवीनतम रिलीज़:', macSub: 'यूनिवर्सल (Intel + Apple Silicon)', winSub: 'x64 इंस्टॉलर', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg डाउनलोड', winBtnLabel: '.exe डाउनलोड', linuxBtnLabel: '.AppImage डाउनलोड', releaseNotePrefix: 'सभी रिलीज़ साइन और नोटराइज़्ड हैं', releaseNoteLink: 'GitHub पर सभी रिलीज़ देखें →' },
-    ja: { htmlLang: 'ja', navFeatures: '機能', navDownload: 'ダウンロード', heroBadge: 'シンプル · 軽量 · ネイティブ', heroTitleLine1: '1つのアプリ。', heroTitleLine2: 'すべてのプラットフォームへ。', heroSub: '高速なネイティブ画像エディタ — Electron なし、無駄なし。描くことに集中。', heroDownload: 'ダウンロード — 無料', trustFree: 'ずっと無料', trustAccount: 'アカウント不要', previewTitle: 'Paint.Cross — 無題.paintx', previewAlt: 'Paint.Cross スクリーンショット', previewCaption: 'ネイティブウィンドウ — ブラウザシェルなし、Electron のオーバーヘッドなし', featuresLabel: '機能', featuresTitle: '創作に必要なものをすべて', featuresSub: '高速さを追求し、作業の邪魔をしない設計。', feature1Title: '豊富なブラシツール', feature1Desc: 'ブラシ、鉛筆、消しゴム、塗りつぶし、スポイトを搭載。サイズ・不透明度・硬さを調整可能。', feature2Title: 'レイヤーシステム', feature2Desc: '複数レイヤーを独立不透明度で重ね、自由に並べ替え、非破壊で合成できます。', feature3Title: 'スマート選択', feature3Desc: '矩形選択、フリーハンドラッソ、許容値調整付きマジックワンドを搭載。', feature4Title: 'テキストツール', feature4Desc: '12+フォント、太字、斜体、下線、取り消し線、アウトライン、ドロップシャドウに対応。', feature5Title: 'キーボードショートカット', feature5Desc: 'すべてのツールと操作にショートカット。Undo/Redo/コピー/貼り付け/ズームも素早く。', feature6Title: 'オープンフォーマット', feature6Desc: 'PNG へ書き出し、JPG/JPEG/WebP を読み込み可能。.paintx で保存すればレイヤーと履歴を保持。', statPlatforms: 'プラットフォーム', statTools: 'ツール', statUndo: 'Undo ステップ', statAlways: '常に無料', downloadLabel: 'ダウンロード', downloadTitle: 'すべてのデスクトップで利用可能', downloadSub: 'ネイティブバイナリ — Electron も JVM も不要。とにかく高速。', latestReleaseLabel: '最新リリース:', macSub: 'ユニバーサル (Intel + Apple Silicon)', winSub: 'x64 インストーラー', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg をダウンロード', winBtnLabel: '.exe をダウンロード', linuxBtnLabel: '.AppImage をダウンロード', releaseNotePrefix: 'すべてのリリースは署名・公証済みです', releaseNoteLink: 'GitHub ですべてのリリースを見る →' },
-    fr: { htmlLang: 'fr', navFeatures: 'Fonctionnalités', navDownload: 'Télécharger', heroBadge: 'Simple · Léger · Natif', heroTitleLine1: 'Une app.', heroTitleLine2: 'Toutes les plateformes.', heroSub: 'Éditeur d’images natif et rapide — sans Electron, sans lourdeur. Dessinez, simplement.', heroDownload: 'Télécharger — Gratuit', trustFree: 'Gratuit à vie', trustAccount: 'Aucun compte requis', previewTitle: 'Paint.Cross — Sans titre.paintx', previewAlt: 'Capture Paint.Cross', previewCaption: 'Fenêtre native — sans coque navigateur, sans surcharge Electron', featuresLabel: 'Fonctionnalités', featuresTitle: 'Tout ce qu’il faut pour créer', featuresSub: 'Pensé pour la vitesse. Conçu pour rester discret.', feature1Title: 'Outils de pinceau', feature1Desc: 'Pinceau, crayon, gomme, pot de peinture, pipette — avec taille, opacité et dureté réglables.', feature2Title: 'Système de calques', feature2Desc: 'Empilez des calques avec opacité indépendante, réordonnez librement et composez sans destruction.', feature3Title: 'Sélection intelligente', feature3Desc: 'Sélection rectangulaire, lasso libre et baguette magique avec tolérance ajustable.', feature4Title: 'Outil Texte', feature4Desc: 'Ajoutez du texte avec 12+ polices, gras, italique, souligné, barré, contour et ombre portée.', feature5Title: 'Raccourcis clavier', feature5Desc: 'Chaque outil et action a un raccourci. Annuler, refaire, copier, coller, zoomer sans souris.', feature6Title: 'Formats ouverts', feature6Desc: 'Exportez en PNG, ouvrez JPG/JPEG/WebP. Enregistrez en .paintx pour garder calques et historique.', statPlatforms: 'Plateformes', statTools: 'Outils', statUndo: 'Étapes d’annulation', statAlways: 'Toujours gratuit', downloadLabel: 'Télécharger', downloadTitle: 'Disponible sur tous les desktops', downloadSub: 'Binaires natifs — sans Electron, sans JVM. Juste rapide.', latestReleaseLabel: 'Dernière version :', macSub: 'Universel (Intel + Apple Silicon)', winSub: 'Installateur x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Télécharger .dmg', winBtnLabel: 'Télécharger .exe', linuxBtnLabel: 'Télécharger .AppImage', releaseNotePrefix: 'Toutes les versions sont signées et notariées', releaseNoteLink: 'Voir toutes les versions sur GitHub →' },
-    de: { htmlLang: 'de', navFeatures: 'Funktionen', navDownload: 'Download', heroBadge: 'Einfach · Leicht · Nativ', heroTitleLine1: 'Eine App.', heroTitleLine2: 'Jede Plattform.', heroSub: 'Schneller, nativer Bildeditor — kein Electron, kein Ballast. Einfach zeichnen.', heroDownload: 'Download — Kostenlos', trustFree: 'Für immer kostenlos', trustAccount: 'Kein Konto nötig', previewTitle: 'Paint.Cross — Unbenannt.paintx', previewAlt: 'Paint.Cross Screenshot', previewCaption: 'Natives Fenster — keine Browser-Hülle, kein Electron-Overhead', featuresLabel: 'Funktionen', featuresTitle: 'Alles, was du zum Erstellen brauchst', featuresSub: 'Für Geschwindigkeit gebaut. So designt, dass es nicht stört.', feature1Title: 'Umfangreiche Pinseltools', feature1Desc: 'Pinsel, Stift, Radierer, Farbeimer, Pipette — mit einstellbarer Größe, Deckkraft und Härte.', feature2Title: 'Ebenensystem', feature2Desc: 'Mehrere Ebenen mit eigener Deckkraft stapeln, frei anordnen und zerstörungsfrei kombinieren.', feature3Title: 'Intelligente Auswahl', feature3Desc: 'Rechteckauswahl, Freihand-Lasso und Zauberstab mit Toleranzkontrolle.', feature4Title: 'Textwerkzeug', feature4Desc: 'Text mit 12+ Schriftarten, Fett, Kursiv, Unterstrichen, Durchgestrichen, Kontur und Schatten.', feature5Title: 'Tastenkürzel', feature5Desc: 'Jedes Tool und jede Aktion hat ein Shortcut. Undo, Redo, Kopieren, Einfügen, Zoom.', feature6Title: 'Offene Formate', feature6Desc: 'Als PNG exportieren, JPG/JPEG/WebP öffnen. Als .paintx speichern für Ebenen und Verlauf.', statPlatforms: 'Plattformen', statTools: 'Tools', statUndo: 'Rückgängig-Schritte', statAlways: 'Immer kostenlos', downloadLabel: 'Download', downloadTitle: 'Auf jedem Desktop verfügbar', downloadSub: 'Native Binärdateien — ohne Electron, ohne JVM. Einfach schnell.', latestReleaseLabel: 'Neueste Version:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'x64 Installer', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg herunterladen', winBtnLabel: '.exe herunterladen', linuxBtnLabel: '.AppImage herunterladen', releaseNotePrefix: 'Alle Releases sind signiert und notariell beglaubigt', releaseNoteLink: 'Alle Releases auf GitHub ansehen →' },
-    pt: { htmlLang: 'pt', navFeatures: 'Recursos', navDownload: 'Download', heroBadge: 'Simples · Leve · Nativo', heroTitleLine1: 'Um app.', heroTitleLine2: 'Toda plataforma.', heroSub: 'Editor de imagem nativo e rápido — sem Electron, sem inchaço. Só desenhar.', heroDownload: 'Download — Grátis', trustFree: 'Grátis para sempre', trustAccount: 'Sem conta', previewTitle: 'Paint.Cross — Sem título.paintx', previewAlt: 'Captura do Paint.Cross', previewCaption: 'Janela nativa — sem shell de navegador, sem sobrecarga do Electron', featuresLabel: 'Recursos', featuresTitle: 'Tudo o que você precisa para criar', featuresSub: 'Feito para velocidade. Projetado para sair do seu caminho.', feature1Title: 'Ferramentas de pincel', feature1Desc: 'Pincel, lápis, borracha, balde de tinta e conta-gotas com tamanho, opacidade e dureza ajustáveis.', feature2Title: 'Sistema de camadas', feature2Desc: 'Empilhe várias camadas com opacidade independente, reordene livremente e componha sem destruir a tela.', feature3Title: 'Seleção inteligente', feature3Desc: 'Seleção retangular, laço livre e varinha mágica com controle de tolerância.', feature4Title: 'Ferramenta de texto', feature4Desc: 'Adicione texto com 12+ fontes, negrito, itálico, sublinhado, tachado, contorno e sombra.', feature5Title: 'Atalhos de teclado', feature5Desc: 'Toda ferramenta e ação tem atalho. Desfazer, refazer, copiar, colar, zoom — sem tirar a mão do fluxo.', feature6Title: 'Formatos abertos', feature6Desc: 'Exporte para PNG, abra JPG/JPEG/WebP. Salve projetos em .paintx para preservar camadas e histórico.', statPlatforms: 'Plataformas', statTools: 'Ferramentas', statUndo: 'Passos de desfazer', statAlways: 'Sempre grátis', downloadLabel: 'Download', downloadTitle: 'Disponível em qualquer desktop', downloadSub: 'Binários nativos — sem Electron, sem JVM. Só velocidade.', latestReleaseLabel: 'Último release:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'Instalador x64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Baixar .dmg', winBtnLabel: 'Baixar .exe', linuxBtnLabel: 'Baixar .AppImage', releaseNotePrefix: 'Todos os releases são assinados e notarizados', releaseNoteLink: 'Ver todos os releases no GitHub →' }
+    en: { htmlLang: 'en', navFeatures: 'Features', navDownload: 'Download', heroBadge: 'Simple · Lightweight · Native', heroTitleLine1: 'One App.', heroTitleLine2: 'Every Platform.', heroSub: 'A fast, native image editor — no Electron, no bloat. Just draw.', heroDownload: "Download — It's Free", trustFree: 'Free forever', trustAccount: 'No account needed', previewTitle: 'Paint.Cross — Untitled.paintx', previewAlt: 'Paint.Cross screenshot', previewCaption: 'Native window — no browser shell, no Electron overhead', featuresLabel: 'Features', featuresTitle: 'Everything you need to create', featuresSub: 'Built for speed. Designed to stay out of your way.', feature1Title: 'Rich Brush Tools', feature1Desc: 'Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.', feature2Title: 'Layer System', feature2Desc: 'Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.', feature3Title: 'Smart Selection', feature3Desc: 'Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.', feature4Title: 'Text Tool', feature4Desc: 'Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.', feature5Title: 'Keyboard Shortcuts', feature5Desc: 'Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.', feature6Title: 'Open Formats', feature6Desc: 'Export to PNG, open JPG, JPEG, WebP images. Save projects as .paintx to preserve layers and history.', statPlatforms: 'Platforms', statTools: 'Tools', statUndo: 'Undo Steps', statAlways: 'Always', downloadLabel: 'Download', downloadTitle: 'Available on every desktop', downloadSub: 'Native binaries — no Electron, no JVM. Just fast.', latestReleaseLabel: 'Latest release:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'x64 & arm64 Installers', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Download .dmg', winBtnLabel: 'Download .exe', linuxBtnLabel: 'Download .AppImage', winArmBtnLabel: 'Download arm64 .exe', linuxArmBtnLabel: 'Download arm64 .AppImage', releaseNotePrefix: 'All releases are signed and notarized', releaseNoteLink: 'View all releases on GitHub →' },
+    ko: { htmlLang: 'ko', navFeatures: '기능', navDownload: '다운로드', heroBadge: '심플 · 가벼움 · 네이티브', heroTitleLine1: '하나의 앱.', heroTitleLine2: '모든 플랫폼.', heroSub: '빠른 네이티브 이미지 에디터 — Electron 없이, 군더더기 없이. 바로 그리세요.', heroDownload: '다운로드 — 무료', trustFree: '영구 무료', trustAccount: '계정 필요 없음', previewTitle: 'Paint.Cross — 제목 없음.paintx', previewAlt: 'Paint.Cross 실행 화면', previewCaption: '네이티브 창 — 브라우저 셸 없음, Electron 오버헤드 없음', featuresLabel: '기능', featuresTitle: '창작에 필요한 모든 기능', featuresSub: '속도를 위해 만들고, 작업 흐름을 방해하지 않도록 설계했습니다.', feature1Title: '강력한 브러시 도구', feature1Desc: '브러시, 연필, 지우개, 버킷 채우기, 스포이드까지. 크기/불투명도/경도를 자유롭게 조절할 수 있습니다.', feature2Title: '레이어 시스템', feature2Desc: '여러 레이어를 독립 불투명도로 쌓고, 순서를 바꾸고, 캔버스에 비파괴적으로 합성할 수 있습니다.', feature3Title: '스마트 선택', feature3Desc: '사각 선택, 자유 올가미, 허용오차 조절 매직완드 지원. 복사, 잘라내기, 붙여넣기, 이동까지 가능합니다.', feature4Title: '텍스트 도구', feature4Desc: '12개 이상 글꼴, 굵게/기울임/밑줄/취소선/외곽선/그림자를 지원합니다. 확정 전 크기와 위치를 조절할 수 있습니다.', feature5Title: '키보드 단축키', feature5Desc: '모든 도구와 동작에 단축키가 있습니다. 실행 취소, 다시 실행, 복사, 붙여넣기, 확대/축소를 마우스 없이 빠르게 처리하세요.', feature6Title: '오픈 포맷', feature6Desc: 'PNG로 내보내고, JPG/JPEG/WebP 이미지를 열 수 있습니다. 레이어와 히스토리를 유지하려면 .paintx로 저장하세요.', statPlatforms: '플랫폼', statTools: '도구', statUndo: '되돌리기 단계', statAlways: '항상 무료', downloadLabel: '다운로드', downloadTitle: '모든 데스크톱에서 사용 가능', downloadSub: '네이티브 바이너리 — Electron, JVM 없이 빠르게 실행됩니다.', latestReleaseLabel: '최신 릴리스:', macSub: '유니버설 (Intel + Apple Silicon)', winSub: 'x64 및 arm64 설치 파일', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg 다운로드', winBtnLabel: '.exe 다운로드', linuxBtnLabel: '.AppImage 다운로드', winArmBtnLabel: 'arm64 .exe 다운로드', linuxArmBtnLabel: 'arm64 .AppImage 다운로드', releaseNotePrefix: '모든 릴리스는 서명 및 공증되었습니다', releaseNoteLink: 'GitHub에서 모든 릴리스 보기 →' },
+    zh: { htmlLang: 'zh', navFeatures: '功能', navDownload: '下载', heroBadge: '简洁 · 轻量 · 原生', heroTitleLine1: '一个应用。', heroTitleLine2: '全平台可用。', heroSub: '快速原生图像编辑器——无需 Electron，无臃肿。专注绘画。', heroDownload: '下载 — 免费', trustFree: '永久免费', trustAccount: '无需账号', previewTitle: 'Paint.Cross — 未命名.paintx', previewAlt: 'Paint.Cross 截图', previewCaption: '原生窗口——无浏览器外壳，无 Electron 额外开销', featuresLabel: '功能', featuresTitle: '创作所需一应俱全', featuresSub: '为速度而生，尽量不打断你的创作流程。', feature1Title: '丰富画笔工具', feature1Desc: '画笔、铅笔、橡皮、油漆桶、取色器一应俱全，支持大小、不透明度和硬度调节。', feature2Title: '图层系统', feature2Desc: '支持多图层叠加，独立不透明度，自由排序，并在画布上进行非破坏合成。', feature3Title: '智能选区', feature3Desc: '支持矩形选区、套索和魔棒（容差可调），可复制、剪切、粘贴并移动选区。', feature4Title: '文字工具', feature4Desc: '支持 12+ 字体、加粗、斜体、下划线、删除线、描边和阴影，提交前可调整大小和位置。', feature5Title: '键盘快捷键', feature5Desc: '所有工具和操作均有快捷键：撤销、重做、复制、粘贴、缩放，让你保持高效。', feature6Title: '开放格式', feature6Desc: '可导出 PNG，打开 JPG/JPEG/WebP。保存为 .paintx 可保留图层和历史记录。', statPlatforms: '平台', statTools: '工具', statUndo: '撤销步数', statAlways: '永久免费', downloadLabel: '下载', downloadTitle: '支持所有桌面平台', downloadSub: '原生二进制——无 Electron、无 JVM，纯粹快速。', latestReleaseLabel: '最新版本：', macSub: '通用版（Intel + Apple Silicon）', winSub: 'x64 与 arm64 安装包', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '下载 .dmg', winBtnLabel: '下载 .exe', linuxBtnLabel: '下载 .AppImage', winArmBtnLabel: '下载 arm64 .exe', linuxArmBtnLabel: '下载 arm64 .AppImage', releaseNotePrefix: '所有版本均已签名和公证', releaseNoteLink: '在 GitHub 查看全部版本 →' },
+    es: { htmlLang: 'es', navFeatures: 'Funciones', navDownload: 'Descargar', heroBadge: 'Simple · Ligero · Nativo', heroTitleLine1: 'Una app.', heroTitleLine2: 'Todas las plataformas.', heroSub: 'Editor de imágenes nativo y rápido — sin Electron, sin bloat. Solo dibuja.', heroDownload: 'Descargar — Gratis', trustFree: 'Gratis para siempre', trustAccount: 'Sin cuenta', previewTitle: 'Paint.Cross — Sin título.paintx', previewAlt: 'Captura de Paint.Cross', previewCaption: 'Ventana nativa — sin shell de navegador, sin sobrecarga de Electron', featuresLabel: 'Funciones', featuresTitle: 'Todo lo que necesitas para crear', featuresSub: 'Hecho para velocidad. Diseñado para no estorbar.', feature1Title: 'Herramientas de pincel', feature1Desc: 'Pincel, lápiz, borrador, bote de pintura y cuentagotas con tamaño, opacidade y dureza configurables.', feature2Title: 'Sistema de capas', feature2Desc: 'Apila capas con opacidad independiente, reordena libremente y combina sin destruir el lienzo.', feature3Title: 'Selección inteligente', feature3Desc: 'Selección rectangular, lazo y varita mágica con tolerancia. Copia, corta, pega y mueve selecciones.', feature4Title: 'Herramienta de texto', feature4Desc: 'Añade texto con 12+ fuentes, negrita, cursiva, subrayado, tachado, contorno y sombra.', feature5Title: 'Atajos de teclado', feature5Desc: 'Cada herramienta y acción tiene atajo. Deshacer, rehacer, copiar, pegar y zoom sin tocar el ratón.', feature6Title: 'Formatos abiertos', feature6Desc: 'Exporta a PNG, abre JPG/JPEG/WebP. Guarda como .paintx para conservar capas e historial.', statPlatforms: 'Plataformas', statTools: 'Herramientas', statUndo: 'Pasos de deshacer', statAlways: 'Siempre gratis', downloadLabel: 'Descargar', downloadTitle: 'Disponible en cualquier escritorio', downloadSub: 'Binarios nativos — sin Electron, sin JVM. Simplemente rápido.', latestReleaseLabel: 'Última versión:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'Instaladores x64 y arm64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Descargar .dmg', winBtnLabel: 'Descargar .exe', linuxBtnLabel: 'Descargar .AppImage', winArmBtnLabel: 'Descargar arm64 .exe', linuxArmBtnLabel: 'Descargar arm64 .AppImage', releaseNotePrefix: 'Todas las versiones están firmadas y notarizadas', releaseNoteLink: 'Ver todas las versiones en GitHub →' },
+    ar: { htmlLang: 'ar', navFeatures: 'الميزات', navDownload: 'تنزيل', heroBadge: 'بسيط · خفيف · أصلي', heroTitleLine1: 'تطبيق واحد.', heroTitleLine2: 'لكل المنصات.', heroSub: 'محرر صور أصلي وسريع — بدون Electron وبدون انتفاخ. فقط ارسم.', heroDownload: 'تنزيل — مجاني', trustFree: 'مجاني دائمًا', trustAccount: 'لا يحتاج حسابًا', previewTitle: 'Paint.Cross — بدون اسم.paintx', previewAlt: 'لقطة شاشة Paint.Cross', previewCaption: 'نافذة أصلية — بدون غلاف متصفح وبدون حمل Electron', featuresLabel: 'الميزات', featuresTitle: 'كل ما تحتاجه للإبداع', featuresSub: 'مصمم للسرعة ويبقى بعيدًا عن طريقك.', feature1Title: 'أدوات فرشاة قوية', feature1Desc: 'فرشاة، قلم، ممحاة، تعبئة دلو، وقاطف ألوان مع إعدادات للحجم والشفافية والحدة.', feature2Title: 'نظام الطبقات', feature2Desc: 'كدّس طبقات متعددة مع شفافية مستقلة، وأعد ترتيبها بحرية، وادمجها دون إتلاف اللوحة.', feature3Title: 'تحديد ذكي', feature3Desc: 'تحديد مستطيل، لاسو حر، وعصا سحرية مع تحكم في الحساسية. انسخ واقصص والصق وحرك التحديد.', feature4Title: 'أداة النص', feature4Desc: 'أضف نصًا مع أكثر من 12 خطًا، عريض، مائل، تحته خط، يتوسطه خط، حدود وظل.', feature5Title: 'اختصارات لوحة المفاتيح', feature5Desc: 'لكل أداة وعملية اختصار. تراجع، إعادة، نسخ، لصق، تكبير — حافظ على التدفق.', feature6Title: 'صيغ مفتوحة', feature6Desc: 'صدّر إلى PNG وافتح JPG/JPEG/WebP. احفظ المشاريع بصيغة .paintx للحفاظ على الطبقات والسجل.', statPlatforms: 'المنصات', statTools: 'الأدوات', statUndo: 'خطوات التراجع', statAlways: 'مجاني دائمًا', downloadLabel: 'تنزيل', downloadTitle: 'متاح على كل أنظمة سطح المكتب', downloadSub: 'ملفات أصلية — بدون Electron وبدون JVM. سريع فقط.', latestReleaseLabel: 'أحدث إصدار:', macSub: 'شامل (Intel + Apple Silicon)', winSub: 'مثبتات x64 و arm64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'تنزيل .dmg', winBtnLabel: 'تنزيل .exe', linuxBtnLabel: 'تنزيل .AppImage', winArmBtnLabel: 'تنزيل arm64 .exe', linuxArmBtnLabel: 'تنزيل arm64 .AppImage', releaseNotePrefix: 'كل الإصدارات موقعة وموثقة', releaseNoteLink: 'عرض كل الإصدارات على GitHub ←' },
+    hi: { htmlLang: 'hi', navFeatures: 'फ़ीचर्स', navDownload: 'डाउनलोड', heroBadge: 'सरल · हल्का · नेटिव', heroTitleLine1: 'एक ऐप।', heroTitleLine2: 'हर प्लेटफ़ॉर्म।', heroSub: 'तेज़, नेटिव इमेज एडिटर — न Electron, न bloat. बस ड्रॉ करें।', heroDownload: 'डाउनलोड — मुफ़्त', trustFree: 'हमेशा मुफ़्त', trustAccount: 'खाते की ज़रूरत नहीं', previewTitle: 'Paint.Cross — Untitled.paintx', previewAlt: 'Paint.Cross स्क्रीनशॉट', previewCaption: 'नेटिव विंडो — न ब्राउज़र शेल, न Electron ओवरहेड', featuresLabel: 'फ़ीचर्स', featuresTitle: 'बनाने के लिए सब कुछ', featuresSub: 'गति के लिए बनाया गया। ताकि आपका फ़्लो बना रहे।', feature1Title: 'समृद्ध ब्रश टूल्स', feature1Desc: 'ब्रश, पेंसिल, इरेज़र, बकेट फिल, कलर पिकर — आकार, अपारदर्शिता और हार्डनेस सेटिंग्स सहित।', feature2Title: 'लेयर सिस्टम', feature2Desc: 'कई लेयर्स को स्वतंत्र अपारदर्शिता के साथ स्टैक करें, क्रम बदलें और नॉन-डिस्ट्रक्टिव तरीके से कंपोज़ करें।', feature3Title: 'स्मार्ट चयन', feature3Desc: 'रेक्टैंगुलर चयन, फ्रीहैंड लासो, और टॉलरेंस कंट्रोल वाली मैजिक वांड। कॉपी, कट, पेस्ट, मूव।', feature4Title: 'टेक्स्ट टूल', feature4Desc: '12+ फ़ॉन्ट, बोल्ड, इटैलिक, अंडरलाइन, स्ट्राइकथ्रू, आउटलाइन और ड्रॉप शैडो के साथ टेक्स्ट जोड़ें।', feature5Title: 'कीबोर्ड शॉर्टकट', feature5Desc: 'हर टूल और एक्शन का शॉर्टकट। Undo, redo, copy, paste, zoom — बिना माउस।', feature6Title: 'ओपन फ़ॉर्मेट्स', feature6Desc: 'PNG में एक्सपोर्ट करें, JPG/JPEG/WebP खोलें। लेयर्स और हिस्ट्री के लिए .paintx में सेव करें।', statPlatforms: 'प्लेटफ़ॉर्म', statTools: 'टूल्स', statUndo: 'Undo स्टेप्स', statAlways: 'हमेशा मुफ़्त', downloadLabel: 'डाउनलोड', downloadTitle: 'हर डेस्कटॉप पर उपलब्ध', downloadSub: 'नेटिव बाइनरी — न Electron, न JVM. बस तेज़।', latestReleaseLabel: 'नवीनतम रिलीज़:', macSub: 'यूनिवर्सल (Intel + Apple Silicon)', winSub: 'x64 और arm64 इंस्टॉलर', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg डाउनलोड', winBtnLabel: '.exe डाउनलोड', linuxBtnLabel: '.AppImage डाउनलोड', winArmBtnLabel: 'arm64 .exe डाउनलोड', linuxArmBtnLabel: 'arm64 .AppImage डाउनलोड', releaseNotePrefix: 'सभी रिलीज़ साइन और नोटराइज़्ड हैं', releaseNoteLink: 'GitHub पर सभी रिलीज़ देखें →' },
+    ja: { htmlLang: 'ja', navFeatures: '機能', navDownload: 'ダウンロード', heroBadge: 'シンプル · 軽量 · ネイティブ', heroTitleLine1: '1つのアプリ。', heroTitleLine2: 'すべてのプラットフォームへ。', heroSub: '高速なネイティブ画像エディタ — Electron なし、無駄なし。描くことに集中。', heroDownload: 'ダウンロード — 無料', trustFree: 'ずっと無料', trustAccount: 'アカウント不要', previewTitle: 'Paint.Cross — 無題.paintx', previewAlt: 'Paint.Cross スクリーンショット', previewCaption: 'ネイティブウィンドウ — ブラウザシェルなし、Electron のオーバーヘッドなし', featuresLabel: '機能', featuresTitle: '創作に必要なものをすべて', featuresSub: '高速さを追求し、作業の邪魔をしない設計。', feature1Title: '豊富なブラシツール', feature1Desc: 'ブラシ、鉛筆、消しゴム、塗りつぶし、スポイトを搭載。サイズ・不透明度・硬さを調整可能。', feature2Title: 'レイヤーシステム', feature2Desc: '複数レイヤーを独立不透明度で重ね、自由に並べ替え、非破壊で合成できます。', feature3Title: 'スマート選択', feature3Desc: '矩形選択、フリーハンドラッソ、許容値調整付きマジックワンドを搭載。', feature4Title: 'テキストツール', feature4Desc: '12+フォント、太字、斜体、下線、取り消し線、アウトライン、ドロップシャドウに対応。', feature5Title: 'キーボードショートカット', feature5Desc: 'すべてのツールと操作にショートカット。Undo/Redo/コピー/貼り付け/ズームも素早く。', feature6Title: 'オープンフォーマット', feature6Desc: 'PNG へ書き出し、JPG/JPEG/WebP を読み込み可能。.paintx で保存すればレイヤーと履歴を保持。', statPlatforms: 'プラットフォーム', statTools: 'ツール', statUndo: 'Undo ステップ', statAlways: '常に無料', downloadLabel: 'ダウンロード', downloadTitle: 'すべてのデスクトップで利用可能', downloadSub: 'ネイティブバイナリ — Electron も JVM も不要。とにかく高速。', latestReleaseLabel: '最新リリース:', macSub: 'ユニバーサル (Intel + Apple Silicon)', winSub: 'x64 & arm64 インストーラー', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg をダウンロード', winBtnLabel: '.exe をダウンロード', linuxBtnLabel: '.AppImage をダウンロード', winArmBtnLabel: 'arm64 .exe をダウンロード', linuxArmBtnLabel: 'arm64 .AppImage をダウンロード', releaseNotePrefix: 'すべてのリリースは署名・公証済みです', releaseNoteLink: 'GitHub ですべてのリリースを見る →' },
+    fr: { htmlLang: 'fr', navFeatures: 'Fonctionnalités', navDownload: 'Télécharger', heroBadge: 'Simple · Léger · Natif', heroTitleLine1: 'Une app.', heroTitleLine2: 'Toutes les plateformes.', heroSub: 'Éditeur d’images natif et rapide — sans Electron, sans lourdeur. Dessinez, simplement.', heroDownload: 'Télécharger — Gratuit', trustFree: 'Gratuit à vie', trustAccount: 'Aucun compte requis', previewTitle: 'Paint.Cross — Sans titre.paintx', previewAlt: 'Capture Paint.Cross', previewCaption: 'Fenêtre native — sans coque navigateur, sans surcharge Electron', featuresLabel: 'Fonctionnalités', featuresTitle: 'Tout ce qu’il faut pour créer', featuresSub: 'Pensé pour la vitesse. Conçu pour rester discret.', feature1Title: 'Outils de pinceau', feature1Desc: 'Pinceau, crayon, gomme, pot de peinture, pipette — avec taille, opacité et dureté réglables.', feature2Title: 'Système de calques', feature2Desc: 'Empilez des calques avec opacité indépendante, réordonnez librement et composez sans destruction.', feature3Title: 'Sélection intelligente', feature3Desc: 'Sélection rectangulaire, lasso libre et baguette magique avec tolérance ajustable.', feature4Title: 'Outil Texte', feature4Desc: 'Ajoutez du texte avec 12+ polices, gras, italique, souligné, barré, contour et ombre portée.', feature5Title: 'Raccourcis clavier', feature5Desc: 'Chaque outil et action a un raccourci. Annuler, refaire, copier, coller, zoomer sans souris.', feature6Title: 'Formats ouverts', feature6Desc: 'Exportez en PNG, ouvrez JPG/JPEG/WebP. Enregistrez en .paintx pour garder calques et historique.', statPlatforms: 'Plateformes', statTools: 'Outils', statUndo: 'Étapes d’annulation', statAlways: 'Toujours gratuit', downloadLabel: 'Télécharger', downloadTitle: 'Disponible sur tous les desktops', downloadSub: 'Binaires natifs — sans Electron, sans JVM. Juste rapide.', latestReleaseLabel: 'Dernière version :', macSub: 'Universel (Intel + Apple Silicon)', winSub: 'Installateurs x64 & arm64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Télécharger .dmg', winBtnLabel: 'Télécharger .exe', linuxBtnLabel: 'Télécharger .AppImage', winArmBtnLabel: 'Télécharger arm64 .exe', linuxArmBtnLabel: 'Télécharger arm64 .AppImage', releaseNotePrefix: 'Toutes les versions sont signées et notariées', releaseNoteLink: 'Voir toutes les versions sur GitHub →' },
+    de: { htmlLang: 'de', navFeatures: 'Funktionen', navDownload: 'Download', heroBadge: 'Einfach · Leicht · Nativ', heroTitleLine1: 'Eine App.', heroTitleLine2: 'Jede Plattform.', heroSub: 'Schneller, nativer Bildeditor — kein Electron, kein Ballast. Einfach zeichnen.', heroDownload: 'Download — Kostenlos', trustFree: 'Für immer kostenlos', trustAccount: 'Kein Konto nötig', previewTitle: 'Paint.Cross — Unbenannt.paintx', previewAlt: 'Paint.Cross Screenshot', previewCaption: 'Natives Fenster — keine Browser-Hülle, kein Electron-Overhead', featuresLabel: 'Funktionen', featuresTitle: 'Alles, was du zum Erstellen brauchst', featuresSub: 'Für Geschwindigkeit gebaut. So designt, dass es nicht stört.', feature1Title: 'Umfangreiche Pinseltools', feature1Desc: 'Pinsel, Stift, Radierer, Farbeimer, Pipette — mit einstellbarer Größe, Deckkraft und Härte.', feature2Title: 'Ebenensystem', feature2Desc: 'Mehrere Ebenen mit eigener Deckkraft stapeln, frei anordnen und zerstörungsfrei kombinieren.', feature3Title: 'Intelligente Auswahl', feature3Desc: 'Rechteckauswahl, Freihand-Lasso und Zauberstab mit Toleranzkontrolle.', feature4Title: 'Textwerkzeug', feature4Desc: 'Text mit 12+ Schriftarten, Fett, Kursiv, Unterstrichen, Durchgestrichen, Kontur und Schatten.', feature5Title: 'Tastenkürzel', feature5Desc: 'Jedes Tool und jede Aktion hat ein Shortcut. Undo, Redo, Kopieren, Einfügen, Zoom.', feature6Title: 'Offene Formate', feature6Desc: 'Als PNG exportieren, JPG/JPEG/WebP öffnen. Als .paintx speichern für Ebenen und Verlauf.', statPlatforms: 'Plattformen', statTools: 'Tools', statUndo: 'Rückgängig-Schritte', statAlways: 'Immer kostenlos', downloadLabel: 'Download', downloadTitle: 'Auf jedem Desktop verfügbar', downloadSub: 'Native Binärdateien — ohne Electron, ohne JVM. Einfach schnell.', latestReleaseLabel: 'Neueste Version:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'x64 & arm64 Installer', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: '.dmg herunterladen', winBtnLabel: '.exe herunterladen', linuxBtnLabel: '.AppImage herunterladen', winArmBtnLabel: 'arm64 .exe herunterladen', linuxArmBtnLabel: 'arm64 .AppImage herunterladen', releaseNotePrefix: 'Alle Releases sind signiert und notariell beglaubigt', releaseNoteLink: 'Alle Releases auf GitHub ansehen →' },
+    pt: { htmlLang: 'pt', navFeatures: 'Recursos', navDownload: 'Download', heroBadge: 'Simples · Leve · Nativo', heroTitleLine1: 'Um app.', heroTitleLine2: 'Toda plataforma.', heroSub: 'Editor de imagem nativo e rápido — sem Electron, sem inchaço. Só desenhar.', heroDownload: 'Download — Grátis', trustFree: 'Grátis para sempre', trustAccount: 'Sem conta', previewTitle: 'Paint.Cross — Sem título.paintx', previewAlt: 'Captura do Paint.Cross', previewCaption: 'Janela nativa — sem shell de navegador, sem sobrecarga do Electron', featuresLabel: 'Recursos', featuresTitle: 'Tudo o que você precisa para criar', featuresSub: 'Feito para velocidade. Projetado para sair do seu caminho.', feature1Title: 'Ferramentas de pincel', feature1Desc: 'Pincel, lápis, borracha, balde de tinta e conta-gotas com tamanho, opacidade e dureza ajustáveis.', feature2Title: 'Sistema de camadas', feature2Desc: 'Empilhe várias camadas com opacidade independente, reordene livremente e componha sem destruir a tela.', feature3Title: 'Seleção inteligente', feature3Desc: 'Seleção retangular, laço livre e varinha mágica com controle de tolerância.', feature4Title: 'Ferramenta de texto', feature4Desc: 'Adicione texto com 12+ fontes, negrito, itálico, sublinhado, tachado, contorno e sombra.', feature5Title: 'Atalhos de teclado', feature5Desc: 'Toda ferramenta e ação tem atalho. Desfazer, refazer, copiar, colar, zoom — sem tirar a mão do fluxo.', feature6Title: 'Formatos abertos', feature6Desc: 'Exporte para PNG, abra JPG/JPEG/WebP. Salve projetos em .paintx para preservar camadas e histórico.', statPlatforms: 'Plataformas', statTools: 'Ferramentas', statUndo: 'Passos de desfazer', statAlways: 'Sempre grátis', downloadLabel: 'Download', downloadTitle: 'Disponível em qualquer desktop', downloadSub: 'Binários nativos — sem Electron, sem JVM. Só velocidade.', latestReleaseLabel: 'Último release:', macSub: 'Universal (Intel + Apple Silicon)', winSub: 'Instaladores x64 e arm64', linuxSub: 'Ubuntu · Fedora · AppImage', macBtnLabel: 'Baixar .dmg', winBtnLabel: 'Baixar .exe', linuxBtnLabel: 'Baixar .AppImage', winArmBtnLabel: 'Baixar arm64 .exe', linuxArmBtnLabel: 'Baixar arm64 .AppImage', releaseNotePrefix: 'Todos os releases são assinados e notarizados', releaseNoteLink: 'Ver todos os releases no GitHub →' }
   };
+
+  var currentLang = 'en';
 
   function setText(id, text) {
     var el = document.getElementById(id);
@@ -605,6 +660,7 @@
   }
 
   function applyLanguage(lang) {
+    currentLang = lang;
     var dict = I18N[lang] || I18N.en;
     document.documentElement.lang = dict.htmlLang;
 
@@ -647,7 +703,9 @@
     setText('linux-sub', dict.linuxSub);
     setText('mac-btn-label', dict.macBtnLabel);
     setText('win-btn-label', dict.winBtnLabel);
+    setText('win-arm-btn-label', dict.winArmBtnLabel);
     setText('linux-btn-label', dict.linuxBtnLabel);
+    setText('linux-arm-btn-label', dict.linuxArmBtnLabel);
     setText('release-note-prefix', dict.releaseNotePrefix);
     setText('release-note-link', dict.releaseNoteLink);
 
@@ -669,35 +727,57 @@
 
       const assets = Array.isArray(data.assets) ? data.assets : [];
 
-      function findAsset() {
-        const args = Array.from(arguments);
+      function findAssetByArch(arch, exts) {
         return assets.find(function(a) {
-          return args.some(function(e) {
-            return a.name.toLowerCase().endsWith(e);
-          });
+          const name = a.name.toLowerCase();
+          const isArm = name.includes('arm64') || name.includes('aarch64');
+          if (arch === 'arm64' && !isArm) return false;
+          if (arch === 'x64' && isArm) return false;
+          
+          return exts.some(function(e) { return name.endsWith(e); });
         });
       }
 
-      const dmg    = findAsset('.dmg');
-      const exe    = findAsset('_x64-setup.exe', '.exe');
-      const msi    = findAsset('.msi');
-      const appimg = findAsset('.appimage');
-      const deb    = findAsset('.deb');
-      const rpm    = findAsset('.rpm');
+      const dmg = assets.find(function(a) { return a.name.toLowerCase().endsWith('.dmg'); });
+      
+      const winX64Exe = findAssetByArch('x64', ['.exe']);
+      const winX64Msi = findAssetByArch('x64', ['.msi']);
+      const winArmExe = findAssetByArch('arm64', ['.exe']);
+      const winArmMsi = findAssetByArch('arm64', ['.msi']);
 
-      if (dmg)    updateBtn('dl-mac-btn',   dmg.browser_download_url,    'Download .dmg');
-      if (exe)    updateBtn('dl-win-btn',   exe.browser_download_url,    'Download .exe');
-      if (appimg) updateBtn('dl-linux-btn', appimg.browser_download_url, 'Download .AppImage');
+      const linX64App = findAssetByArch('x64', ['.appimage']);
+      const linX64Deb = findAssetByArch('x64', ['.deb']);
+      const linX64Rpm = findAssetByArch('x64', ['.rpm']);
+      
+      const linArmApp = findAssetByArch('arm64', ['.appimage']);
+      const linArmDeb = findAssetByArch('arm64', ['.deb']);
+      const linArmRpm = findAssetByArch('arm64', ['.rpm']);
+
+      if (dmg) updateBtn('dl-mac-btn', dmg.browser_download_url, 'Download .dmg');
+      var dlDict = I18N[currentLang] || I18N.en;
+
+      if (winX64Exe) updateBtn('dl-win-btn', winX64Exe.browser_download_url, 'Download x64 .exe');
+      if (winArmExe) updateBtn('dl-win-arm-btn', winArmExe.browser_download_url, dlDict.winArmBtnLabel);
+      
+      if (linX64App) updateBtn('dl-linux-btn', linX64App.browser_download_url, 'Download x64 .AppImage');
+      if (linArmApp) updateBtn('dl-linux-arm-btn', linArmApp.browser_download_url, dlDict.linuxArmBtnLabel);
 
       function setTag(id, url) {
         var el = document.getElementById(id);
         if (el && url) el.href = url;
       }
-      setTag('dl-tag-exe',      exe    && exe.browser_download_url);
-      setTag('dl-tag-msi',      msi    && msi.browser_download_url);
-      setTag('dl-tag-appimage', appimg && appimg.browser_download_url);
-      setTag('dl-tag-deb',      deb    && deb.browser_download_url);
-      setTag('dl-tag-rpm',      rpm    && rpm.browser_download_url);
+      setTag('dl-tag-exe', winX64Exe && winX64Exe.browser_download_url);
+      setTag('dl-tag-msi', winX64Msi && winX64Msi.browser_download_url);
+      setTag('dl-tag-arm-exe', winArmExe && winArmExe.browser_download_url);
+      setTag('dl-tag-arm-msi', winArmMsi && winArmMsi.browser_download_url);
+
+      setTag('dl-tag-appimage', linX64App && linX64App.browser_download_url);
+      setTag('dl-tag-deb', linX64Deb && linX64Deb.browser_download_url);
+      setTag('dl-tag-rpm', linX64Rpm && linX64Rpm.browser_download_url);
+      
+      setTag('dl-tag-arm-appimage', linArmApp && linArmApp.browser_download_url);
+      setTag('dl-tag-arm-deb', linArmDeb && linArmDeb.browser_download_url);
+      setTag('dl-tag-arm-rpm', linArmRpm && linArmRpm.browser_download_url);
     } catch (e) { /* keep fallback href */ }
   }
 
@@ -705,6 +785,7 @@
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.href = url;
+    if (typeof label !== 'string' || !label.length) return;
     var labelEl = btn.querySelector('.dl-btn-label');
     if (labelEl) labelEl.textContent = label;
   }
@@ -737,8 +818,6 @@
 
   }
 
-  loadRelease();
-  highlightPlatform(detectOS());
   var langTrigger = document.getElementById('lang-trigger');
   var langMenu = document.getElementById('lang-menu');
   var langItems = document.querySelectorAll('.lang-item');
@@ -750,6 +829,9 @@
     initialLang = browserLang;
   }
   if (!I18N[initialLang]) initialLang = 'en';
+  currentLang = initialLang;
+  loadRelease();
+  highlightPlatform(detectOS());
   if (langTrigger && langMenu) {
     langTrigger.addEventListener('click', function() {
       var open = langMenu.classList.toggle('open');
