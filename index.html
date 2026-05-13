@@ -209,6 +209,7 @@
     .preview-carousel {
       position: absolute;
       inset: 0;
+      overflow: hidden;
     }
     .preview-screenshot {
       width: 100%; height: 100%;
@@ -219,9 +220,27 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity .55s ease;
+      transform: translateX(96px) scale(.975);
+      filter: saturate(.92);
+      z-index: 0;
+      will-change: opacity, transform, filter;
+      transition:
+        opacity .9s cubic-bezier(.22,1,.36,1),
+        transform .9s cubic-bezier(.22,1,.36,1),
+        filter .9s ease;
     }
-    .preview-slide.active { opacity: 1; }
+    .preview-slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      filter: saturate(1);
+      z-index: 2;
+    }
+    .preview-slide.leaving {
+      opacity: 0;
+      transform: translateX(-72px) scale(.99);
+      filter: saturate(.92);
+      z-index: 1;
+    }
     .preview-dots {
       position: absolute;
       left: 50%;
@@ -245,9 +264,10 @@
       background: rgba(255,255,255,.35);
       cursor: pointer;
       padding: 0;
+      transition: width .25s ease, background .25s ease;
     }
     .preview-dot.active {
-      width: 22px;
+      width: 30px;
       border-radius: 999px;
       background: var(--accent);
     }
@@ -1004,6 +1024,7 @@
 
   var previewIndex = 0;
   var previewTimer = null;
+  var previewLeaveTimer = null;
 
   function previewDict() {
     return Object.assign({}, I18N.en, I18N[currentLang] || {});
@@ -1026,10 +1047,24 @@
     var slides = document.querySelectorAll('.preview-slide');
     var dots = document.querySelectorAll('.preview-dot');
     if (!slides.length) return;
-    previewIndex = (index + slides.length) % slides.length;
+    var nextIndex = (index + slides.length) % slides.length;
+    var previousIndex = previewIndex;
+    if (previewLeaveTimer) clearTimeout(previewLeaveTimer);
+    slides.forEach(function(slide) {
+      slide.classList.remove('leaving');
+    });
+    if (nextIndex !== previousIndex && slides[previousIndex]) {
+      slides[previousIndex].classList.add('leaving');
+    }
+    previewIndex = nextIndex;
     slides.forEach(function(slide, i) {
       slide.classList.toggle('active', i === previewIndex);
     });
+    previewLeaveTimer = setTimeout(function() {
+      slides.forEach(function(slide) {
+        slide.classList.remove('leaving');
+      });
+    }, 950);
     dots.forEach(function(dot, i) {
       var active = i === previewIndex;
       dot.classList.toggle('active', active);
