@@ -220,14 +220,10 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      transform: translateX(96px) scale(.975);
+      transform: translateX(110px) scale(.975);
       filter: saturate(.92);
       z-index: 0;
       will-change: opacity, transform, filter;
-      transition:
-        opacity .9s cubic-bezier(.22,1,.36,1),
-        transform .9s cubic-bezier(.22,1,.36,1),
-        filter .9s ease;
     }
     .preview-slide.active {
       opacity: 1;
@@ -235,11 +231,20 @@
       filter: saturate(1);
       z-index: 2;
     }
+    .preview-slide.entering {
+      animation: previewSlideIn .92s cubic-bezier(.22,1,.36,1) both;
+    }
     .preview-slide.leaving {
-      opacity: 0;
-      transform: translateX(-72px) scale(.99);
-      filter: saturate(.92);
+      animation: previewSlideOut .92s cubic-bezier(.22,1,.36,1) both;
       z-index: 1;
+    }
+    @keyframes previewSlideIn {
+      from { opacity: 0; transform: translateX(110px) scale(.975); filter: saturate(.9); }
+      to { opacity: 1; transform: translateX(0) scale(1); filter: saturate(1); }
+    }
+    @keyframes previewSlideOut {
+      from { opacity: 1; transform: translateX(0) scale(1); filter: saturate(1); }
+      to { opacity: 0; transform: translateX(-86px) scale(.99); filter: saturate(.9); }
     }
     .preview-dots {
       position: absolute;
@@ -1052,19 +1057,33 @@
     if (previewLeaveTimer) clearTimeout(previewLeaveTimer);
     slides.forEach(function(slide) {
       slide.classList.remove('leaving');
+      slide.classList.remove('entering');
     });
-    if (nextIndex !== previousIndex && slides[previousIndex]) {
-      slides[previousIndex].classList.add('leaving');
+    if (nextIndex !== previousIndex) {
+      if (slides[previousIndex]) {
+        slides[previousIndex].classList.add('leaving');
+      }
+      if (slides[nextIndex]) {
+        slides[nextIndex].classList.add('active');
+        void slides[nextIndex].offsetWidth;
+        slides[nextIndex].classList.add('entering');
+      }
+      slides.forEach(function(slide, i) {
+        if (i !== previousIndex && i !== nextIndex) slide.classList.remove('active');
+      });
+      previewLeaveTimer = setTimeout(function() {
+        slides.forEach(function(slide, i) {
+          slide.classList.remove('leaving');
+          slide.classList.remove('entering');
+          slide.classList.toggle('active', i === previewIndex);
+        });
+      }, 960);
+    } else {
+      slides.forEach(function(slide, i) {
+        slide.classList.toggle('active', i === nextIndex);
+      });
     }
     previewIndex = nextIndex;
-    slides.forEach(function(slide, i) {
-      slide.classList.toggle('active', i === previewIndex);
-    });
-    previewLeaveTimer = setTimeout(function() {
-      slides.forEach(function(slide) {
-        slide.classList.remove('leaving');
-      });
-    }, 950);
     dots.forEach(function(dot, i) {
       var active = i === previewIndex;
       dot.classList.toggle('active', active);
