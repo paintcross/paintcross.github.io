@@ -232,10 +232,10 @@
       z-index: 2;
     }
     .preview-slide.entering {
-      animation: previewSlideIn 1.45s cubic-bezier(.22,1,.36,1) both;
+      animation: previewSlideIn 2.4s ease-in-out both;
     }
     .preview-slide.leaving {
-      animation: previewSlideOut 1.45s cubic-bezier(.22,1,.36,1) both;
+      animation: previewSlideOut 2.4s ease-in-out both;
       z-index: 1;
     }
     @keyframes previewSlideIn {
@@ -1077,7 +1077,7 @@
           slide.classList.remove('entering');
           slide.classList.toggle('active', i === previewIndex);
         });
-      }, 1500);
+      }, 2500);
     } else {
       slides.forEach(function(slide, i) {
         slide.classList.toggle('active', i === nextIndex);
@@ -1098,7 +1098,7 @@
     if (previewTimer) clearInterval(previewTimer);
     previewTimer = setInterval(function() {
       setPreviewSlide(previewIndex + 1);
-    }, 5600);
+    }, 7600);
   }
 
   function initPreviewCarousel() {
