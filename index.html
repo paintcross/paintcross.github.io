@@ -394,9 +394,12 @@
     .dl-formats { display: flex; flex-wrap: wrap; gap: 6px; }
     .dl-tag {
       padding: 3px 10px; border-radius: 6px;
-      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      background: rgba(255,255,255,.04); border: 1px solid transparent;
       font-size: 11px; color: var(--muted); font-family: monospace;
-      text-decoration: none;
+      text-decoration: none; opacity: 0.6;
+    }
+    a.dl-tag[href] {
+      opacity: 1; border-color: var(--border); color: var(--text);
     }
     a.dl-tag[href]:hover {
       background: rgba(91,141,239,.15); border-color: var(--accent);
@@ -942,7 +945,7 @@
 
   async function loadRelease() {
     try {
-      const res = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest');
+      const res = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { cache: 'no-store' });
       if (!res.ok) return;
       const data = await res.json();
       const ver = data.tag_name || 'v0.1.0';
@@ -958,11 +961,14 @@
           if (arch === 'arm64' && !isArm) return false;
           if (arch === 'x64' && isArm) return false;
           
-          return exts.some(function(e) { return name.endsWith(e); });
+          return exts.some(function(e) { return name.includes(e) && !name.includes('.sig') && !name.includes('.blockmap'); });
         });
       }
 
-      const dmg = assets.find(function(a) { return a.name.toLowerCase().endsWith('.dmg'); });
+      const dmg = assets.find(function(a) { 
+        const n = a.name.toLowerCase();
+        return n.includes('.dmg') && !n.includes('.sig') && !n.includes('.blockmap'); 
+      });
       
       const winX64Exe = findAssetByArch('x64', ['.exe']);
       const winX64Msi = findAssetByArch('x64', ['.msi']);
