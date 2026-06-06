@@ -824,7 +824,7 @@
           <div class="dl-platform-sub" id="mac-sub">Universal (Intel + Apple Silicon)</div>
         </div>
       </div>
-      <a class="dl-btn" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
+      <a class="dl-btn outline" id="dl-mac-btn" href="https://github.com/paintcross/PaintCross/releases/latest">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
@@ -1255,26 +1255,41 @@
     var arch = detected.arch || 'x64';
     
     var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
-    var btns    = { 
-      mac: 'dl-mac-btn', 
-      win: arch === 'arm64' ? 'dl-win-arm-btn' : 'dl-win-btn', 
-      linux: arch === 'arm64' ? 'dl-linux-arm-btn' : 'dl-linux-btn' 
-    };
     var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
     var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
     
+    // Clear ALL existing state first
+    Object.keys(cards).forEach(function(k) {
+      var card = document.getElementById(cards[k]);
+      if (card) {
+        card.classList.remove('primary');
+        delete card.dataset.ribbon;
+      }
+      var plat = document.getElementById(plats[k]);
+      if (plat) plat.classList.remove('active');
+    });
+    
+    // Clear ALL buttons to outline by default
+    document.querySelectorAll('.dl-btn').forEach(function(b) {
+      b.classList.add('outline');
+    });
+
     if (!os || !cards[os]) return;
 
     // Download section — highlight detected OS card
     var dlCard = document.getElementById(cards[os]);
-    var dlBtn  = document.getElementById(btns[os]);
-    if (dlCard) { dlCard.classList.add('primary'); dlCard.dataset.ribbon = ribbons[os]; }
-    if (dlBtn)  dlBtn.classList.remove('outline');
+    if (dlCard) {
+      dlCard.classList.add('primary');
+      dlCard.dataset.ribbon = ribbons[os];
+    }
+    
+    var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : 'dl-' + os + '-btn');
+    var dlBtn = document.getElementById(btnId);
+    if (dlBtn) dlBtn.classList.remove('outline');
 
     // Hero — highlight platform card
     var platCard = document.getElementById(plats[os]);
     if (platCard) platCard.classList.add('active');
-
   }
 
   var previewIndex = 0;
@@ -1377,7 +1392,12 @@
   if (!I18N[initialLang]) initialLang = 'en';
   currentLang = initialLang;
   loadRelease();
-  highlightPlatform(detectOS());
+
+  
+  var userOSInfo = detectOS();
+  highlightPlatform(userOSInfo);
+  if (userOSInfo.os === 'linux') toggleLinuxGuide(true);
+
   if (langTrigger && langMenu) {
     langTrigger.addEventListener('click', function() {
       var open = langMenu.classList.toggle('open');
@@ -1402,61 +1422,14 @@
   initPreviewCarousel();
   applyLanguage(initialLang);
 
-  // Copy to clipboard helper
-  window.copyCode = function(btn, text) {
-    navigator.clipboard.writeText(text).then(function() {
-      btn.classList.add('copied');
-      var originalHtml = btn.innerHTML;
-      btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>';
-      setTimeout(function() {
-        btn.classList.remove('copied');
-        btn.innerHTML = originalHtml;
-      }, 2000);
-    }).catch(function() {});
-  };
-
-  // Linux Installation Guide toggle and tab switching
-  var linuxGuideSection = document.getElementById('linux-guide-section');
-  var linuxGuideTrigger = document.getElementById('linux-guide-trigger');
   
-  function toggleLinuxGuide(show) {
-    if (!linuxGuideSection) return;
-    var isVisible = typeof show === 'boolean' ? show : !linuxGuideSection.classList.contains('visible');
-    if (isVisible) {
-      linuxGuideSection.classList.add('visible');
-      setTimeout(function() {
-        linuxGuideSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100);
-    } else {
-      linuxGuideSection.classList.remove('visible');
-    }
-  }
-
-  if (linuxGuideTrigger) {
-    linuxGuideTrigger.addEventListener('click', function(e) {
-      e.preventDefault();
-      toggleLinuxGuide();
-    });
-  }
-
-  // Handle Tab Switching
-  var tabBtns = document.querySelectorAll('.linux-tab-btn');
-  var tabPanes = document.querySelectorAll('.linux-pane');
-  tabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var targetTab = btn.getAttribute('data-linux-tab');
-      tabBtns.forEach(function(b) { b.classList.toggle('active', b === btn); });
-      tabPanes.forEach(function(pane) {
-        var paneId = pane.getAttribute('id');
-        pane.classList.toggle('active', paneId === 'linux-pane-' + targetTab);
-      });
-    });
-  });
-
-  // Auto-reveal Linux guide if the user is on Linux
-  var userOSInfo = detectOS();
-  if (userOSInfo.os === 'linux') {
-    toggleLinuxGuide(true);
+  if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+    navigator.userAgentData.getHighEntropyValues(['architecture']).then(function(values) {
+      if (values.architecture === 'arm' && userOSInfo.arch !== 'arm64') {
+        userOSInfo.arch = 'arm64';
+        highlightPlatform(userOSInfo);
+      }
+    }).catch(function() {});
   }
 </script>
 </body>
