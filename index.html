@@ -1232,18 +1232,37 @@
 
   function detectOS() {
     var ua = navigator.userAgent;
-    if (/Macintosh|Mac OS X/i.test(ua)) return 'mac';
-    if (/Windows/i.test(ua))            return 'win';
-    if (/Linux/i.test(ua))              return 'linux';
-    return null;
+    var platform = navigator.platform || '';
+    var uaLower = ua.toLowerCase();
+    
+    if (/Macintosh|Mac OS X/i.test(ua)) return { os: 'mac', arch: 'universal' };
+    
+    var arch = 'x64';
+    if (/arm|aarch64/i.test(ua) || platform.toLowerCase().includes('arm')) {
+      arch = 'arm64';
+    }
+    
+    if (/Windows/i.test(ua)) return { os: 'win', arch: arch };
+    if (/Linux/i.test(ua)) return { os: 'linux', arch: arch };
+    
+    return { os: null, arch: 'x64' };
   }
 
-  function highlightPlatform(os) {
+  function highlightPlatform(detected) {
+    if (!detected || !detected.os) return;
+    
+    var os = detected.os;
+    var arch = detected.arch || 'x64';
+    
     var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
-    var btns    = { mac: 'dl-mac-btn', win: 'dl-win-btn', linux: 'dl-linux-btn' };
+    var btns    = { 
+      mac: 'dl-mac-btn', 
+      win: arch === 'arm64' ? 'dl-win-arm-btn' : 'dl-win-btn', 
+      linux: arch === 'arm64' ? 'dl-linux-arm-btn' : 'dl-linux-btn' 
+    };
     var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
-    var labels  = { mac: 'Download for macOS', win: 'Download for Windows', linux: 'Download for Linux' };
     var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
+    
     if (!os || !cards[os]) return;
 
     // Download section — highlight detected OS card
@@ -1435,8 +1454,8 @@
   });
 
   // Auto-reveal Linux guide if the user is on Linux
-  var userOS = detectOS();
-  if (userOS === 'linux') {
+  var userOSInfo = detectOS();
+  if (userOSInfo.os === 'linux') {
     toggleLinuxGuide(true);
   }
 </script>
