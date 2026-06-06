@@ -1233,63 +1233,98 @@
   function detectOS() {
     var ua = navigator.userAgent;
     var platform = navigator.platform || '';
-    var uaLower = ua.toLowerCase();
+    console.log('[DetectOS] --- Starting Detection ---');
+    console.log('[DetectOS] UserAgent:', ua);
+    console.log('[DetectOS] Platform:', platform);
     
-    if (/Macintosh|Mac OS X/i.test(ua)) return { os: 'mac', arch: 'universal' };
+    if (/Macintosh|Mac OS X/i.test(ua)) {
+      console.log('[DetectOS] Result: Mac (found in UA)');
+      return { os: 'mac', arch: 'universal' };
+    }
     
     var arch = 'x64';
     if (/arm|aarch64/i.test(ua) || platform.toLowerCase().includes('arm')) {
+      console.log('[DetectOS] Arch detected as ARM from UA/Platform');
       arch = 'arm64';
     }
     
-    if (/Windows/i.test(ua)) return { os: 'win', arch: arch };
-    if (/Linux/i.test(ua)) return { os: 'linux', arch: arch };
+    if (/Windows/i.test(ua)) {
+      console.log('[DetectOS] Result: Windows, Arch:', arch);
+      return { os: 'win', arch: arch };
+    }
+    if (/Linux/i.test(ua)) {
+      console.log('[DetectOS] Result: Linux, Arch:', arch);
+      return { os: 'linux', arch: arch };
+    }
     
+    console.log('[DetectOS] Result: No Match');
     return { os: null, arch: 'x64' };
   }
 
   function highlightPlatform(detected) {
-    if (!detected || !detected.os) return;
-    
-    var os = detected.os;
-    var arch = detected.arch || 'x64';
+    console.log('[Highlight] --- Applying Highlight ---');
+    console.log('[Highlight] Detected Info:', JSON.stringify(detected));
     
     var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
     var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
     var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
+    var allBtnIds = ['dl-mac-btn', 'dl-win-btn', 'dl-win-arm-btn', 'dl-linux-btn', 'dl-linux-arm-btn'];
     
-    // Clear ALL existing state first
+    console.log('[Highlight] 1. Resetting all cards and buttons');
     Object.keys(cards).forEach(function(k) {
-      var card = document.getElementById(cards[k]);
+      var cardId = cards[k];
+      var card = document.getElementById(cardId);
       if (card) {
         card.classList.remove('primary');
         delete card.dataset.ribbon;
       }
-      var plat = document.getElementById(plats[k]);
-      if (plat) plat.classList.remove('active');
+      var platId = plats[k];
+      var plat = document.getElementById(platId);
+      if (plat) {
+        plat.classList.remove('active');
+      }
     });
     
-    // Clear ALL buttons to outline by default
-    document.querySelectorAll('.dl-btn').forEach(function(b) {
-      b.classList.add('outline');
+    allBtnIds.forEach(function(id) {
+      var b = document.getElementById(id);
+      if (b) {
+        b.classList.add('outline');
+        console.log('[Highlight] Set outline for:', id);
+      }
     });
 
-    if (!os || !cards[os]) return;
+    if (!detected || !detected.os || !cards[detected.os]) {
+      console.log('[Highlight] No valid OS to highlight, reset complete.');
+      return;
+    }
+    
+    var os = detected.os;
+    var arch = detected.arch || 'x64';
 
     // Download section — highlight detected OS card
     var dlCard = document.getElementById(cards[os]);
     if (dlCard) {
+      console.log('[Highlight] Highlighting card:', cards[os]);
       dlCard.classList.add('primary');
       dlCard.dataset.ribbon = ribbons[os];
     }
     
     var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : 'dl-' + os + '-btn');
+    console.log('[Highlight] Target primary button ID:', btnId);
     var dlBtn = document.getElementById(btnId);
-    if (dlBtn) dlBtn.classList.remove('outline');
-
+    if (dlBtn) {
+      dlBtn.classList.remove('outline');
+      console.log('[Highlight] Success: Removed outline from:', btnId, 'Current classes:', dlBtn.className);
+    } else {
+      console.error('[Highlight] Target button NOT FOUND in DOM:', btnId);
+    }
+    
     // Hero — highlight platform card
     var platCard = document.getElementById(plats[os]);
-    if (platCard) platCard.classList.add('active');
+    if (platCard) {
+      console.log('[Highlight] Highlighting hero platform:', plats[os]);
+      platCard.classList.add('active');
+    }
   }
 
   var previewIndex = 0;
@@ -1393,7 +1428,7 @@
   currentLang = initialLang;
   loadRelease();
 
-  
+  console.log('[Init] App Starting. Initial userOSInfo check...');
   var userOSInfo = detectOS();
   highlightPlatform(userOSInfo);
   if (userOSInfo.os === 'linux') toggleLinuxGuide(true);
@@ -1424,12 +1459,21 @@
 
   
   if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+    console.log('[UAData] HighEntropyValues available. Fetching architecture...');
     navigator.userAgentData.getHighEntropyValues(['architecture']).then(function(values) {
-      if (values.architecture === 'arm' && userOSInfo.arch !== 'arm64') {
+      console.log('[UAData] Received values:', JSON.stringify(values));
+      if ((values.architecture === 'arm' || values.architecture === 'arm64') && userOSInfo.arch !== 'arm64') {
+        console.log('[UAData] ARM confirmed via HighEntropyValues. Updating from ' + userOSInfo.arch + ' to arm64');
         userOSInfo.arch = 'arm64';
         highlightPlatform(userOSInfo);
+      } else {
+        console.log('[UAData] No architecture update needed. Current arch:', userOSInfo.arch);
       }
-    }).catch(function() {});
+    }).catch(function(e) { 
+      console.error('[UAData] Error fetching high entropy values:', e); 
+    });
+  } else {
+    console.log('[UAData] navigator.userAgentData or getHighEntropyValues not available on this browser.');
   }
 </script>
 </body>
