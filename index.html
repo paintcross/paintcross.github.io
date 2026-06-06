@@ -1035,6 +1035,155 @@
 </footer>
 
 <script>
+  // --- Global Functions (Hoisted) ---
+  function copyCode(btn, text) {
+    console.log('[Copy] Copying text:', text);
+    navigator.clipboard.writeText(text).then(function() {
+      btn.classList.add('copied');
+      var originalHtml = btn.innerHTML;
+      btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>';
+      setTimeout(function() {
+        btn.classList.remove('copied');
+        btn.innerHTML = originalHtml;
+      }, 2000);
+    }).catch(function(e) { console.error('[Copy] Error:', e); });
+  }
+
+  function toggleLinuxGuide(show) {
+    var linuxGuideSection = document.getElementById('linux-guide-section');
+    console.log('[LinuxGuide] Toggle called. show:', show);
+    if (!linuxGuideSection) {
+      console.warn('[LinuxGuide] Section not found in DOM');
+      return;
+    }
+    var isVisible = typeof show === 'boolean' ? show : !linuxGuideSection.classList.contains('visible');
+    console.log('[LinuxGuide] Setting visible:', isVisible);
+    if (isVisible) {
+      linuxGuideSection.classList.add('visible');
+      setTimeout(function() {
+        linuxGuideSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    } else {
+      linuxGuideSection.classList.remove('visible');
+    }
+  }
+
+  window.copyCode = copyCode;
+  window.toggleLinuxGuide = toggleLinuxGuide;
+
+  function detectOS() {
+    var ua = navigator.userAgent;
+    var platform = navigator.platform || '';
+    var oscpu = navigator.oscpu || '';
+    var archHint = [ua, platform, oscpu].join(' ');
+    console.log('[DetectOS] --- Starting Detection ---');
+    console.log('[DetectOS] UserAgent:', ua);
+    console.log('[DetectOS] Platform:', platform);
+    if (oscpu) console.log('[DetectOS] OSCPU:', oscpu);
+    
+    var arch = 'x64';
+    if (/aarch64|arm64|armv\d+|\barm\b/i.test(archHint)) {
+      console.log('[DetectOS] Arch detected as ARM from browser hints');
+      arch = 'arm64';
+    }
+
+    try {
+      var canvas = document.createElement('canvas');
+      var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+          console.log('[DetectOS] WebGL Renderer:', renderer);
+          if (/Apple|Mali|Adreno|VideoCore|PowerVR|Vivante|Panfrost|Broadcom|Raspberry/i.test(renderer) && arch !== 'arm64') {
+            console.log('[DetectOS] ARM detected via WebGL Renderer');
+            arch = 'arm64';
+          }
+        }
+      }
+    } catch(e) { console.log('[DetectOS] WebGL Hint Error:', e); }
+
+    if (/Macintosh|Mac OS X/i.test(ua)) {
+      console.log('[DetectOS] Result: Mac (found in UA)');
+      return { os: 'mac', arch: 'universal' };
+    }
+    
+    if (/Windows/i.test(ua)) {
+      console.log('[DetectOS] Result: Windows, Arch:', arch);
+      return { os: 'win', arch: arch };
+    }
+    if (/Linux/i.test(ua)) {
+      console.log('[DetectOS] Result: Linux, Arch:', arch);
+      return { os: 'linux', arch: arch };
+    }
+    
+    console.log('[DetectOS] Result: No Match');
+    return { os: null, arch: 'x64' };
+  }
+
+  function highlightPlatform(detected) {
+    console.log('[Highlight] --- Applying Highlight ---');
+    console.log('[Highlight] Detected Info:', JSON.stringify(detected));
+    
+    var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
+    var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
+    var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
+    var allBtnIds = ['dl-mac-btn', 'dl-win-btn', 'dl-win-arm-btn', 'dl-linux-btn', 'dl-linux-arm-btn'];
+    
+    console.log('[Highlight] 1. Resetting all cards and buttons');
+    Object.keys(cards).forEach(function(k) {
+      var cardId = cards[k];
+      var card = document.getElementById(cardId);
+      if (card) {
+        card.classList.remove('primary');
+        delete card.dataset.ribbon;
+      }
+      var platId = plats[k];
+      var plat = document.getElementById(platId);
+      if (plat) {
+        plat.classList.remove('active');
+      }
+    });
+    
+    allBtnIds.forEach(function(id) {
+      var b = document.getElementById(id);
+      if (b) {
+        b.classList.add('outline');
+      }
+    });
+
+    if (!detected || !detected.os || !cards[detected.os]) {
+      console.log('[Highlight] No valid OS to highlight, reset complete.');
+      return;
+    }
+    
+    var os = detected.os;
+    var arch = detected.arch || 'x64';
+
+    // Download section — highlight detected OS card
+    var dlCard = document.getElementById(cards[os]);
+    if (dlCard) {
+      console.log('[Highlight] Highlighting card:', cards[os]);
+      dlCard.classList.add('primary');
+      dlCard.dataset.ribbon = ribbons[os];
+    }
+    
+    var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : 'dl-' + os + '-btn');
+    console.log('[Highlight] Target primary button ID:', btnId);
+    var dlBtn = document.getElementById(btnId);
+    if (dlBtn) {
+      dlBtn.classList.remove('outline');
+      console.log('[Highlight] Success: Removed outline from:', btnId);
+    }
+    
+    // Hero — highlight platform card
+    var platCard = document.getElementById(plats[os]);
+    if (platCard) {
+      console.log('[Highlight] Highlighting hero platform:', plats[os]);
+      platCard.classList.add('active');
+    }
+  }
+
   const REPO = 'paintcross/PaintCross';
   const LANG_NAMES = {
     en: 'English',
@@ -1230,102 +1379,27 @@
     if (labelEl) labelEl.textContent = label;
   }
 
-  function detectOS() {
-    var ua = navigator.userAgent;
-    var platform = navigator.platform || '';
-    console.log('[DetectOS] --- Starting Detection ---');
-    console.log('[DetectOS] UserAgent:', ua);
-    console.log('[DetectOS] Platform:', platform);
-    
-    if (/Macintosh|Mac OS X/i.test(ua)) {
-      console.log('[DetectOS] Result: Mac (found in UA)');
-      return { os: 'mac', arch: 'universal' };
-    }
-    
-    var arch = 'x64';
-    if (/arm|aarch64/i.test(ua) || platform.toLowerCase().includes('arm')) {
-      console.log('[DetectOS] Arch detected as ARM from UA/Platform');
-      arch = 'arm64';
-    }
-    
-    if (/Windows/i.test(ua)) {
-      console.log('[DetectOS] Result: Windows, Arch:', arch);
-      return { os: 'win', arch: arch };
-    }
-    if (/Linux/i.test(ua)) {
-      console.log('[DetectOS] Result: Linux, Arch:', arch);
-      return { os: 'linux', arch: arch };
-    }
-    
-    console.log('[DetectOS] Result: No Match');
-    return { os: null, arch: 'x64' };
+  if (linuxGuideTrigger) {
+    linuxGuideTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleLinuxGuide();
+    });
   }
 
-  function highlightPlatform(detected) {
-    console.log('[Highlight] --- Applying Highlight ---');
-    console.log('[Highlight] Detected Info:', JSON.stringify(detected));
-    
-    var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
-    var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
-    var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
-    var allBtnIds = ['dl-mac-btn', 'dl-win-btn', 'dl-win-arm-btn', 'dl-linux-btn', 'dl-linux-arm-btn'];
-    
-    console.log('[Highlight] 1. Resetting all cards and buttons');
-    Object.keys(cards).forEach(function(k) {
-      var cardId = cards[k];
-      var card = document.getElementById(cardId);
-      if (card) {
-        card.classList.remove('primary');
-        delete card.dataset.ribbon;
-      }
-      var platId = plats[k];
-      var plat = document.getElementById(platId);
-      if (plat) {
-        plat.classList.remove('active');
-      }
+  // Handle Tab Switching
+  var tabBtns = document.querySelectorAll('.linux-tab-btn');
+  var tabPanes = document.querySelectorAll('.linux-pane');
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetTab = btn.getAttribute('data-linux-tab');
+      console.log('[LinuxGuide] Tab switch:', targetTab);
+      tabBtns.forEach(function(b) { b.classList.toggle('active', b === btn); });
+      tabPanes.forEach(function(pane) {
+        var paneId = pane.getAttribute('id');
+        pane.classList.toggle('active', paneId === 'linux-pane-' + targetTab);
+      });
     });
-    
-    allBtnIds.forEach(function(id) {
-      var b = document.getElementById(id);
-      if (b) {
-        b.classList.add('outline');
-        console.log('[Highlight] Set outline for:', id);
-      }
-    });
-
-    if (!detected || !detected.os || !cards[detected.os]) {
-      console.log('[Highlight] No valid OS to highlight, reset complete.');
-      return;
-    }
-    
-    var os = detected.os;
-    var arch = detected.arch || 'x64';
-
-    // Download section — highlight detected OS card
-    var dlCard = document.getElementById(cards[os]);
-    if (dlCard) {
-      console.log('[Highlight] Highlighting card:', cards[os]);
-      dlCard.classList.add('primary');
-      dlCard.dataset.ribbon = ribbons[os];
-    }
-    
-    var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : 'dl-' + os + '-btn');
-    console.log('[Highlight] Target primary button ID:', btnId);
-    var dlBtn = document.getElementById(btnId);
-    if (dlBtn) {
-      dlBtn.classList.remove('outline');
-      console.log('[Highlight] Success: Removed outline from:', btnId, 'Current classes:', dlBtn.className);
-    } else {
-      console.error('[Highlight] Target button NOT FOUND in DOM:', btnId);
-    }
-    
-    // Hero — highlight platform card
-    var platCard = document.getElementById(plats[os]);
-    if (platCard) {
-      console.log('[Highlight] Highlighting hero platform:', plats[os]);
-      platCard.classList.add('active');
-    }
-  }
+  });
 
   var previewIndex = 0;
   var previewTimer = null;
@@ -1431,7 +1505,13 @@
   console.log('[Init] App Starting. Initial userOSInfo check...');
   var userOSInfo = detectOS();
   highlightPlatform(userOSInfo);
-  if (userOSInfo.os === 'linux') toggleLinuxGuide(true);
+  if (userOSInfo.os === 'linux') {
+    if (typeof window.toggleLinuxGuide === 'function') {
+      window.toggleLinuxGuide(true);
+    } else {
+      console.error('[Init] toggleLinuxGuide is NOT defined at runtime!');
+    }
+  }
 
   if (langTrigger && langMenu) {
     langTrigger.addEventListener('click', function() {
