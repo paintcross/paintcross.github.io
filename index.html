@@ -1071,18 +1071,42 @@
   window.copyCode = copyCode;
   window.toggleLinuxGuide = toggleLinuxGuide;
 
+  function normalizeArch(value) {
+    if (/^(arm64|aarch64)$/i.test(value || '')) return 'arm64';
+    if (/^(x64|x86_64|amd64)$/i.test(value || '')) return 'x64';
+    return null;
+  }
+
+  function getArchOverride() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var queryArch = normalizeArch(params.get('arch'));
+      if (queryArch) {
+        localStorage.setItem('paintcross_arch', queryArch);
+        return queryArch;
+      }
+      return normalizeArch(localStorage.getItem('paintcross_arch'));
+    } catch (_) {
+      return null;
+    }
+  }
+
   function detectOS() {
     var ua = navigator.userAgent;
     var platform = navigator.platform || '';
     var oscpu = navigator.oscpu || '';
     var archHint = [ua, platform, oscpu].join(' ');
+    var archOverride = getArchOverride();
+    var renderer = '';
     console.log('[DetectOS] --- Starting Detection ---');
     console.log('[DetectOS] UserAgent:', ua);
     console.log('[DetectOS] Platform:', platform);
     if (oscpu) console.log('[DetectOS] OSCPU:', oscpu);
     
-    var arch = 'x64';
-    if (/aarch64|arm64|armv\d+|\barm\b/i.test(archHint)) {
+    var arch = archOverride || 'x64';
+    if (archOverride) {
+      console.log('[DetectOS] Arch override:', archOverride);
+    } else if (/aarch64|arm64|armv\d+|\barm\b/i.test(archHint)) {
       console.log('[DetectOS] Arch detected as ARM from browser hints');
       arch = 'arm64';
     }
@@ -1093,15 +1117,20 @@
       if (gl) {
         var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         if (debugInfo) {
-          var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+          renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
           console.log('[DetectOS] WebGL Renderer:', renderer);
-          if (/Apple|Mali|Adreno|VideoCore|PowerVR|Vivante|Panfrost|Broadcom|Raspberry/i.test(renderer) && arch !== 'arm64') {
+          if (!archOverride && /Apple|Mali|Adreno|VideoCore|PowerVR|Vivante|Panfrost|Broadcom|Raspberry/i.test(renderer) && arch !== 'arm64') {
             console.log('[DetectOS] ARM detected via WebGL Renderer');
             arch = 'arm64';
           }
         }
       }
     } catch(e) { console.log('[DetectOS] WebGL Hint Error:', e); }
+
+    if (!archOverride && /Firefox/i.test(ua) && /Linux/i.test(ua) && arch === 'x64' && /x86_64|amd64/i.test(archHint) && /llvmpipe|softpipe|software rasterizer/i.test(renderer)) {
+      console.log('[DetectOS] Linux Firefox reports x86_64 with software renderer; assuming ARM64 (Virtual Machine)');
+      arch = 'arm64'; // 'unknown' 대신 'arm64'로 직접 보정
+    }
 
     if (/Macintosh|Mac OS X/i.test(ua)) {
       console.log('[DetectOS] Result: Mac (found in UA)');
@@ -1168,9 +1197,9 @@
       dlCard.dataset.ribbon = ribbons[os];
     }
     
-    var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : 'dl-' + os + '-btn');
-    console.log('[Highlight] Target primary button ID:', btnId);
-    var dlBtn = document.getElementById(btnId);
+    var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : (arch === 'x64' ? 'dl-' + os + '-btn' : null));
+    console.log('[Highlight] Target primary button ID:', btnId || 'none');
+    var dlBtn = btnId ? document.getElementById(btnId) : null;
     if (dlBtn) {
       dlBtn.classList.remove('outline');
       console.log('[Highlight] Success: Removed outline from:', btnId);
