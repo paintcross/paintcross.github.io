@@ -1040,15 +1040,15 @@
   <div class="quick-faq">
     <div class="faq-item">
       <h3 id="faq-1-title">What can I open?</h3>
-      <p id="faq-1-desc">Open common image files like JPG, JPEG, and WebP, and save or export them to other image formats (e.g., JPEG -> PNG).</p>
+      <p id="faq-1-desc">Open common image files like JPG, JPEG, and WebP, and freely export them to other formats such as PNG.</p>
     </div>
     <div class="faq-item">
       <h3 id="faq-2-title">Can I save layers?</h3>
-      <p id="faq-2-desc">Save projects as <code>.paintx</code> when you want to keep layers and continue later.</p>
+      <p id="faq-2-desc">Yes. Save <code>.paintx</code> project files that preserve layers and edit history, then continue whenever you want.</p>
     </div>
     <div class="faq-item">
       <h3 id="faq-3-title">Do I need an account?</h3>
-      <p id="faq-3-desc">No account, browser shell, or separate runtime is required. Download the native desktop app and start.</p>
+      <p id="faq-3-desc">No. There is no signup or login. Download the native app and start right away.</p>
     </div>
   </div>
 </section>
@@ -1465,6 +1465,91 @@
   };
   Object.keys(FEATURE_CARDS_COPY_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], FEATURE_CARDS_COPY_I18N[lang]);
+  });
+  const FAQ_COPY_I18N = {
+    en: {
+      faq1Title: 'What can I open?',
+      faq1Desc: 'Open common image files like JPG, JPEG, and WebP, and freely export them to other formats such as PNG.',
+      faq2Title: 'Can I save layers?',
+      faq2Desc: 'Yes. Save .paintx project files that preserve layers and edit history, then continue whenever you want.',
+      faq3Title: 'Do I need an account?',
+      faq3Desc: 'No. There is no signup or login. Download the native app and start right away.'
+    },
+    ko: {
+      faq1Title: '어떤 파일을 열 수 있나요?',
+      faq1Desc: 'JPG, JPEG, WebP 등 일반 이미지 파일을 열 수 있으며, PNG 등 다른 형식으로 자유롭게 내보낼 수 있습니다.',
+      faq2Title: '레이어를 저장할 수 있나요?',
+      faq2Desc: '네, 레이어와 작업 내역을 그대로 보존하는 .paintx 프로젝트 파일로 저장할 수 있습니다. 언제든 이어서 작업하세요.',
+      faq3Title: '계정이 필요한가요?',
+      faq3Desc: '전혀 필요 없습니다. 회원가입이나 로그인 없이 네이티브 앱을 다운로드하면 바로 시작할 수 있습니다.'
+    },
+    zh: {
+      faq1Title: '可以打开哪些文件？',
+      faq1Desc: '可以打开 JPG、JPEG、WebP 等常见图像文件，并可自由导出为 PNG 等其他格式。',
+      faq2Title: '可以保存图层吗？',
+      faq2Desc: '可以。你可以保存为 .paintx 项目文件，完整保留图层和编辑历史，随时继续工作。',
+      faq3Title: '需要账号吗？',
+      faq3Desc: '完全不需要。无需注册或登录，下载原生应用即可马上开始。'
+    },
+    es: {
+      faq1Title: '¿Qué archivos puedo abrir?',
+      faq1Desc: 'Puedes abrir imágenes comunes como JPG, JPEG y WebP, y exportarlas libremente a otros formatos como PNG.',
+      faq2Title: '¿Puedo guardar capas?',
+      faq2Desc: 'Sí. Guarda archivos de proyecto .paintx que conservan capas e historial de edición, y continúa cuando quieras.',
+      faq3Title: '¿Necesito una cuenta?',
+      faq3Desc: 'No. No hay registro ni inicio de sesión. Descarga la app nativa y empieza de inmediato.'
+    },
+    ar: {
+      faq1Title: 'ما الملفات التي يمكنني فتحها؟',
+      faq1Desc: 'يمكنك فتح ملفات الصور الشائعة مثل JPG وJPEG وWebP، وتصديرها بحرية إلى صيغ أخرى مثل PNG.',
+      faq2Title: 'هل يمكنني حفظ الطبقات؟',
+      faq2Desc: 'نعم. يمكنك حفظ ملفات مشاريع .paintx التي تحتفظ بالطبقات وسجل التعديلات، ثم المتابعة في أي وقت.',
+      faq3Title: 'هل أحتاج إلى حساب؟',
+      faq3Desc: 'لا، إطلاقًا. لا تسجيل ولا تسجيل دخول. نزّل التطبيق الأصلي وابدأ فورًا.'
+    },
+    hi: {
+      faq1Title: 'मैं कौन सी फ़ाइलें खोल सकता हूँ?',
+      faq1Desc: 'JPG, JPEG और WebP जैसी सामान्य image files खोलें, और उन्हें PNG जैसे दूसरे formats में स्वतंत्र रूप से export करें।',
+      faq2Title: 'क्या मैं layers सहेज सकता हूँ?',
+      faq2Desc: 'हाँ। .paintx project files में layers और edit history सुरक्षित रखें, फिर जब चाहें काम जारी रखें।',
+      faq3Title: 'क्या account चाहिए?',
+      faq3Desc: 'बिलकुल नहीं। कोई signup या login नहीं। Native app डाउनलोड करें और तुरंत शुरू करें।'
+    },
+    ja: {
+      faq1Title: 'どのファイルを開けますか？',
+      faq1Desc: 'JPG、JPEG、WebP などの一般的な画像ファイルを開き、PNG など別形式へ自由に書き出せます。',
+      faq2Title: 'レイヤーを保存できますか？',
+      faq2Desc: 'はい。レイヤーと編集履歴を保持する .paintx プロジェクトファイルとして保存し、いつでも作業を再開できます。',
+      faq3Title: 'アカウントは必要ですか？',
+      faq3Desc: 'まったく必要ありません。登録やログインなしで、ネイティブアプリをダウンロードすればすぐに始められます。'
+    },
+    fr: {
+      faq1Title: 'Quels fichiers puis-je ouvrir ?',
+      faq1Desc: 'Ouvrez des images courantes comme JPG, JPEG et WebP, puis exportez-les librement vers d’autres formats comme PNG.',
+      faq2Title: 'Puis-je enregistrer les calques ?',
+      faq2Desc: 'Oui. Enregistrez des projets .paintx qui conservent calques et historique d’édition, puis reprenez quand vous voulez.',
+      faq3Title: 'Ai-je besoin d’un compte ?',
+      faq3Desc: 'Non. Aucune inscription ni connexion. Téléchargez l’app native et commencez immédiatement.'
+    },
+    de: {
+      faq1Title: 'Welche Dateien kann ich öffnen?',
+      faq1Desc: 'Öffne gängige Bilddateien wie JPG, JPEG und WebP und exportiere sie frei in andere Formate wie PNG.',
+      faq2Title: 'Kann ich Ebenen speichern?',
+      faq2Desc: 'Ja. Speichere .paintx-Projektdateien, die Ebenen und Bearbeitungsverlauf erhalten, und arbeite jederzeit weiter.',
+      faq3Title: 'Brauche ich ein Konto?',
+      faq3Desc: 'Nein. Keine Registrierung und kein Login. Lade die native App herunter und starte sofort.'
+    },
+    pt: {
+      faq1Title: 'Quais arquivos posso abrir?',
+      faq1Desc: 'Abra imagens comuns como JPG, JPEG e WebP, e exporte livremente para outros formatos como PNG.',
+      faq2Title: 'Posso salvar camadas?',
+      faq2Desc: 'Sim. Salve arquivos de projeto .paintx que preservam camadas e histórico de edição, e continue quando quiser.',
+      faq3Title: 'Preciso de uma conta?',
+      faq3Desc: 'Não. Não há cadastro nem login. Baixe o app nativo e comece imediatamente.'
+    }
+  };
+  Object.keys(FAQ_COPY_I18N).forEach(function(lang) {
+    Object.assign(I18N[lang], FAQ_COPY_I18N[lang]);
   });
   Object.keys(LINUX_GUIDE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], LINUX_GUIDE_I18N[lang]);
