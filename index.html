@@ -806,7 +806,7 @@
     <div class="feature-card">
       <div class="feature-icon">💾</div>
       <h3 id="feature-6-title">Open Formats</h3>
-      <p id="feature-6-desc">Export to PNG, open JPG, JPEG, WebP images. Save projects as <code>.paintx</code> to preserve layers and history.</p>
+      <p id="feature-6-desc">Export finished work to PNG or PDF, open JPG/JPEG/WebP images, and use the improved export flow to share final edits cleanly.</p>
     </div>
   </div>
   <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:40px">
@@ -1291,6 +1291,21 @@
     de: { linuxGuideTriggerText: 'Installationsanleitung (.deb, .rpm, AppImage)', linuxGuideTitleText: 'Linux-Installationsanleitung', linuxDebTitle: 'Debian / Ubuntu (.deb)', linuxDebDesc: 'Für Ubuntu, Debian, Linux Mint und andere Debian-basierte Distributionen. Installiere es über die grafische Softwareverwaltung oder führe den folgenden Befehl im Terminal aus:', linuxRpmTitle: 'Fedora / Red Hat (.rpm)', linuxRpmDesc: 'Für Fedora, Red Hat Enterprise Linux (RHEL), CentOS und andere RPM-basierte Distributionen. Führe zur Installation den folgenden Befehl im Terminal aus:', linuxAppimageTitle: 'AppImage (universell)', linuxAppimageDesc: 'Ein universelles Paket, das auf fast jeder Linux-Distribution läuft. Lade die Datei herunter, mache sie ausführbar und starte sie direkt:' },
     pt: { linuxGuideTriggerText: 'Como instalar (.deb, .rpm, AppImage)', linuxGuideTitleText: 'Guia de instalação do Linux', linuxDebTitle: 'Debian / Ubuntu (.deb)', linuxDebDesc: 'Para Ubuntu, Debian, Linux Mint e outras distribuições baseadas em Debian. Instale pelo gerenciador gráfico de software ou execute o comando abaixo no terminal:', linuxRpmTitle: 'Fedora / Red Hat (.rpm)', linuxRpmDesc: 'Para Fedora, Red Hat Enterprise Linux (RHEL), CentOS e outras distribuições baseadas em RPM. Execute o comando abaixo no terminal para instalar:', linuxAppimageTitle: 'AppImage (universal)', linuxAppimageDesc: 'Um pacote universal que funciona em quase qualquer distribuição Linux. Baixe o arquivo, torne-o executável e execute-o diretamente:' }
   };
+  const EXPORT_FEATURE_I18N = {
+    en: { feature6Desc: 'Export finished work to PNG or PDF, open JPG/JPEG/WebP images, and use the improved export flow to share final edits cleanly.' },
+    ko: { feature6Desc: 'PNG 또는 PDF로 내보내고 JPG/JPEG/WebP를 열 수 있습니다. 개선된 Export 흐름으로 완성한 편집물을 깔끔하게 공유하세요.' },
+    zh: { feature6Desc: '可导出 PNG 或 PDF，打开 JPG/JPEG/WebP，并通过改进的导出流程清晰分享完成的编辑。' },
+    es: { feature6Desc: 'Exporta a PNG o PDF, abre JPG/JPEG/WebP y usa el flujo de exportación mejorado para compartir ediciones finales con claridad.' },
+    ar: { feature6Desc: 'صدّر إلى PNG أو PDF، وافتح JPG/JPEG/WebP، واستخدم تدفق التصدير المحسن لمشاركة التعديلات النهائية بوضوح.' },
+    hi: { feature6Desc: 'PNG या PDF में एक्सपोर्ट करें, JPG/JPEG/WebP खोलें, और बेहतर Export वर्कफ़्लो से अंतिम एडिट साफ़ तरीके से साझा करें।' },
+    ja: { feature6Desc: 'PNG または PDF へ書き出し、JPG/JPEG/WebP を読み込み可能。改善された書き出しフローで完成した編集結果をきれいに共有できます。' },
+    fr: { feature6Desc: 'Exportez en PNG ou PDF, ouvrez JPG/JPEG/WebP et utilisez le flux d’export amélioré pour partager proprement vos modifications finales.' },
+    de: { feature6Desc: 'Als PNG oder PDF exportieren, JPG/JPEG/WebP öffnen und den verbesserten Exportablauf nutzen, um fertige Bearbeitungen sauber zu teilen.' },
+    pt: { feature6Desc: 'Exporte para PNG ou PDF, abra JPG/JPEG/WebP e use o fluxo de exportação aprimorado para compartilhar edições finais com clareza.' }
+  };
+  Object.keys(EXPORT_FEATURE_I18N).forEach(function(lang) {
+    Object.assign(I18N[lang], EXPORT_FEATURE_I18N[lang]);
+  });
   Object.keys(LINUX_GUIDE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], LINUX_GUIDE_I18N[lang]);
   });
