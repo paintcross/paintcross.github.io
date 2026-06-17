@@ -416,6 +416,21 @@
       background: transparent; border: 1px solid var(--border); color: var(--text);
     }
     .dl-btn.outline:hover { border-color: var(--accent); }
+    .download-count {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+    }
+    .download-count.visible { display: inline-flex; }
+    .download-count::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: .55;
+    }
     .dl-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
     .dl-note a { color: var(--accent); text-decoration: none; }
 
@@ -840,6 +855,9 @@
     <div class="hero-badge" style="margin-bottom:0">
       <span class="dot"></span>
       <span id="latest-release-label">Latest release:</span> <strong id="dl-version-badge">v0.1.0</strong>
+      <span class="download-count" id="download-count-wrap">
+        <span id="download-count-label">Downloads:</span> <strong id="download-count">0</strong>
+      </span>
     </div>
   </div>
   <div class="download-grid">
@@ -1552,16 +1570,16 @@
     Object.assign(I18N[lang], FAQ_COPY_I18N[lang]);
   });
   const DOWNLOAD_COPY_I18N = {
-    en: { downloadSub: 'Native app — lightweight and fast, with no Electron or JVM.' },
-    ko: { downloadSub: '네이티브 앱 — Electron, JVM 없이 가볍고 빠르게 실행됩니다.' },
-    zh: { downloadSub: '原生应用——无需 Electron 或 JVM，轻量且快速。' },
-    es: { downloadSub: 'App nativa — ligera y rápida, sin Electron ni JVM.' },
-    ar: { downloadSub: 'تطبيق أصلي — خفيف وسريع، بدون Electron أو JVM.' },
-    hi: { downloadSub: 'Native app — Electron या JVM के बिना हल्का और तेज़।' },
-    ja: { downloadSub: 'ネイティブアプリ — Electron も JVM も不要で、軽く高速に動作します。' },
-    fr: { downloadSub: 'App native — légère et rapide, sans Electron ni JVM.' },
-    de: { downloadSub: 'Native App — leicht und schnell, ohne Electron oder JVM.' },
-    pt: { downloadSub: 'App nativo — leve e rápido, sem Electron nem JVM.' }
+    en: { downloadSub: 'Native app — lightweight and fast, with no Electron or JVM.', downloadCountLabel: 'Downloads:' },
+    ko: { downloadSub: '네이티브 앱 — Electron, JVM 없이 가볍고 빠르게 실행됩니다.', downloadCountLabel: '다운로드:' },
+    zh: { downloadSub: '原生应用——无需 Electron 或 JVM，轻量且快速。', downloadCountLabel: '下载次数：' },
+    es: { downloadSub: 'App nativa — ligera y rápida, sin Electron ni JVM.', downloadCountLabel: 'Descargas:' },
+    ar: { downloadSub: 'تطبيق أصلي — خفيف وسريع، بدون Electron أو JVM.', downloadCountLabel: 'التنزيلات:' },
+    hi: { downloadSub: 'Native app — Electron या JVM के बिना हल्का और तेज़।', downloadCountLabel: 'डाउनलोड:' },
+    ja: { downloadSub: 'ネイティブアプリ — Electron も JVM も不要で、軽く高速に動作します。', downloadCountLabel: 'ダウンロード:' },
+    fr: { downloadSub: 'App native — légère et rapide, sans Electron ni JVM.', downloadCountLabel: 'Téléchargements :' },
+    de: { downloadSub: 'Native App — leicht und schnell, ohne Electron oder JVM.', downloadCountLabel: 'Downloads:' },
+    pt: { downloadSub: 'App nativo — leve e rápido, sem Electron nem JVM.', downloadCountLabel: 'Downloads:' }
   };
   Object.keys(DOWNLOAD_COPY_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], DOWNLOAD_COPY_I18N[lang]);
@@ -1626,6 +1644,7 @@
     setText('download-title', dict.downloadTitle);
     setText('download-sub', dict.downloadSub);
     setText('latest-release-label', dict.latestReleaseLabel);
+    setText('download-count-label', dict.downloadCountLabel);
     setText('mac-sub', dict.macSub);
     setText('win-sub', dict.winSub);
     setText('linux-sub', dict.linuxSub);
@@ -1674,6 +1693,8 @@
       document.getElementById('dl-version-badge').textContent = ver;
 
       const assets = Array.isArray(data.assets) ? data.assets : [];
+      setDownloadCount(totalDownloadCount(assets));
+      loadTotalDownloadCount();
 
       function findAssetByArch(arch, exts) {
         return assets.find(function(a) {
@@ -1731,6 +1752,39 @@
       setTag('dl-tag-arm-deb', linArmDeb && linArmDeb.browser_download_url);
       setTag('dl-tag-arm-rpm', linArmRpm && linArmRpm.browser_download_url);
     } catch (e) { /* keep fallback href */ }
+  }
+
+  function totalDownloadCount(assets) {
+    return assets.reduce(function(sum, asset) {
+      var name = String(asset && asset.name || '').toLowerCase();
+      if (!name || name.includes('.sig') || name.includes('.blockmap')) return sum;
+      return sum + (Number(asset.download_count) || 0);
+    }, 0);
+  }
+
+  async function loadTotalDownloadCount() {
+    try {
+      var total = 0;
+      for (var page = 1; page <= 10; page += 1) {
+        const res = await fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=100&page=' + page, { cache: 'no-store' });
+        if (!res.ok) return;
+        const releases = await res.json();
+        if (!Array.isArray(releases) || !releases.length) break;
+        total += releases.reduce(function(sum, release) {
+          return sum + totalDownloadCount(Array.isArray(release.assets) ? release.assets : []);
+        }, 0);
+        if (releases.length < 100) break;
+      }
+      setDownloadCount(total);
+    } catch (e) { /* keep latest-release fallback count */ }
+  }
+
+  function setDownloadCount(count) {
+    var wrap = document.getElementById('download-count-wrap');
+    var value = document.getElementById('download-count');
+    if (!wrap || !value || !count) return;
+    value.textContent = new Intl.NumberFormat(currentLang || 'en').format(count);
+    wrap.classList.add('visible');
   }
 
   function updateBtn(id, url, label) {
