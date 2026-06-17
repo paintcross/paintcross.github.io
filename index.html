@@ -835,7 +835,7 @@
 <section id="download">
   <p class="section-label" id="download-label">Download</p>
   <h2 id="download-title">Available on every desktop</h2>
-  <p class="section-sub" id="download-sub">Native binaries — no Electron, no JVM. Just fast.</p>
+  <p class="section-sub" id="download-sub">Native app — lightweight and fast, with no Electron or JVM.</p>
   <div style="display:flex;justify-content:center;margin-bottom:40px">
     <div class="hero-badge" style="margin-bottom:0">
       <span class="dot"></span>
@@ -1550,6 +1550,21 @@
   };
   Object.keys(FAQ_COPY_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], FAQ_COPY_I18N[lang]);
+  });
+  const DOWNLOAD_COPY_I18N = {
+    en: { downloadSub: 'Native app — lightweight and fast, with no Electron or JVM.' },
+    ko: { downloadSub: '네이티브 앱 — Electron, JVM 없이 가볍고 빠르게 실행됩니다.' },
+    zh: { downloadSub: '原生应用——无需 Electron 或 JVM，轻量且快速。' },
+    es: { downloadSub: 'App nativa — ligera y rápida, sin Electron ni JVM.' },
+    ar: { downloadSub: 'تطبيق أصلي — خفيف وسريع، بدون Electron أو JVM.' },
+    hi: { downloadSub: 'Native app — Electron या JVM के बिना हल्का और तेज़।' },
+    ja: { downloadSub: 'ネイティブアプリ — Electron も JVM も不要で、軽く高速に動作します。' },
+    fr: { downloadSub: 'App native — légère et rapide, sans Electron ni JVM.' },
+    de: { downloadSub: 'Native App — leicht und schnell, ohne Electron oder JVM.' },
+    pt: { downloadSub: 'App nativo — leve e rápido, sem Electron nem JVM.' }
+  };
+  Object.keys(DOWNLOAD_COPY_I18N).forEach(function(lang) {
+    Object.assign(I18N[lang], DOWNLOAD_COPY_I18N[lang]);
   });
   Object.keys(LINUX_GUIDE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], LINUX_GUIDE_I18N[lang]);
