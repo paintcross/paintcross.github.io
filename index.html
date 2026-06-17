@@ -780,33 +780,33 @@
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">🖌️</div>
-      <h3 id="feature-1-title">Rich Brush Tools</h3>
-      <p id="feature-1-desc">Brush, pencil, eraser, bucket fill, color picker — all the essentials with configurable size, opacity, and hardness.</p>
+      <h3 id="feature-1-title">Draw and Correct Fast</h3>
+      <p id="feature-1-desc">Draw quickly and make immediate corrections with essential tools like brush, pencil, eraser, bucket fill, and eyedropper.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📐</div>
-      <h3 id="feature-2-title">Layer System</h3>
-      <p id="feature-2-desc">Stack multiple layers with independent opacity, reorder freely, and composite them non-destructively onto the canvas.</p>
+      <h3 id="feature-2-title">Edit Safely with Layers</h3>
+      <p id="feature-2-desc">Separate sketch, color, and annotation work into individual layers, then freely adjust opacity and order.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">✂️</div>
-      <h3 id="feature-3-title">Smart Selection</h3>
-      <p id="feature-3-desc">Rectangular select, freehand lasso, and magic wand with tolerance control. Copy, cut, paste, and move selections.</p>
+      <h3 id="feature-3-title">Select Only What Matters</h3>
+      <p id="feature-3-desc">Use rectangle select, lasso, and magic wand to precisely copy, cut, move, and refine the area you need.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">✍️</div>
-      <h3 id="feature-4-title">Text Tool</h3>
-      <p id="feature-4-desc">Add text with 12+ fonts, bold, italic, underline, strikethrough, outline, and drop shadow. Resize and reposition before committing.</p>
+      <h3 id="feature-4-title">Add Text and Labels</h3>
+      <p id="feature-4-desc">Place stylish text freely, then add polish with size and position controls, outlines, and shadows.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⌨️</div>
-      <h3 id="feature-5-title">Keyboard Shortcuts</h3>
-      <p id="feature-5-desc">Every tool and action has a keyboard shortcut. Undo, redo, copy, paste, zoom — stay in the flow without touching your mouse.</p>
+      <h3 id="feature-5-title">Shortcuts That Keep Flow</h3>
+      <p id="feature-5-desc">Switch tools, Undo/Redo, copy and paste, and zoom from the keyboard so work stays fast and natural.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">💾</div>
       <h3 id="feature-6-title">Enhanced Export Experience</h3>
-      <p id="feature-6-desc">Handle PDF export, PNG saving, JPG/JPEG/WebP opening, and .paintx project saves that preserve layers — all in one polished Export flow.</p>
+      <p id="feature-6-desc">Handle PDF export, PNG saving, JPG/JPEG/WebP import, and .paintx project saves that preserve layers — all in one intuitive file workflow.</p>
     </div>
   </div>
   <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:40px">
@@ -1320,6 +1320,151 @@
   };
   Object.keys(FEATURES_COPY_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], FEATURES_COPY_I18N[lang]);
+  });
+  const FEATURE_CARDS_COPY_I18N = {
+    en: {
+      feature1Title: 'Draw and Correct Fast',
+      feature1Desc: 'Draw quickly and make immediate corrections with essential tools like brush, pencil, eraser, bucket fill, and eyedropper.',
+      feature2Title: 'Edit Safely with Layers',
+      feature2Desc: 'Separate sketch, color, and annotation work into individual layers, then freely adjust opacity and order.',
+      feature3Title: 'Select Only What Matters',
+      feature3Desc: 'Use rectangle select, lasso, and magic wand to precisely copy, cut, move, and refine the area you need.',
+      feature4Title: 'Add Text and Labels',
+      feature4Desc: 'Place stylish text freely, then add polish with size and position controls, outlines, and shadows.',
+      feature5Title: 'Shortcuts That Keep Flow',
+      feature5Desc: 'Switch tools, Undo/Redo, copy and paste, and zoom from the keyboard so work stays fast and natural.',
+      feature6Title: 'Enhanced Export Experience',
+      feature6Desc: 'Handle PDF export, PNG saving, JPG/JPEG/WebP import, and .paintx project saves that preserve layers — all in one intuitive file workflow.'
+    },
+    ko: {
+      feature1Title: '빠르게 그리고 고치기',
+      feature1Desc: '브러시, 연필, 지우개, 버킷, 스포이드 등 필수 도구로 빠르게 그리고 바로 수정하세요.',
+      feature2Title: '레이어로 안전하게 편집',
+      feature2Desc: '스케치, 색상, 주석 작업을 개별 레이어로 분리하고, 불투명도와 순서를 자유롭게 조절하세요.',
+      feature3Title: '필요한 부분만 선택',
+      feature3Desc: '사각 선택, 올가미, 매직 완드로 원하는 영역을 정확히 복사·잘라내기·이동·보정하세요.',
+      feature4Title: '텍스트와 라벨 추가',
+      feature4Desc: '스타일리시한 텍스트를 자유롭게 배치하고, 크기·위치 조정, 외곽선, 그림자로 전문성을 더하세요.',
+      feature5Title: '흐름을 끊지 않는 단축키',
+      feature5Desc: '도구 전환, Undo/Redo, 복사·붙여넣기, 확대·축소까지 키보드로 빠르고 자연스럽게 작업을 이어가세요.',
+      feature6Title: '향상된 Export 경험',
+      feature6Desc: 'PDF 내보내기, PNG 저장, JPG/JPEG/WebP 불러오기, 레이어까지 보존되는 .paintx 프로젝트 저장까지 — 모든 파일 작업을 하나의 직관적인 흐름에서 처리하세요.'
+    },
+    zh: {
+      feature1Title: '快速绘制与修正',
+      feature1Desc: '使用画笔、铅笔、橡皮、油漆桶、取色器等必备工具快速绘制并立即修改。',
+      feature2Title: '用图层安全编辑',
+      feature2Desc: '将草图、颜色和注释工作拆分到独立图层，并自由调整不透明度与顺序。',
+      feature3Title: '只选择需要的部分',
+      feature3Desc: '通过矩形选择、套索和魔棒，精准复制、剪切、移动和修正目标区域。',
+      feature4Title: '添加文字和标签',
+      feature4Desc: '自由放置精致文字，并通过大小、位置、描边和阴影调整提升专业感。',
+      feature5Title: '不中断流程的快捷键',
+      feature5Desc: '工具切换、Undo/Redo、复制粘贴、缩放都可用键盘快速自然地完成。',
+      feature6Title: '增强的 Export 体验',
+      feature6Desc: 'PDF 导出、PNG 保存、JPG/JPEG/WebP 导入，以及保留图层的 .paintx 项目保存，都在一个直观流程中处理。'
+    },
+    es: {
+      feature1Title: 'Dibuja y corrige rápido',
+      feature1Desc: 'Dibuja rápido y corrige al instante con herramientas esenciales como pincel, lápiz, borrador, cubeta y cuentagotas.',
+      feature2Title: 'Edita con seguridad usando capas',
+      feature2Desc: 'Separa bocetos, color y anotaciones en capas individuales, y ajusta libremente opacidad y orden.',
+      feature3Title: 'Selecciona solo lo necesario',
+      feature3Desc: 'Usa selección rectangular, lazo y varita mágica para copiar, cortar, mover y retocar con precisión el área que necesitas.',
+      feature4Title: 'Añade texto y etiquetas',
+      feature4Desc: 'Coloca texto con estilo libremente y añade acabado profesional con controles de tamaño, posición, contorno y sombra.',
+      feature5Title: 'Atajos que no rompen el flujo',
+      feature5Desc: 'Cambia herramientas, usa Undo/Redo, copia, pega y haz zoom desde el teclado para trabajar de forma rápida y natural.',
+      feature6Title: 'Experiencia de Export mejorada',
+      feature6Desc: 'Exporta PDF, guarda PNG, importa JPG/JPEG/WebP y guarda proyectos .paintx con capas preservadas, todo en un flujo intuitivo.'
+    },
+    ar: {
+      feature1Title: 'ارسم وصحّح بسرعة',
+      feature1Desc: 'ارسم بسرعة وعدّل فورًا باستخدام الأدوات الأساسية مثل الفرشاة والقلم والممحاة والدلو وقطّارة الألوان.',
+      feature2Title: 'حرّر بأمان عبر الطبقات',
+      feature2Desc: 'افصل الرسم واللون والتعليقات في طبقات مستقلة، واضبط الشفافية والترتيب بحرية.',
+      feature3Title: 'حدّد ما تحتاجه فقط',
+      feature3Desc: 'استخدم التحديد المستطيل واللاسو والعصا السحرية لنسخ المنطقة المطلوبة وقصها ونقلها وتحسينها بدقة.',
+      feature4Title: 'أضف النصوص والتسميات',
+      feature4Desc: 'ضع نصوصًا أنيقة بحرية، وأضف لمسة احترافية عبر ضبط الحجم والموضع والحدود والظلال.',
+      feature5Title: 'اختصارات لا تقطع التدفق',
+      feature5Desc: 'بدّل الأدوات، واستخدم Undo/Redo، والنسخ واللصق، والتكبير والتصغير من لوحة المفاتيح بسلاسة وسرعة.',
+      feature6Title: 'تجربة Export محسّنة',
+      feature6Desc: 'صدّر PDF، واحفظ PNG، واستورد JPG/JPEG/WebP، واحفظ مشاريع .paintx مع الطبقات ضمن تدفق واحد بديهي.'
+    },
+    hi: {
+      feature1Title: 'तेज़ी से बनाएँ और सुधारें',
+      feature1Desc: 'ब्रश, पेंसिल, इरेज़र, बकेट और eyedropper जैसे ज़रूरी tools से तेज़ी से बनाएँ और तुरंत सुधारें।',
+      feature2Title: 'Layers से सुरक्षित editing',
+      feature2Desc: 'Sketch, color और annotation काम को अलग layers में रखें, फिर opacity और order को स्वतंत्र रूप से बदलें।',
+      feature3Title: 'सिर्फ़ ज़रूरी हिस्सा चुनें',
+      feature3Desc: 'Rectangle select, lasso और magic wand से चाहिए हुए area को सही तरह copy, cut, move और refine करें।',
+      feature4Title: 'Text और labels जोड़ें',
+      feature4Desc: 'Stylish text को स्वतंत्र रूप से रखें, फिर size, position, outline और shadow से professional finish दें।',
+      feature5Title: 'Flow बनाए रखने वाले shortcuts',
+      feature5Desc: 'Tool switching, Undo/Redo, copy-paste और zoom तक keyboard से तेज़ और natural तरीके से जारी रखें।',
+      feature6Title: 'बेहतर Export अनुभव',
+      feature6Desc: 'PDF export, PNG save, JPG/JPEG/WebP import, और layers बचाने वाले .paintx project saves — सब कुछ एक intuitive flow में करें।'
+    },
+    ja: {
+      feature1Title: 'すばやく描いて直す',
+      feature1Desc: 'ブラシ、鉛筆、消しゴム、バケツ、スポイトなどの必須ツールですばやく描き、その場で修正できます。',
+      feature2Title: 'レイヤーで安全に編集',
+      feature2Desc: 'スケッチ、色、注釈作業を個別のレイヤーに分け、不透明度と順序を自由に調整できます。',
+      feature3Title: '必要な部分だけを選択',
+      feature3Desc: '矩形選択、ラッソ、マジックワンドで必要な領域を正確にコピー、切り取り、移動、補正できます。',
+      feature4Title: 'テキストとラベルを追加',
+      feature4Desc: 'スタイリッシュなテキストを自由に配置し、サイズ、位置、アウトライン、影で仕上がりを高められます。',
+      feature5Title: '流れを止めないショートカット',
+      feature5Desc: 'ツール切り替え、Undo/Redo、コピー・貼り付け、ズームまでキーボードで素早く自然に続けられます。',
+      feature6Title: '強化された Export 体験',
+      feature6Desc: 'PDF 書き出し、PNG 保存、JPG/JPEG/WebP 読み込み、レイヤーを保持する .paintx プロジェクト保存まで、直感的な流れで扱えます。'
+    },
+    fr: {
+      feature1Title: 'Dessiner et corriger vite',
+      feature1Desc: 'Dessinez vite et corrigez immédiatement avec les outils essentiels comme pinceau, crayon, gomme, pot de peinture et pipette.',
+      feature2Title: 'Modifier en sécurité avec les calques',
+      feature2Desc: 'Séparez croquis, couleurs et annotations en calques individuels, puis ajustez librement opacité et ordre.',
+      feature3Title: 'Sélectionner seulement l’essentiel',
+      feature3Desc: 'Utilisez sélection rectangulaire, lasso et baguette magique pour copier, couper, déplacer et corriger précisément la zone voulue.',
+      feature4Title: 'Ajouter texte et labels',
+      feature4Desc: 'Placez librement du texte élégant, puis ajoutez une finition professionnelle avec taille, position, contour et ombre.',
+      feature5Title: 'Des raccourcis sans rupture',
+      feature5Desc: 'Changez d’outil, utilisez Undo/Redo, copier-coller et zoom au clavier pour garder un travail rapide et naturel.',
+      feature6Title: 'Expérience Export améliorée',
+      feature6Desc: 'Export PDF, sauvegarde PNG, import JPG/JPEG/WebP et projets .paintx avec calques préservés : tout passe par un flux intuitif.'
+    },
+    de: {
+      feature1Title: 'Schnell zeichnen und korrigieren',
+      feature1Desc: 'Zeichne schnell und korrigiere sofort mit wichtigen Werkzeugen wie Pinsel, Stift, Radierer, Fülleimer und Pipette.',
+      feature2Title: 'Sicher mit Ebenen bearbeiten',
+      feature2Desc: 'Trenne Skizzen, Farben und Anmerkungen in einzelne Ebenen und passe Deckkraft und Reihenfolge frei an.',
+      feature3Title: 'Nur das Nötige auswählen',
+      feature3Desc: 'Nutze Rechteckauswahl, Lasso und Zauberstab, um gewünschte Bereiche präzise zu kopieren, auszuschneiden, zu verschieben und zu korrigieren.',
+      feature4Title: 'Text und Labels hinzufügen',
+      feature4Desc: 'Platziere stilvollen Text frei und verfeinere ihn mit Größe, Position, Kontur und Schatten.',
+      feature5Title: 'Shortcuts ohne Unterbrechung',
+      feature5Desc: 'Werkzeugwechsel, Undo/Redo, Kopieren, Einfügen und Zoom laufen schnell und natürlich über die Tastatur.',
+      feature6Title: 'Verbessertes Export-Erlebnis',
+      feature6Desc: 'PDF-Export, PNG-Speichern, JPG/JPEG/WebP-Import und .paintx-Projekte mit Ebenenerhalt laufen in einem intuitiven Ablauf.'
+    },
+    pt: {
+      feature1Title: 'Desenhe e corrija rápido',
+      feature1Desc: 'Desenhe rapidamente e corrija na hora com ferramentas essenciais como pincel, lápis, borracha, balde e conta-gotas.',
+      feature2Title: 'Edite com segurança usando camadas',
+      feature2Desc: 'Separe esboço, cor e anotações em camadas individuais, depois ajuste livremente opacidade e ordem.',
+      feature3Title: 'Selecione só o necessário',
+      feature3Desc: 'Use seleção retangular, laço e varinha mágica para copiar, recortar, mover e ajustar com precisão a área desejada.',
+      feature4Title: 'Adicione texto e labels',
+      feature4Desc: 'Posicione textos estilosos livremente e dê acabamento profissional com tamanho, posição, contorno e sombra.',
+      feature5Title: 'Atalhos que mantêm o fluxo',
+      feature5Desc: 'Troque ferramentas, use Undo/Redo, copie, cole e dê zoom pelo teclado para trabalhar de forma rápida e natural.',
+      feature6Title: 'Experiência de Export aprimorada',
+      feature6Desc: 'Exporte PDF, salve PNG, importe JPG/JPEG/WebP e salve projetos .paintx preservando camadas, tudo em um fluxo intuitivo.'
+    }
+  };
+  Object.keys(FEATURE_CARDS_COPY_I18N).forEach(function(lang) {
+    Object.assign(I18N[lang], FEATURE_CARDS_COPY_I18N[lang]);
   });
   Object.keys(LINUX_GUIDE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], LINUX_GUIDE_I18N[lang]);
