@@ -776,7 +776,7 @@
 <section id="features">
   <p class="section-label" id="features-label">Features</p>
   <h2 id="features-title">Everything you need to create</h2>
-  <p class="section-sub" id="features-sub">Built for speed. Designed to stay out of your way.</p>
+  <p class="section-sub" id="features-sub">Built for speed and designed to stay out of your way.</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">🖌️</div>
@@ -1305,6 +1305,21 @@
   };
   Object.keys(EXPORT_FEATURE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], EXPORT_FEATURE_I18N[lang]);
+  });
+  const FEATURES_COPY_I18N = {
+    en: { featuresTitle: 'Everything you need to create', featuresSub: 'Built for speed and designed to stay out of your way.' },
+    ko: { featuresTitle: '창작에 필요한 모든 기능', featuresSub: '빠르고 직관적인 작업 흐름을 위해 설계되었습니다.' },
+    zh: { featuresTitle: '创作所需一应俱全', featuresSub: '为快速、直观的工作流程而设计。' },
+    es: { featuresTitle: 'Todo lo que necesitas para crear', featuresSub: 'Diseñado para un flujo de trabajo rápido e intuitivo.' },
+    ar: { featuresTitle: 'كل ما تحتاجه للإبداع', featuresSub: 'مصمم لسير عمل سريع وبديهي.' },
+    hi: { featuresTitle: 'बनाने के लिए सब कुछ', featuresSub: 'तेज़ और सहज workflow के लिए डिज़ाइन किया गया।' },
+    ja: { featuresTitle: '創作に必要なものをすべて', featuresSub: 'すばやく直感的なワークフローのために設計されています。' },
+    fr: { featuresTitle: 'Tout ce qu’il faut pour créer', featuresSub: 'Conçu pour un flux de travail rapide et intuitif.' },
+    de: { featuresTitle: 'Alles, was du zum Erstellen brauchst', featuresSub: 'Für einen schnellen und intuitiven Arbeitsablauf entwickelt.' },
+    pt: { featuresTitle: 'Tudo o que você precisa para criar', featuresSub: 'Projetado para um fluxo de trabalho rápido e intuitivo.' }
+  };
+  Object.keys(FEATURES_COPY_I18N).forEach(function(lang) {
+    Object.assign(I18N[lang], FEATURES_COPY_I18N[lang]);
   });
   Object.keys(LINUX_GUIDE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], LINUX_GUIDE_I18N[lang]);
