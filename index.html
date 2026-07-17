@@ -1084,7 +1084,7 @@
   <div style="display:flex;justify-content:center;margin-bottom:40px">
     <div class="hero-badge" style="margin-bottom:0">
       <span class="dot"></span>
-      <span id="latest-release-label">Latest release:</span> <strong id="dl-version-badge">v0.1.0</strong>
+      <span id="latest-release-label">Latest release:</span> <strong id="dl-version-badge">v1.0.0</strong>
       <span class="download-count" id="download-count-wrap">
         <span id="download-count-label">Downloads:</span> <strong id="download-count">0</strong>
       </span>
@@ -2064,7 +2064,7 @@
       const res = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest');
       if (!res.ok) { showCachedDownloadCount(); return; }
       const data = await res.json();
-      const ver = data.tag_name || 'v0.1.0';
+      const ver = data.tag_name || 'v1.0.0';
 
       document.getElementById('dl-version-badge').textContent = ver;
 
