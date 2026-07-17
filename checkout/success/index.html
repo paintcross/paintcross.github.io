@@ -161,6 +161,11 @@
         border-color: #5b3a1f;
         background: #1d1712;
       }
+
+      [dir="rtl"] .steps {
+        padding-left: 0;
+        padding-right: 22px;
+      }
     </style>
   </head>
   <body>
@@ -173,40 +178,40 @@
         </div>
 
         <section id="success">
-          <h1>Your Pro license is ready.</h1>
-          <p class="lead">
+          <h1 data-i18n="successTitle">Your Pro license is ready.</h1>
+          <p class="lead" data-i18n="successLead">
             Copy this license key, open Paint.Cross, paste it into the Pro activation box, and click Activate.
           </p>
 
           <div class="key-card">
-            <p class="label">License Key</p>
+            <p class="label" data-i18n="licenseKeyLabel">License Key</p>
             <code id="license-key"></code>
             <div class="actions">
-              <button id="copy-button" type="button">Copy license key</button>
-              <a class="button" href="mailto:joonkn72@gmail.com">Contact support</a>
+              <button id="copy-button" type="button" data-i18n="copyButton">Copy license key</button>
+              <a class="button" href="mailto:joonkn72@gmail.com" data-i18n="contactSupport">Contact support</a>
             </div>
           </div>
 
           <ol class="steps">
-            <li>Open Paint.Cross.</li>
-            <li>Click Get Pro License.</li>
-            <li>Paste the key into the activation box.</li>
-            <li>Click Activate.</li>
+            <li data-i18n="step1">Open Paint.Cross.</li>
+            <li data-i18n="step2">Click Get Pro License.</li>
+            <li data-i18n="step3">Paste the key into the activation box.</li>
+            <li data-i18n="step4">Click Activate.</li>
           </ol>
 
           <p id="email-note" class="muted"></p>
         </section>
 
         <section id="missing" class="hidden">
-          <h1>Payment received.</h1>
-          <p class="lead">
+          <h1 data-i18n="missingTitle">Payment received.</h1>
+          <p class="lead" data-i18n="missingLead">
             We could not find a license key in this checkout redirect. Please check your email or contact support with your payment ID.
           </p>
           <div class="key-card error">
-            <p class="label">Payment ID</p>
-            <code id="payment-id">Unavailable</code>
+            <p class="label" data-i18n="paymentIdLabel">Payment ID</p>
+            <code id="payment-id" data-i18n="unavailable">Unavailable</code>
             <div class="actions">
-              <a id="support-link" class="button" href="mailto:joonkn72@gmail.com">Contact support</a>
+              <a id="support-link" class="button" href="mailto:joonkn72@gmail.com" data-i18n="contactSupport">Contact support</a>
             </div>
           </div>
         </section>
@@ -214,6 +219,239 @@
     </main>
 
     <script>
+      const I18N = {
+        en: {
+          title: 'Paint.Cross Pro License',
+          successTitle: 'Your Pro license is ready.',
+          successLead: 'Copy this license key, open Paint.Cross, paste it into the Pro activation box, and click Activate.',
+          licenseKeyLabel: 'License Key',
+          copyButton: 'Copy license key',
+          contactSupport: 'Contact support',
+          step1: 'Open Paint.Cross.',
+          step2: 'Click Get Pro License.',
+          step3: 'Paste the key into the activation box.',
+          step4: 'Click Activate.',
+          receiptEmail: 'Receipt email: {email}',
+          missingTitle: 'Payment received.',
+          missingLead: 'We could not find a license key in this checkout redirect. Please check your email or contact support with your payment ID.',
+          paymentIdLabel: 'Payment ID',
+          unavailable: 'Unavailable',
+          copied: 'Copied',
+          copyFallback: 'Select and copy the key',
+          supportSubject: 'Paint.Cross license key help',
+          supportBody: 'Payment ID:',
+        },
+        ko: {
+          title: 'Paint.Cross Pro 라이선스',
+          successTitle: 'Pro 라이선스가 준비되었습니다.',
+          successLead: '이 라이선스 키를 복사한 뒤 Paint.Cross를 열고 Pro 활성화 입력란에 붙여넣은 다음 활성화를 클릭하세요.',
+          licenseKeyLabel: '라이선스 키',
+          copyButton: '라이선스 키 복사',
+          contactSupport: '고객 지원 문의',
+          step1: 'Paint.Cross를 실행하세요.',
+          step2: 'Pro 라이선스 받기를 클릭하세요.',
+          step3: '활성화 입력란에 키를 붙여넣으세요.',
+          step4: '활성화를 클릭하세요.',
+          receiptEmail: '영수증 이메일: {email}',
+          missingTitle: '결제가 완료되었습니다.',
+          missingLead: '이 결제 페이지에서 라이선스 키를 찾을 수 없습니다. 이메일을 확인하시거나 결제 ID와 함께 고객 지원에 문의해 주세요.',
+          paymentIdLabel: '결제 ID',
+          unavailable: '확인 불가',
+          copied: '복사됨',
+          copyFallback: '키를 선택해 복사하세요',
+          supportSubject: 'Paint.Cross 라이선스 키 문의',
+          supportBody: '결제 ID:',
+        },
+        zh: {
+          title: 'Paint.Cross Pro 许可证',
+          successTitle: '您的 Pro 许可证已就绪。',
+          successLead: '复制此许可证密钥，打开 Paint.Cross，将其粘贴到 Pro 激活框中，然后点击“激活”。',
+          licenseKeyLabel: '许可证密钥',
+          copyButton: '复制许可证密钥',
+          contactSupport: '联系客服',
+          step1: '打开 Paint.Cross。',
+          step2: '点击“获取 Pro 许可证”。',
+          step3: '将密钥粘贴到激活框中。',
+          step4: '点击“激活”。',
+          receiptEmail: '收据邮箱：{email}',
+          missingTitle: '已收到付款。',
+          missingLead: '我们在此结账跳转中未找到许可证密钥。请查看您的邮箱，或提供付款 ID 联系客服。',
+          paymentIdLabel: '付款 ID',
+          unavailable: '暂无',
+          copied: '已复制',
+          copyFallback: '请选中并复制密钥',
+          supportSubject: 'Paint.Cross 许可证密钥帮助',
+          supportBody: '付款 ID:',
+        },
+        es: {
+          title: 'Licencia Pro de Paint.Cross',
+          successTitle: 'Tu licencia Pro está lista.',
+          successLead: 'Copia esta clave de licencia, abre Paint.Cross, pégala en el cuadro de activación Pro y haz clic en Activar.',
+          licenseKeyLabel: 'Clave de licencia',
+          copyButton: 'Copiar clave de licencia',
+          contactSupport: 'Contactar con soporte',
+          step1: 'Abre Paint.Cross.',
+          step2: 'Haz clic en «Obtener licencia Pro».',
+          step3: 'Pega la clave en el cuadro de activación.',
+          step4: 'Haz clic en Activar.',
+          receiptEmail: 'Correo del recibo: {email}',
+          missingTitle: 'Pago recibido.',
+          missingLead: 'No encontramos una clave de licencia en esta redirección de pago. Revisa tu correo o contacta con soporte indicando tu ID de pago.',
+          paymentIdLabel: 'ID de pago',
+          unavailable: 'No disponible',
+          copied: 'Copiado',
+          copyFallback: 'Selecciona y copia la clave',
+          supportSubject: 'Ayuda con la clave de licencia de Paint.Cross',
+          supportBody: 'ID de pago:',
+        },
+        ar: {
+          title: 'ترخيص Paint.Cross Pro',
+          successTitle: 'ترخيص Pro الخاص بك جاهز.',
+          successLead: 'انسخ مفتاح الترخيص هذا، ثم افتح Paint.Cross والصقه في مربع تفعيل Pro، ثم انقر على «تفعيل».',
+          licenseKeyLabel: 'مفتاح الترخيص',
+          copyButton: 'نسخ مفتاح الترخيص',
+          contactSupport: 'التواصل مع الدعم',
+          step1: 'افتح Paint.Cross.',
+          step2: 'انقر على «الحصول على ترخيص Pro».',
+          step3: 'الصق المفتاح في مربع التفعيل.',
+          step4: 'انقر على «تفعيل».',
+          receiptEmail: 'البريد الإلكتروني للإيصال: {email}',
+          missingTitle: 'تم استلام الدفعة.',
+          missingLead: 'لم نعثر على مفتاح ترخيص في صفحة إعادة التوجيه هذه. يرجى التحقق من بريدك الإلكتروني أو التواصل مع الدعم مع ذكر معرّف الدفع.',
+          paymentIdLabel: 'معرّف الدفع',
+          unavailable: 'غير متوفر',
+          copied: 'تم النسخ',
+          copyFallback: 'حدد المفتاح وانسخه',
+          supportSubject: 'مساعدة بخصوص مفتاح ترخيص Paint.Cross',
+          supportBody: 'معرّف الدفع:',
+        },
+        hi: {
+          title: 'Paint.Cross Pro लाइसेंस',
+          successTitle: 'आपका Pro लाइसेंस तैयार है।',
+          successLead: 'इस लाइसेंस कुंजी को कॉपी करें, Paint.Cross खोलें, इसे Pro सक्रियण बॉक्स में पेस्ट करें और Activate पर क्लिक करें।',
+          licenseKeyLabel: 'लाइसेंस कुंजी',
+          copyButton: 'लाइसेंस कुंजी कॉपी करें',
+          contactSupport: 'सहायता से संपर्क करें',
+          step1: 'Paint.Cross खोलें।',
+          step2: 'Get Pro License पर क्लिक करें।',
+          step3: 'कुंजी को सक्रियण बॉक्स में पेस्ट करें।',
+          step4: 'Activate पर क्लिक करें।',
+          receiptEmail: 'रसीद ईमेल: {email}',
+          missingTitle: 'भुगतान प्राप्त हुआ।',
+          missingLead: 'इस चेकआउट रीडायरेक्ट में हमें लाइसेंस कुंजी नहीं मिली। कृपया अपना ईमेल देखें या अपने भुगतान ID के साथ सहायता से संपर्क करें।',
+          paymentIdLabel: 'भुगतान ID',
+          unavailable: 'उपलब्ध नहीं',
+          copied: 'कॉपी हो गया',
+          copyFallback: 'कुंजी चुनकर कॉपी करें',
+          supportSubject: 'Paint.Cross लाइसेंस कुंजी सहायता',
+          supportBody: 'भुगतान ID:',
+        },
+        ja: {
+          title: 'Paint.Cross Pro ライセンス',
+          successTitle: 'Pro ライセンスの準備ができました。',
+          successLead: 'このライセンスキーをコピーし、Paint.Cross を開いて Pro アクティベーション欄に貼り付け、「アクティベート」をクリックしてください。',
+          licenseKeyLabel: 'ライセンスキー',
+          copyButton: 'ライセンスキーをコピー',
+          contactSupport: 'サポートに問い合わせる',
+          step1: 'Paint.Cross を起動します。',
+          step2: '「Pro ライセンスを取得」をクリックします。',
+          step3: 'アクティベーション欄にキーを貼り付けます。',
+          step4: '「アクティベート」をクリックします。',
+          receiptEmail: '領収書の送付先メール: {email}',
+          missingTitle: 'お支払いを確認しました。',
+          missingLead: 'このチェックアウトのリダイレクトにライセンスキーが見つかりませんでした。メールをご確認いただくか、お支払い ID を添えてサポートまでお問い合わせください。',
+          paymentIdLabel: 'お支払い ID',
+          unavailable: '不明',
+          copied: 'コピーしました',
+          copyFallback: 'キーを選択してコピーしてください',
+          supportSubject: 'Paint.Cross ライセンスキーに関するお問い合わせ',
+          supportBody: 'お支払い ID:',
+        },
+        fr: {
+          title: 'Licence Pro Paint.Cross',
+          successTitle: 'Votre licence Pro est prête.',
+          successLead: 'Copiez cette clé de licence, ouvrez Paint.Cross, collez-la dans le champ d’activation Pro, puis cliquez sur Activer.',
+          licenseKeyLabel: 'Clé de licence',
+          copyButton: 'Copier la clé de licence',
+          contactSupport: 'Contacter le support',
+          step1: 'Ouvrez Paint.Cross.',
+          step2: 'Cliquez sur « Obtenir la licence Pro ».',
+          step3: 'Collez la clé dans le champ d’activation.',
+          step4: 'Cliquez sur Activer.',
+          receiptEmail: 'E-mail du reçu : {email}',
+          missingTitle: 'Paiement reçu.',
+          missingLead: 'Nous n’avons pas trouvé de clé de licence dans cette redirection de paiement. Vérifiez vos e-mails ou contactez le support en indiquant votre ID de paiement.',
+          paymentIdLabel: 'ID de paiement',
+          unavailable: 'Indisponible',
+          copied: 'Copié',
+          copyFallback: 'Sélectionnez et copiez la clé',
+          supportSubject: 'Aide pour la clé de licence Paint.Cross',
+          supportBody: 'ID de paiement :',
+        },
+        de: {
+          title: 'Paint.Cross Pro-Lizenz',
+          successTitle: 'Ihre Pro-Lizenz ist bereit.',
+          successLead: 'Kopieren Sie diesen Lizenzschlüssel, öffnen Sie Paint.Cross, fügen Sie ihn in das Pro-Aktivierungsfeld ein und klicken Sie auf „Aktivieren“.',
+          licenseKeyLabel: 'Lizenzschlüssel',
+          copyButton: 'Lizenzschlüssel kopieren',
+          contactSupport: 'Support kontaktieren',
+          step1: 'Öffnen Sie Paint.Cross.',
+          step2: 'Klicken Sie auf „Pro-Lizenz holen“.',
+          step3: 'Fügen Sie den Schlüssel in das Aktivierungsfeld ein.',
+          step4: 'Klicken Sie auf „Aktivieren“.',
+          receiptEmail: 'Beleg-E-Mail: {email}',
+          missingTitle: 'Zahlung erhalten.',
+          missingLead: 'Wir konnten in dieser Checkout-Weiterleitung keinen Lizenzschlüssel finden. Bitte prüfen Sie Ihre E-Mails oder kontaktieren Sie den Support mit Ihrer Zahlungs-ID.',
+          paymentIdLabel: 'Zahlungs-ID',
+          unavailable: 'Nicht verfügbar',
+          copied: 'Kopiert',
+          copyFallback: 'Schlüssel markieren und kopieren',
+          supportSubject: 'Hilfe zum Paint.Cross-Lizenzschlüssel',
+          supportBody: 'Zahlungs-ID:',
+        },
+        pt: {
+          title: 'Licença Pro do Paint.Cross',
+          successTitle: 'Sua licença Pro está pronta.',
+          successLead: 'Copie esta chave de licença, abra o Paint.Cross, cole-a na caixa de ativação Pro e clique em Ativar.',
+          licenseKeyLabel: 'Chave de licença',
+          copyButton: 'Copiar chave de licença',
+          contactSupport: 'Falar com o suporte',
+          step1: 'Abra o Paint.Cross.',
+          step2: 'Clique em “Obter licença Pro”.',
+          step3: 'Cole a chave na caixa de ativação.',
+          step4: 'Clique em Ativar.',
+          receiptEmail: 'E-mail do recibo: {email}',
+          missingTitle: 'Pagamento recebido.',
+          missingLead: 'Não encontramos uma chave de licença neste redirecionamento de checkout. Verifique seu e-mail ou entre em contato com o suporte informando seu ID de pagamento.',
+          paymentIdLabel: 'ID de pagamento',
+          unavailable: 'Indisponível',
+          copied: 'Copiado',
+          copyFallback: 'Selecione e copie a chave',
+          supportSubject: 'Ajuda com a chave de licença do Paint.Cross',
+          supportBody: 'ID de pagamento:',
+        },
+      };
+
+      let storedLang = null;
+      try {
+        storedLang = localStorage.getItem('paintcross_lang');
+      } catch {
+        /* localStorage unavailable */
+      }
+      const browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      const lang = I18N[storedLang] ? storedLang : I18N[browserLang] ? browserLang : 'en';
+      const t = I18N[lang];
+
+      document.documentElement.lang = lang;
+      if (lang === 'ar') {
+        document.documentElement.dir = 'rtl';
+      }
+      document.title = t.title;
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const text = t[el.dataset.i18n];
+        if (text) el.textContent = text;
+      });
+
       const params = new URLSearchParams(window.location.search);
       const licenseKey = params.get('license_key') || '';
       const email = params.get('email') || '';
@@ -230,24 +468,24 @@
       if (licenseKey) {
         keyEl.textContent = licenseKey;
         if (email) {
-          emailNote.textContent = `Receipt email: ${email}`;
+          emailNote.textContent = t.receiptEmail.replace('{email}', email);
         }
       } else {
         success.classList.add('hidden');
         missing.classList.remove('hidden');
         if (paymentId) {
           paymentEl.textContent = paymentId;
-          supportLink.href = `mailto:joonkn72@gmail.com?subject=Paint.Cross%20license%20key%20help&body=Payment%20ID:%20${encodeURIComponent(paymentId)}`;
+          supportLink.href = `mailto:joonkn72@gmail.com?subject=${encodeURIComponent(t.supportSubject)}&body=${encodeURIComponent(`${t.supportBody} ${paymentId}`)}`;
         }
       }
 
       copyButton?.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(licenseKey);
-          copyButton.textContent = 'Copied';
+          copyButton.textContent = t.copied;
         } catch {
           window.getSelection()?.selectAllChildren(keyEl);
-          copyButton.textContent = 'Select and copy the key';
+          copyButton.textContent = t.copyFallback;
         }
       });
     </script>

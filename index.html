@@ -4,7 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paint.Cross — Cross-Platform Paint App</title>
+  <meta name="description" content="A fast, native image editor for macOS, Windows, and Linux — no Electron, no bloat, no account. Free core, optional Pro for $9.99 one-time. Just draw." />
+  <link rel="canonical" href="https://paintcross.github.io/" />
+  <meta name="theme-color" content="#0c0c0e" />
   <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Paint.Cross" />
+  <meta property="og:title" content="Paint.Cross — Fast, native image editor for every desktop" />
+  <meta property="og:description" content="Native on Mac, Windows, and Linux. Free core + Pro for $9.99 one-time. No subscription, no account, no bloat." />
+  <meta property="og:url" content="https://paintcross.github.io/" />
+  <meta property="og:image" content="https://paintcross.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Paint.Cross — Fast, native image editor for every desktop" />
+  <meta name="twitter:description" content="Native on Mac, Windows, and Linux. Free core + Pro for $9.99 one-time. No subscription, no account, no bloat." />
+  <meta name="twitter:image" content="https://paintcross.github.io/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Paint.Cross",
+    "operatingSystem": "macOS, Windows, Linux",
+    "applicationCategory": "DesignApplication",
+    "url": "https://paintcross.github.io/",
+    "image": "https://paintcross.github.io/icon.png",
+    "description": "A fast, native image editor for macOS, Windows, and Linux — no Electron, no bloat. Free core with an optional one-time Pro upgrade.",
+    "offers": [
+      { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free core" },
+      { "@type": "Offer", "price": "9.99", "priceCurrency": "USD", "description": "Pro — one-time purchase, lifetime license for v1.x" }
+    ]
+  }
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -216,6 +248,7 @@
       object-fit: cover; object-position: top;
       display: block;
     }
+    video.preview-screenshot { object-fit: contain; background: #101014; }
     .preview-slide {
       position: absolute;
       inset: 0;
@@ -640,14 +673,120 @@
       color: #fff;
     }
 
+    /* COMPARE STRIP */
+    .compare-strip {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 36px 24px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(91,141,239,.06), rgba(155,110,247,.04));
+    }
+    .compare-strip h2 { font-size: 22px; margin-bottom: 12px; letter-spacing: -.4px; }
+    .compare-strip p { font-size: 14px; color: var(--muted); max-width: 620px; margin: 0 auto; }
+    .compare-strip p + p { margin-top: 4px; color: var(--text); }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 820px;
+      margin: 40px auto 0;
+      align-items: stretch;
+    }
+    .price-card {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 28px;
+      display: flex; flex-direction: column;
+      text-align: left;
+    }
+    .price-card.pro {
+      border-color: rgba(91,141,239,.55);
+      background: linear-gradient(180deg, rgba(91,141,239,.10), var(--card) 55%);
+    }
+    .price-badge {
+      position: absolute; top: -12px; right: 20px;
+      padding: 3px 12px; border-radius: 100px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .4px;
+    }
+    .price-plan-name { font-size: 14px; font-weight: 700; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; }
+    .price-amount { font-size: 40px; font-weight: 800; letter-spacing: -1px; margin-top: 6px; }
+    .price-amount small { font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0; margin-left: 6px; }
+    .price-desc { font-size: 13px; color: var(--muted); margin: 8px 0 18px; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
+    .price-features li { font-size: 13px; color: var(--text); display: flex; gap: 9px; line-height: 1.5; }
+    .price-features li::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+    .price-license { font-size: 12px; color: var(--muted); margin: -12px 0 18px; padding-left: 22px; }
+    .price-cta { margin-top: auto; }
+    .price-cta .btn-primary, .price-cta .btn-outline {
+      display: flex; justify-content: center; width: 100%;
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 26px; border-radius: 10px;
+      border: 1px solid var(--border); color: var(--text);
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: border-color .2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); }
+    .price-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 14px; }
+    .pricing-quip { text-align: center; font-size: 14px; color: var(--accent); margin-top: 26px; font-style: italic; }
+
+    /* MOBILE NOTICE */
+    .mobile-notice {
+      display: none;
+      max-width: 560px;
+      margin: 0 auto 28px;
+      padding: 14px 18px;
+      border: 1px solid rgba(91,141,239,.35);
+      border-radius: var(--radius);
+      background: rgba(91,141,239,.08);
+      text-align: left;
+    }
+    .mobile-notice.visible { display: block; }
+    .mobile-notice strong { font-size: 14px; display: block; margin-bottom: 4px; }
+    .mobile-notice p { font-size: 13px; color: var(--muted); }
+
+    /* CAROUSEL PAUSE */
+    .preview-pause {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      width: 26px; height: 26px;
+      font-size: 11px; line-height: 1;
+      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .preview-pause:hover { color: var(--text); border-color: var(--accent); }
+
+    [dir="rtl"] .price-card { text-align: right; }
+    [dir="rtl"] .price-license { padding-left: 0; padding-right: 22px; }
+    [dir="rtl"] .price-badge { right: auto; left: 20px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
     @media (max-width: 900px) {
       .example-grid,
       .quick-faq { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
     }
 
     @media (max-width: 640px) {
-      nav { padding: 0 20px; }
-      .nav-links a:not(.nav-gh) { display: none; }
+      nav { padding: 0 16px; }
+      .nav-links { gap: 10px; }
+      .nav-links a:not(.nav-gh):not(#nav-download) { display: none; }
+      .nav-gh { padding: 7px 9px; }
+      .nav-gh span { display: none; }
       footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
       .stats-bar { gap: 32px; flex-wrap: wrap; }
     }
@@ -664,7 +803,12 @@
   <div class="nav-links">
     <a href="#examples" id="nav-examples">Examples</a>
     <a href="#features" id="nav-features">Features</a>
+    <a href="#pricing" id="nav-pro">Pricing</a>
     <a href="#download" id="nav-download">Download</a>
+    <a class="nav-gh" href="https://github.com/paintcross/PaintCross" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      <span>GitHub</span>
+    </a>
     <div class="lang-dropdown">
       <button id="lang-trigger" class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
         <span id="lang-label">English</span>
@@ -685,6 +829,8 @@
     </div>
   </div>
 </nav>
+
+<main>
 
 <!-- HERO -->
 <section class="hero">
@@ -726,9 +872,9 @@
     </a>
   </div>
   <div class="hero-trust">
-    <span><span class="trust-check">✓</span> <span id="trust-free">Free</span></span>
+    <span><span class="trust-check">✓</span> <span id="trust-free">Free core</span></span>
     <span><span class="trust-check">✓</span> <span id="trust-account">No account needed</span></span>
-    <!-- <span><span class="trust-check">✓</span> Native app</span> -->
+    <span><span class="trust-check">✓</span> <span id="trust-nosub">No subscription</span></span>
   </div>
 </section>
 
@@ -742,16 +888,19 @@
       <span class="chrome-title" id="preview-title">Paint.Cross — Untitled.paintx</span>
     </div>
     <div class="preview-carousel" id="preview-carousel">
-      <img class="preview-screenshot preview-slide active" src="hero-preview-markers.png" alt="Paint.Cross numbered callouts and screenshot markup preview" data-title="Paint.Cross — Review Notes.paintx" data-caption="Numbered callouts, arrows, selections, and labels for fast visual feedback." />
-      <img class="preview-screenshot preview-slide" src="hero-preview-layers.png" alt="Paint.Cross layered edits preview" data-title="Paint.Cross — Layered Edits.paintx" data-caption="Sketch, color, markers, and notes stay separated with multiple layers." />
-      <img class="preview-screenshot preview-slide" src="hero-preview-brush.png" alt="Paint.Cross brush and color tools preview" data-title="Paint.Cross — Brush Tools.paintx" data-caption="Brush, pencil, fill, and color picker tools stay close to the canvas." />
-      <img class="preview-screenshot preview-slide" src="hero-preview-selection.png" alt="Paint.Cross selection mask preview" data-title="Paint.Cross — Selection Mask.paintx" data-caption="Select, move, copy, and refine only the area that matters." />
+      <video class="preview-screenshot preview-slide active" autoplay loop muted playsinline src="demo.mp4" data-title-key="previewSlide0Title" data-caption-key="previewSlide0Caption" aria-label="Paint.Cross live demo — launch, draw, annotate, fill, and layers in real time"></video>
+      <img class="preview-screenshot preview-slide" src="hero-preview-markers.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross numbered callouts and screenshot markup preview" data-title-key="previewSlide1Title" data-caption-key="previewSlide1Caption" />
+      <img class="preview-screenshot preview-slide" src="hero-preview-layers.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross layered edits preview" data-title-key="previewSlide2Title" data-caption-key="previewSlide2Caption" />
+      <img class="preview-screenshot preview-slide" src="hero-preview-brush.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross brush and color tools preview" data-title-key="previewSlide3Title" data-caption-key="previewSlide3Caption" />
+      <img class="preview-screenshot preview-slide" src="hero-preview-selection.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross selection mask preview" data-title-key="previewSlide4Title" data-caption-key="previewSlide4Caption" />
     </div>
     <div class="preview-dots" aria-label="Preview screenshots">
-      <button class="preview-dot active" type="button" data-preview-index="0" aria-label="Show marker preview"></button>
-      <button class="preview-dot" type="button" data-preview-index="1" aria-label="Show layers preview"></button>
-      <button class="preview-dot" type="button" data-preview-index="2" aria-label="Show brush preview"></button>
-      <button class="preview-dot" type="button" data-preview-index="3" aria-label="Show selection preview"></button>
+      <button class="preview-dot active" type="button" data-preview-index="0" aria-label="Show live demo"></button>
+      <button class="preview-dot" type="button" data-preview-index="1" aria-label="Show marker preview"></button>
+      <button class="preview-dot" type="button" data-preview-index="2" aria-label="Show layers preview"></button>
+      <button class="preview-dot" type="button" data-preview-index="3" aria-label="Show brush preview"></button>
+      <button class="preview-dot" type="button" data-preview-index="4" aria-label="Show selection preview"></button>
+      <button class="preview-pause" type="button" id="preview-pause" aria-label="Pause slideshow" aria-pressed="false">⏸</button>
     </div>
   </div>
   <p class="preview-caption" id="preview-caption">Native window — no browser shell, no Electron overhead</p>
@@ -764,26 +913,31 @@
   <p class="section-sub" id="examples-sub">A few everyday workflows you can handle without leaving the canvas.</p>
   <div class="example-grid">
     <article class="example-card">
-      <img class="example-media" src="example-brush-tools.png" alt="Paint.Cross brush tools example" />
+      <img class="example-media" src="example-brush-tools.webp" loading="lazy" alt="Paint.Cross brush tools example" />
       <div class="example-body">
         <h3 id="example-1-title">Sketch and refine quickly</h3>
         <p id="example-1-desc">Use brush, pencil, eraser, fill, and picker tools for quick drawings, edits, and rough visual notes.</p>
       </div>
     </article>
     <article class="example-card">
-      <img class="example-media" src="example-layers.png" alt="Paint.Cross layers example" />
+      <img class="example-media" src="example-layers.webp" loading="lazy" alt="Paint.Cross layers example" />
       <div class="example-body">
         <h3 id="example-2-title">Keep edits separated</h3>
         <p id="example-2-desc">Stack layers, adjust opacity, and merge when ready so experiments do not overwrite the base image.</p>
       </div>
     </article>
     <article class="example-card">
-      <img class="example-media" src="example-annotations.png" alt="Paint.Cross annotation example" />
+      <img class="example-media" src="example-annotations.webp" loading="lazy" alt="Paint.Cross annotation example" />
       <div class="example-body">
         <h3 id="example-3-title">Mark up screenshots</h3>
         <p id="example-3-desc">Add text, arrows, outlines, and highlights when you need to explain a change or call out a detail.</p>
       </div>
     </article>
+  </div>
+  <div class="compare-strip" style="margin-top:56px">
+    <h2 id="compare-title">The right weight for the job</h2>
+    <p id="compare-line1">Need 80% of Photoshop? There are heavier tools for that.</p>
+    <p id="compare-line2">Do ten five-minute edits a day? Paint.Cross opens instantly and stays out of your way.</p>
   </div>
 </section>
 
@@ -839,11 +993,55 @@
         <div class="stat-label" id="stat-undo">Undo Steps</div>
       </div>
       <div class="stat">
-        <div class="stat-num gradient-text">Free</div>
-        <div class="stat-label" id="stat-always">Free</div>
+        <div class="stat-num gradient-text">$9.99</div>
+        <div class="stat-label" id="stat-always">Pro — one-time</div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="section-label" id="pricing-label">Pricing</p>
+  <h2 id="pricing-title">Free to start. Pro when you need it.</h2>
+  <p class="section-sub" id="pricing-sub">One-time purchase. No subscription, no account.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-plan-name" id="plan-free-name">Free</div>
+      <div class="price-amount" id="plan-free-price">$0</div>
+      <p class="price-desc" id="plan-free-desc">Everything you need for everyday editing.</p>
+      <ul class="price-features">
+        <li id="plan-free-f1">All core tools — brush, pencil, eraser, fill, selections</li>
+        <li id="plan-free-f2">Layers with opacity control and merge</li>
+        <li id="plan-free-f3">Text, arrows, and annotation tools</li>
+        <li id="plan-free-f4">PNG · JPG export and .paintx project files</li>
+        <li id="plan-free-f5">macOS, Windows, and Linux — 10 languages</li>
+      </ul>
+      <div class="price-cta">
+        <a class="btn-outline" href="#download" id="plan-free-cta">Download Free</a>
+      </div>
+    </div>
+    <div class="price-card pro">
+      <div class="price-badge" id="plan-pro-badge">Launch price</div>
+      <div class="price-plan-name" id="plan-pro-name">Pro</div>
+      <div class="price-amount">$9.99<small id="plan-pro-term">one-time purchase</small></div>
+      <p class="price-desc" id="plan-pro-desc">Unlock the full toolkit. Pay once, keep it.</p>
+      <ul class="price-features">
+        <li id="plan-pro-f1">WebP · PDF · OpenRaster export with custom DPI</li>
+        <li id="plan-pro-f2">Advanced adjustments — levels and color balance</li>
+        <li id="plan-pro-f3">16 blend modes, clip masks, and symmetry</li>
+        <li id="plan-pro-f4">Premium brushes, layer groups, unlimited layers</li>
+        <li id="plan-pro-f5">High-resolution canvas, palette extraction, and more</li>
+        <li id="plan-pro-f6">Direct developer support</li>
+      </ul>
+      <p class="price-license" id="plan-pro-license">Lifetime license for v1.x</p>
+      <div class="price-cta">
+        <a class="btn-primary" href="#download" id="plan-pro-cta">Get Pro — $9.99</a>
+        <p class="price-note" id="plan-pro-note">Download free, then upgrade inside the app in one click. Your license key arrives instantly — no account needed.</p>
+      </div>
+    </div>
+  </div>
+  <p class="pricing-quip" id="pricing-quip">Pixelmator went subscription. We didn't.</p>
 </section>
 
 <!-- DOWNLOAD -->
@@ -851,6 +1049,10 @@
   <p class="section-label" id="download-label">Download</p>
   <h2 id="download-title">Available on every desktop</h2>
   <p class="section-sub" id="download-sub">Native app — lightweight and fast, with no Electron or JVM.</p>
+  <div class="mobile-notice" id="mobile-notice">
+    <strong id="mobile-notice-title">Paint.Cross is a desktop app</strong>
+    <p id="mobile-notice-desc">You're on a mobile device. Send yourself the link and grab it on your Mac, Windows, or Linux machine.</p>
+  </div>
   <div style="display:flex;justify-content:center;margin-bottom:40px">
     <div class="hero-badge" style="margin-bottom:0">
       <span class="dot"></span>
@@ -989,10 +1191,10 @@
          </div>
        </div>
        <div style="margin-top:16px; text-align:center; border-top:1px solid var(--border); padding-top:12px">
-         <a id="linux-guide-trigger" class="linux-help-link">
+         <button type="button" id="linux-guide-trigger" class="linux-help-link" style="background:none;border:none;padding:0;font:inherit">
           <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:2px"><path d="M12 16v-4M12 8h.01M22 12A10 10 0 1 1 2 12a10 10 0 0 1 20 0z"></path></svg>
           <span id="linux-guide-trigger-text">How to Install (.deb, .rpm, AppImage)</span>
-        </a>
+        </button>
       </div>
     </div>
 
@@ -1068,8 +1270,22 @@
       <h3 id="faq-3-title">Do I need an account?</h3>
       <p id="faq-3-desc">No. There is no signup or login. Download the native app and start right away.</p>
     </div>
+    <div class="faq-item">
+      <h3 id="faq-4-title">Is Paint.Cross really free?</h3>
+      <p id="faq-4-desc">Yes. The core editor is free forever — no trial, no watermark. Pro is an optional one-time upgrade that unlocks advanced exports, filters, and more.</p>
+    </div>
+    <div class="faq-item">
+      <h3 id="faq-5-title">Is Pro a subscription?</h3>
+      <p id="faq-5-desc">No. Pro is a single $9.99 purchase with a lifetime license for all v1.x updates. No account, no recurring charges.</p>
+    </div>
+    <div class="faq-item">
+      <h3 id="faq-6-title">How do I get my license key?</h3>
+      <p id="faq-6-desc">Buy Pro inside the app — your license key appears right after checkout and is also emailed to you. Paste it into the app to activate.</p>
+    </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
@@ -1085,15 +1301,20 @@
       This site is not affiliated with, sponsored by, or endorsed by Apple Inc. or Microsoft Corporation.
     </p>
   </div>
-  <!-- <div class="footer-links">
-    <a href="#download">Download</a>
-  </div> -->
+  <div class="footer-links">
+    <a href="/privacy/" id="footer-privacy">Privacy</a>
+    <a href="/terms/" id="footer-terms">Terms</a>
+    <a href="https://github.com/paintcross/PaintCross" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:joonkn72@gmail.com" id="footer-contact">Contact</a>
+  </div>
 </footer>
 
 <script>
   // --- Global Functions (Hoisted) ---
+  var DEBUG = /[?&]debug=1/.test(location.search);
+  function dbg() { if (DEBUG && window.console) console.log.apply(console, arguments); }
   function copyCode(btn, text) {
-    console.log('[Copy] Copying text:', text);
+    dbg('[Copy] Copying text:', text);
     navigator.clipboard.writeText(text).then(function() {
       btn.classList.add('copied');
       var originalHtml = btn.innerHTML;
@@ -1107,13 +1328,13 @@
 
   function toggleLinuxGuide(show) {
     var linuxGuideSection = document.getElementById('linux-guide-section');
-    console.log('[LinuxGuide] Toggle called. show:', show);
+    dbg('[LinuxGuide] Toggle called. show:', show);
     if (!linuxGuideSection) {
       console.warn('[LinuxGuide] Section not found in DOM');
       return;
     }
     var isVisible = typeof show === 'boolean' ? show : !linuxGuideSection.classList.contains('visible');
-    console.log('[LinuxGuide] Setting visible:', isVisible);
+    dbg('[LinuxGuide] Setting visible:', isVisible);
     if (isVisible) {
       linuxGuideSection.classList.add('visible');
       setTimeout(function() {
@@ -1154,22 +1375,22 @@
     var archHint = [ua, platform, oscpu].join(' ');
     var archOverride = getArchOverride();
     var renderer = '';
-    console.log('[DetectOS] --- Starting Detection ---');
-    console.log('[DetectOS] UserAgent:', ua);
-    console.log('[DetectOS] Platform:', platform);
-    if (oscpu) console.log('[DetectOS] OSCPU:', oscpu);
+    dbg('[DetectOS] --- Starting Detection ---');
+    dbg('[DetectOS] UserAgent:', ua);
+    dbg('[DetectOS] Platform:', platform);
+    if (oscpu) dbg('[DetectOS] OSCPU:', oscpu);
     
     var arch = 'x64';
     var hasExplicitArm = /aarch64|arm64|armv\d+|\barm\b/i.test(archHint);
     var hasExplicitX64 = /x86_64|amd64|i686|i386/i.test(archHint);
     if (archOverride) {
-      console.log('[DetectOS] Arch override:', archOverride);
+      dbg('[DetectOS] Arch override:', archOverride);
       arch = archOverride;
     } else if (hasExplicitArm) {
-      console.log('[DetectOS] Arch detected as ARM from browser hints');
+      dbg('[DetectOS] Arch detected as ARM from browser hints');
       arch = 'arm64';
     } else if (hasExplicitX64) {
-      console.log('[DetectOS] Arch detected as x64 from browser hints');
+      dbg('[DetectOS] Arch detected as x64 from browser hints');
       arch = 'x64';
     }
 
@@ -1180,43 +1401,43 @@
         var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         if (debugInfo) {
           renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
-          console.log('[DetectOS] WebGL Renderer:', renderer);
+          dbg('[DetectOS] WebGL Renderer:', renderer);
           if (!archOverride && !hasExplicitX64 && /Apple|Mali|Adreno|VideoCore|PowerVR|Vivante|Panfrost|Broadcom|Raspberry/i.test(renderer) && arch !== 'arm64') {
-            console.log('[DetectOS] ARM detected via WebGL Renderer');
+            dbg('[DetectOS] ARM detected via WebGL Renderer');
             arch = 'arm64';
           }
         }
       }
-    } catch(e) { console.log('[DetectOS] WebGL Hint Error:', e); }
+    } catch(e) { dbg('[DetectOS] WebGL Hint Error:', e); }
 
     if (/Macintosh|Mac OS X/i.test(ua)) {
-      console.log('[DetectOS] Result: Mac (found in UA)');
+      dbg('[DetectOS] Result: Mac (found in UA)');
       return { os: 'mac', arch: 'universal' };
     }
     
     if (/Windows/i.test(ua)) {
-      console.log('[DetectOS] Result: Windows, Arch:', arch);
+      dbg('[DetectOS] Result: Windows, Arch:', arch);
       return { os: 'win', arch: arch };
     }
     if (/Linux/i.test(ua)) {
-      console.log('[DetectOS] Result: Linux, Arch:', arch);
+      dbg('[DetectOS] Result: Linux, Arch:', arch);
       return { os: 'linux', arch: arch };
     }
     
-    console.log('[DetectOS] Result: No Match');
+    dbg('[DetectOS] Result: No Match');
     return { os: null, arch: 'x64' };
   }
 
   function highlightPlatform(detected) {
-    console.log('[Highlight] --- Applying Highlight ---');
-    console.log('[Highlight] Detected Info:', JSON.stringify(detected));
+    dbg('[Highlight] --- Applying Highlight ---');
+    dbg('[Highlight] Detected Info:', JSON.stringify(detected));
     
     var cards   = { mac: 'dl-mac',    win: 'dl-win',    linux: 'dl-linux'    };
     var plats   = { mac: 'plat-mac',  win: 'plat-win',  linux: 'plat-linux'  };
     var ribbons = { mac: 'macOS',     win: 'Windows',   linux: 'Linux'       };
     var allBtnIds = ['dl-mac-btn', 'dl-win-btn', 'dl-win-arm-btn', 'dl-linux-btn', 'dl-linux-arm-btn'];
     
-    console.log('[Highlight] 1. Resetting all cards and buttons');
+    dbg('[Highlight] 1. Resetting all cards and buttons');
     Object.keys(cards).forEach(function(k) {
       var cardId = cards[k];
       var card = document.getElementById(cardId);
@@ -1239,7 +1460,7 @@
     });
 
     if (!detected || !detected.os || !cards[detected.os]) {
-      console.log('[Highlight] No valid OS to highlight, reset complete.');
+      dbg('[Highlight] No valid OS to highlight, reset complete.');
       return;
     }
     
@@ -1249,17 +1470,17 @@
     // Download section — highlight detected OS card
     var dlCard = document.getElementById(cards[os]);
     if (dlCard) {
-      console.log('[Highlight] Highlighting card:', cards[os]);
+      dbg('[Highlight] Highlighting card:', cards[os]);
       dlCard.classList.add('primary');
       dlCard.dataset.ribbon = ribbons[os];
     }
     
     var btnId = os === 'mac' ? 'dl-mac-btn' : (arch === 'arm64' ? 'dl-' + os + '-arm-btn' : (arch === 'x64' ? 'dl-' + os + '-btn' : null));
-    console.log('[Highlight] Target primary button ID:', btnId || 'none');
+    dbg('[Highlight] Target primary button ID:', btnId || 'none');
     var dlBtn = btnId ? document.getElementById(btnId) : null;
     if (dlBtn) {
       dlBtn.classList.remove('outline');
-      console.log('[Highlight] Success: Removed outline from:', btnId);
+      dbg('[Highlight] Success: Removed outline from:', btnId);
     }
     document.querySelectorAll('.linux-arch-choice').forEach(function(btn) {
       btn.classList.toggle('active', os === 'linux' && btn.getAttribute('data-linux-arch') === arch);
@@ -1268,7 +1489,7 @@
     // Hero — highlight platform card
     var platCard = document.getElementById(plats[os]);
     if (platCard) {
-      console.log('[Highlight] Highlighting hero platform:', plats[os]);
+      dbg('[Highlight] Highlighting hero platform:', plats[os]);
       platCard.classList.add('active');
     }
   }
@@ -1587,6 +1808,88 @@
   Object.keys(LINUX_GUIDE_I18N).forEach(function(lang) {
     Object.assign(I18N[lang], LINUX_GUIDE_I18N[lang]);
   });
+  const PREVIEW_SLIDES_I18N = {
+    en: {
+      previewSlide0Title: 'Paint.Cross — Live Demo', previewSlide0Caption: 'Real recording: launch, brush, highlight, callouts, shapes, text, fill, and layers — in seconds.',
+      previewSlide2Title: 'Paint.Cross — Layered Edits.paintx', previewSlide2Caption: 'Sketch, color, markers, and notes stay separated with multiple layers.',
+      previewSlide3Title: 'Paint.Cross — Brush Tools.paintx', previewSlide3Caption: 'Brush, pencil, fill, and color picker tools stay close to the canvas.',
+      previewSlide4Title: 'Paint.Cross — Selection Mask.paintx', previewSlide4Caption: 'Select, move, copy, and refine only the area that matters.'
+    },
+    ko: {
+      previewSlide0Title: 'Paint.Cross — 라이브 데모', previewSlide0Caption: '실제 녹화: 실행, 브러시, 형광펜, 번호 마커, 도형, 텍스트, 채우기, 레이어까지 — 단 몇 초.',
+      previewSlide2Title: 'Paint.Cross — 레이어 편집.paintx', previewSlide2Caption: '스케치, 색상, 마커, 메모를 여러 레이어로 분리해 관리합니다.',
+      previewSlide3Title: 'Paint.Cross — 브러시 도구.paintx', previewSlide3Caption: '브러시, 연필, 채우기, 스포이드 도구가 캔버스 곁에 머뭅니다.',
+      previewSlide4Title: 'Paint.Cross — 선택 마스크.paintx', previewSlide4Caption: '필요한 영역만 선택해 이동, 복사, 보정합니다.'
+    }
+  };
+  Object.keys(PREVIEW_SLIDES_I18N).forEach(function(lang) {
+    Object.assign(I18N[lang], PREVIEW_SLIDES_I18N[lang]);
+  });
+
+  const PRICING_I18N = {
+      en: { navPro: 'Pricing', pricingLabel: 'Pricing', pricingTitle: 'Free to start. Pro when you need it.', pricingSub: 'One-time purchase. No subscription, no account.', pricingQuip: "Pixelmator went subscription. We didn't.", planFreeName: 'Free', planFreePrice: '$0', planFreeDesc: 'Everything you need for everyday editing.', planFreeF1: 'All core tools — brush, pencil, eraser, fill, selections', planFreeF2: 'Layers with opacity control and merge', planFreeF3: 'Text, arrows, and annotation tools', planFreeF4: 'PNG · JPG export and .paintx project files', planFreeF5: 'macOS, Windows, and Linux — 10 languages', planFreeCta: 'Download Free', planProName: 'Pro', planProBadge: 'Launch price', planProTerm: 'one-time purchase', planProDesc: 'Unlock the full toolkit. Pay once, keep it.', planProF1: 'WebP · PDF · OpenRaster export with custom DPI', planProF2: 'Advanced adjustments — levels and color balance', planProF3: '16 blend modes, clip masks, and symmetry', planProF4: 'Premium brushes, layer groups, unlimited layers', planProF5: 'High-resolution canvas, palette extraction, and more', planProF6: 'Direct developer support', planProLicense: 'Lifetime license for v1.x', planProCta: 'Get Pro — $9.99', planProNote: 'Download free, then upgrade inside the app in one click. Your license key arrives instantly — no account needed.' },
+      ko: { navPro: '가격', pricingLabel: '가격', pricingTitle: '무료로 시작하고, 필요할 때 Pro로.', pricingSub: '한 번만 결제하면 됩니다. 구독도, 계정도 없습니다.', pricingQuip: 'Pixelmator는 구독제로 바뀌었지만, 우리는 그러지 않았습니다.', planFreeName: '무료', planFreePrice: '$0', planFreeDesc: '일상적인 편집에 필요한 모든 것.', planFreeF1: '브러시, 연필, 지우개, 채우기, 선택 등 모든 핵심 도구', planFreeF2: '불투명도 조절과 병합이 가능한 레이어', planFreeF3: '텍스트, 화살표, 주석 도구', planFreeF4: 'PNG · JPG 내보내기 및 .paintx 프로젝트 파일', planFreeF5: 'macOS, Windows, Linux — 10개 언어 지원', planFreeCta: '무료 다운로드', planProName: 'Pro', planProBadge: '출시 기념가', planProTerm: '1회 결제', planProDesc: '모든 도구를 잠금 해제하세요. 한 번 결제하면 계속 사용할 수 있습니다.', planProF1: 'WebP · PDF · OpenRaster 내보내기와 사용자 지정 DPI', planProF2: '고급 보정 — 레벨과 색상 균형', planProF3: '16가지 블렌드 모드, 클립 마스크, 대칭 그리기', planProF4: '프리미엄 브러시, 레이어 그룹, 무제한 레이어', planProF5: '고해상도 캔버스, 팔레트 추출 등', planProF6: '개발자 직접 지원', planProLicense: 'v1.x 평생 라이선스', planProCta: 'Pro 구매 — $9.99', planProNote: '무료로 내려받은 뒤 앱 안에서 클릭 한 번으로 업그레이드하세요. 라이선스 키가 즉시 도착합니다 — 계정은 필요 없습니다.' },
+      zh: { navPro: '价格', pricingLabel: '价格', pricingTitle: '免费开始，需要时再升级 Pro。', pricingSub: '一次性购买。无订阅，无需账号。', pricingQuip: 'Pixelmator 转向了订阅制，我们没有。', planFreeName: '免费', planFreePrice: '$0', planFreeDesc: '日常编辑所需的一切。', planFreeF1: '全部核心工具——画笔、铅笔、橡皮擦、填充、选区', planFreeF2: '支持不透明度调节与合并的图层', planFreeF3: '文字、箭头和标注工具', planFreeF4: 'PNG · JPG 导出及 .paintx 项目文件', planFreeF5: 'macOS、Windows、Linux——支持 10 种语言', planFreeCta: '免费下载', planProName: 'Pro', planProBadge: '首发价', planProTerm: '一次性购买', planProDesc: '解锁全部工具。一次付费，永久使用。', planProF1: 'WebP · PDF · OpenRaster 导出，支持自定义 DPI', planProF2: '高级调整——色阶与色彩平衡', planProF3: '16 种混合模式、剪贴蒙版与对称绘制', planProF4: '高级画笔、图层组、无限图层', planProF5: '高分辨率画布、调色板提取等更多功能', planProF6: '开发者直接支持', planProLicense: 'v1.x 终身许可', planProCta: '获取 Pro — $9.99', planProNote: '先免费下载，然后在应用内一键升级。许可密钥即刻送达——无需账号。' },
+      es: { navPro: 'Precios', pricingLabel: 'Precios', pricingTitle: 'Gratis para empezar. Pro cuando lo necesites.', pricingSub: 'Compra única. Sin suscripción, sin cuenta.', pricingQuip: 'Pixelmator pasó a suscripción. Nosotros no.', planFreeName: 'Gratis', planFreePrice: '$0', planFreeDesc: 'Todo lo que necesitas para la edición diaria.', planFreeF1: 'Todas las herramientas esenciales: pincel, lápiz, borrador, relleno, selecciones', planFreeF2: 'Capas con control de opacidad y fusión', planFreeF3: 'Herramientas de texto, flechas y anotación', planFreeF4: 'Exportación PNG · JPG y proyectos .paintx', planFreeF5: 'macOS, Windows y Linux — 10 idiomas', planFreeCta: 'Descargar gratis', planProName: 'Pro', planProBadge: 'Precio de lanzamiento', planProTerm: 'compra única', planProDesc: 'Desbloquea todas las herramientas. Paga una vez y quédatelo.', planProF1: 'Exportación WebP · PDF · OpenRaster con DPI personalizado', planProF2: 'Ajustes avanzados: niveles y balance de color', planProF3: '16 modos de fusión, máscaras de recorte y simetría', planProF4: 'Pinceles premium, grupos de capas, capas ilimitadas', planProF5: 'Lienzo de alta resolución, extracción de paletas y más', planProF6: 'Soporte directo del desarrollador', planProLicense: 'Licencia de por vida para v1.x', planProCta: 'Obtener Pro — $9.99', planProNote: 'Descárgalo gratis y actualiza dentro de la app con un clic. Tu clave de licencia llega al instante, sin necesidad de cuenta.' },
+      ar: { navPro: 'الأسعار', pricingLabel: 'الأسعار', pricingTitle: 'ابدأ مجانًا. وانتقل إلى Pro عند الحاجة.', pricingSub: 'شراء لمرة واحدة. بدون اشتراك وبدون حساب.', pricingQuip: 'تحوّل Pixelmator إلى الاشتراكات. نحن لم نفعل.', planFreeName: 'مجاني', planFreePrice: '$0', planFreeDesc: 'كل ما تحتاجه للتحرير اليومي.', planFreeF1: 'جميع الأدوات الأساسية — الفرشاة والقلم والممحاة والتعبئة والتحديدات', planFreeF2: 'طبقات مع التحكم في الشفافية والدمج', planFreeF3: 'أدوات النص والأسهم والتعليقات التوضيحية', planFreeF4: 'تصدير PNG · JPG وملفات مشاريع .paintx', planFreeF5: 'macOS وWindows وLinux — 10 لغات', planFreeCta: 'تنزيل مجاني', planProName: 'Pro', planProBadge: 'سعر الإطلاق', planProTerm: 'شراء لمرة واحدة', planProDesc: 'افتح مجموعة الأدوات الكاملة. ادفع مرة واحدة واحتفظ بها للأبد.', planProF1: 'تصدير WebP · PDF · OpenRaster مع DPI مخصص', planProF2: 'تعديلات متقدمة — المستويات وتوازن الألوان', planProF3: '16 وضع مزج وأقنعة قص وتناظر', planProF4: 'فرش مميزة ومجموعات طبقات وطبقات غير محدودة', planProF5: 'لوحة رسم عالية الدقة واستخراج لوحات الألوان والمزيد', planProF6: 'دعم مباشر من المطوّر', planProLicense: 'ترخيص مدى الحياة للإصدار v1.x', planProCta: 'احصل على Pro — $9.99', planProNote: 'نزّل النسخة المجانية ثم قم بالترقية داخل التطبيق بنقرة واحدة. يصلك مفتاح الترخيص فورًا — دون الحاجة إلى حساب.' },
+      hi: { navPro: 'कीमत', pricingLabel: 'कीमत', pricingTitle: 'शुरुआत मुफ़्त। ज़रूरत पड़ने पर Pro।', pricingSub: 'एक बार की खरीद। न subscription, न account।', pricingQuip: 'Pixelmator subscription पर चला गया। हम नहीं गए।', planFreeName: 'मुफ़्त', planFreePrice: '$0', planFreeDesc: 'रोज़मर्रा की editing के लिए सब कुछ।', planFreeF1: 'सभी core tools — brush, pencil, eraser, fill, selections', planFreeF2: 'Opacity control और merge के साथ layers', planFreeF3: 'Text, arrows और annotation tools', planFreeF4: 'PNG · JPG export और .paintx project फ़ाइलें', planFreeF5: 'macOS, Windows और Linux — 10 भाषाएँ', planFreeCta: 'मुफ़्त डाउनलोड करें', planProName: 'Pro', planProBadge: 'लॉन्च कीमत', planProTerm: 'एक बार की खरीद', planProDesc: 'पूरा toolkit अनलॉक करें। एक बार भुगतान करें, हमेशा अपना रखें।', planProF1: 'Custom DPI के साथ WebP · PDF · OpenRaster export', planProF2: 'Advanced adjustments — levels और color balance', planProF3: '16 blend modes, clip masks और symmetry', planProF4: 'Premium brushes, layer groups, unlimited layers', planProF5: 'High-resolution canvas, palette extraction और भी बहुत कुछ', planProF6: 'Developer से सीधा support', planProLicense: 'v1.x के लिए lifetime license', planProCta: 'Pro लें — $9.99', planProNote: 'मुफ़्त डाउनलोड करें, फिर app के अंदर एक क्लिक में upgrade करें। आपकी license key तुरंत मिलती है — किसी account की ज़रूरत नहीं।' },
+      ja: { navPro: '価格', pricingLabel: '価格', pricingTitle: '無料で始めて、必要になったら Pro へ。', pricingSub: '買い切りです。サブスクリプションもアカウントも不要。', pricingQuip: 'Pixelmator はサブスクになりました。私たちは違います。', planFreeName: '無料', planFreePrice: '$0', planFreeDesc: '日常の編集に必要なものをすべて。', planFreeF1: 'ブラシ、鉛筆、消しゴム、塗りつぶし、選択などすべてのコアツール', planFreeF2: '不透明度調整と結合ができるレイヤー', planFreeF3: 'テキスト、矢印、注釈ツール', planFreeF4: 'PNG · JPG 書き出しと .paintx プロジェクトファイル', planFreeF5: 'macOS、Windows、Linux — 10 言語対応', planFreeCta: '無料でダウンロード', planProName: 'Pro', planProBadge: 'リリース記念価格', planProTerm: '買い切り', planProDesc: 'すべてのツールを解放。一度の支払いでずっと使えます。', planProF1: 'WebP · PDF · OpenRaster 書き出しとカスタム DPI', planProF2: '高度な調整 — レベル補正とカラーバランス', planProF3: '16 種類のブレンドモード、クリップマスク、シンメトリー', planProF4: 'プレミアムブラシ、レイヤーグループ、無制限レイヤー', planProF5: '高解像度キャンバス、パレット抽出など', planProF6: '開発者による直接サポート', planProLicense: 'v1.x の永続ライセンス', planProCta: 'Pro を購入 — $9.99', planProNote: '無料版をダウンロードしたら、アプリ内からワンクリックでアップグレードできます。ライセンスキーは即時発行 — アカウントは不要です。' },
+      fr: { navPro: 'Tarifs', pricingLabel: 'Tarifs', pricingTitle: 'Gratuit pour commencer. Pro quand vous en avez besoin.', pricingSub: 'Achat unique. Sans abonnement, sans compte.', pricingQuip: 'Pixelmator est passé à l’abonnement. Pas nous.', planFreeName: 'Gratuit', planFreePrice: '$0', planFreeDesc: 'Tout ce qu’il faut pour l’édition au quotidien.', planFreeF1: 'Tous les outils essentiels — pinceau, crayon, gomme, remplissage, sélections', planFreeF2: 'Calques avec contrôle d’opacité et fusion', planFreeF3: 'Outils de texte, flèches et annotation', planFreeF4: 'Export PNG · JPG et fichiers projet .paintx', planFreeF5: 'macOS, Windows et Linux — 10 langues', planFreeCta: 'Télécharger gratuitement', planProName: 'Pro', planProBadge: 'Prix de lancement', planProTerm: 'achat unique', planProDesc: 'Débloquez la boîte à outils complète. Payez une fois, gardez-la.', planProF1: 'Export WebP · PDF · OpenRaster avec DPI personnalisé', planProF2: 'Réglages avancés — niveaux et balance des couleurs', planProF3: '16 modes de fusion, masques d’écrêtage et symétrie', planProF4: 'Pinceaux premium, groupes de calques, calques illimités', planProF5: 'Canevas haute résolution, extraction de palettes et plus encore', planProF6: 'Assistance directe du développeur', planProLicense: 'Licence à vie pour la v1.x', planProCta: 'Obtenir Pro — $9.99', planProNote: 'Téléchargez la version gratuite, puis passez à Pro dans l’app en un clic. Votre clé de licence arrive instantanément — aucun compte requis.' },
+      de: { navPro: 'Preise', pricingLabel: 'Preise', pricingTitle: 'Kostenlos starten. Pro, wenn du es brauchst.', pricingSub: 'Einmaliger Kauf. Kein Abo, kein Konto.', pricingQuip: 'Pixelmator ist aufs Abo umgestiegen. Wir nicht.', planFreeName: 'Kostenlos', planFreePrice: '$0', planFreeDesc: 'Alles, was du für die tägliche Bildbearbeitung brauchst.', planFreeF1: 'Alle Kernwerkzeuge — Pinsel, Stift, Radierer, Füllen, Auswahlen', planFreeF2: 'Ebenen mit Deckkraftregelung und Zusammenführen', planFreeF3: 'Text-, Pfeil- und Anmerkungswerkzeuge', planFreeF4: 'PNG · JPG-Export und .paintx-Projektdateien', planFreeF5: 'macOS, Windows und Linux — 10 Sprachen', planFreeCta: 'Kostenlos herunterladen', planProName: 'Pro', planProBadge: 'Einführungspreis', planProTerm: 'einmaliger Kauf', planProDesc: 'Schalte das volle Toolkit frei. Einmal zahlen, für immer behalten.', planProF1: 'WebP · PDF · OpenRaster-Export mit eigenem DPI', planProF2: 'Erweiterte Anpassungen — Tonwerte und Farbbalance', planProF3: '16 Mischmodi, Schnittmasken und Symmetrie', planProF4: 'Premium-Pinsel, Ebenengruppen, unbegrenzte Ebenen', planProF5: 'Hochauflösende Leinwand, Palettenextraktion und mehr', planProF6: 'Direkter Support vom Entwickler', planProLicense: 'Lebenslange Lizenz für v1.x', planProCta: 'Pro holen — $9.99', planProNote: 'Lade die kostenlose Version herunter und rüste mit einem Klick in der App auf. Dein Lizenzschlüssel kommt sofort — ganz ohne Konto.' },
+      pt: { navPro: 'Preços', pricingLabel: 'Preços', pricingTitle: 'Grátis para começar. Pro quando você precisar.', pricingSub: 'Compra única. Sem assinatura, sem conta.', pricingQuip: 'O Pixelmator virou assinatura. Nós não.', planFreeName: 'Grátis', planFreePrice: '$0', planFreeDesc: 'Tudo o que você precisa para a edição do dia a dia.', planFreeF1: 'Todas as ferramentas essenciais — pincel, lápis, borracha, preenchimento, seleções', planFreeF2: 'Camadas com controle de opacidade e mesclagem', planFreeF3: 'Ferramentas de texto, setas e anotação', planFreeF4: 'Exportação PNG · JPG e projetos .paintx', planFreeF5: 'macOS, Windows e Linux — 10 idiomas', planFreeCta: 'Baixar grátis', planProName: 'Pro', planProBadge: 'Preço de lançamento', planProTerm: 'compra única', planProDesc: 'Desbloqueie o kit completo. Pague uma vez e fique com ele.', planProF1: 'Exportação WebP · PDF · OpenRaster com DPI personalizado', planProF2: 'Ajustes avançados — níveis e equilíbrio de cores', planProF3: '16 modos de mesclagem, máscaras de recorte e simetria', planProF4: 'Pincéis premium, grupos de camadas, camadas ilimitadas', planProF5: 'Tela de alta resolução, extração de paletas e mais', planProF6: 'Suporte direto do desenvolvedor', planProLicense: 'Licença vitalícia para a v1.x', planProCta: 'Obter Pro — $9.99', planProNote: 'Baixe grátis e faça o upgrade dentro do app com um clique. Sua chave de licença chega na hora — sem precisar de conta.' }
+    };
+    const COMPARE_I18N = {
+      en: { compareTitle: 'The right weight for the job', compareLine1: 'Need 80% of Photoshop? There are heavier tools for that.', compareLine2: 'Do ten five-minute edits a day? Paint.Cross opens instantly and stays out of your way.' },
+      ko: { compareTitle: '작업에 딱 맞는 무게', compareLine1: 'Photoshop의 80%가 필요하다면 더 무거운 도구들이 있습니다.', compareLine2: '하루에 5분짜리 편집을 열 번 하시나요? Paint.Cross는 즉시 열리고 작업을 방해하지 않습니다.' },
+      zh: { compareTitle: '恰到好处的工具重量', compareLine1: '需要 Photoshop 80% 的功能？有更重量级的工具可选。', compareLine2: '每天做十次五分钟的小编辑？Paint.Cross 即开即用，绝不碍事。' },
+      es: { compareTitle: 'El peso justo para cada tarea', compareLine1: '¿Necesitas el 80% de Photoshop? Hay herramientas más pesadas para eso.', compareLine2: '¿Haces diez ediciones de cinco minutos al día? Paint.Cross abre al instante y no se interpone en tu camino.' },
+      ar: { compareTitle: 'الوزن المناسب للمهمة', compareLine1: 'هل تحتاج 80% من Photoshop؟ هناك أدوات أثقل لذلك.', compareLine2: 'هل تجري عشرة تعديلات من خمس دقائق يوميًا؟ يفتح Paint.Cross فورًا ولا يعترض طريقك.' },
+      hi: { compareTitle: 'काम के हिसाब से सही वज़न', compareLine1: 'Photoshop का 80% चाहिए? उसके लिए भारी tools मौजूद हैं।', compareLine2: 'दिन में दस बार पाँच-मिनट की editing करते हैं? Paint.Cross तुरंत खुलता है और आपके रास्ते से हटा रहता है।' },
+      ja: { compareTitle: '作業にちょうどいい重さを', compareLine1: 'Photoshop の 80% が必要なら、もっと重いツールがあります。', compareLine2: '1 日に 5 分の編集を 10 回するなら、Paint.Cross は瞬時に起動して作業の邪魔をしません。' },
+      fr: { compareTitle: 'Le bon poids pour la tâche', compareLine1: 'Besoin de 80 % de Photoshop ? Il existe des outils plus lourds pour ça.', compareLine2: 'Dix retouches de cinq minutes par jour ? Paint.Cross s’ouvre instantanément et ne se met jamais en travers de votre chemin.' },
+      de: { compareTitle: 'Das richtige Gewicht für die Aufgabe', compareLine1: 'Brauchst du 80 % von Photoshop? Dafür gibt es schwerere Werkzeuge.', compareLine2: 'Zehn Fünf-Minuten-Bearbeitungen am Tag? Paint.Cross öffnet sofort und steht dir nie im Weg.' },
+      pt: { compareTitle: 'O peso certo para a tarefa', compareLine1: 'Precisa de 80% do Photoshop? Existem ferramentas mais pesadas para isso.', compareLine2: 'Faz dez edições de cinco minutos por dia? O Paint.Cross abre na hora e não atrapalha seu caminho.' }
+    };
+    const FAQ_PRICING_I18N = {
+      en: { faq4Title: 'Is Paint.Cross really free?', faq4Desc: 'Yes. The core editor is free forever — no trial, no watermark. Pro is an optional one-time upgrade that unlocks advanced exports, filters, and more.', faq5Title: 'Is Pro a subscription?', faq5Desc: 'No. Pro is a single $9.99 purchase with a lifetime license for all v1.x updates. No account, no recurring charges.', faq6Title: 'How do I get my license key?', faq6Desc: 'Buy Pro inside the app — your license key appears right after checkout and is also emailed to you. Paste it into the app to activate.' },
+      ko: { faq4Title: 'Paint.Cross는 정말 무료인가요?', faq4Desc: '네. 핵심 에디터는 영원히 무료입니다 — 체험판도, 워터마크도 없습니다. Pro는 고급 내보내기, 필터 등을 잠금 해제하는 선택형 1회 업그레이드입니다.', faq5Title: 'Pro는 구독제인가요?', faq5Desc: '아니요. Pro는 $9.99 단일 결제이며 모든 v1.x 업데이트를 포함하는 평생 라이선스입니다. 계정도, 반복 결제도 없습니다.', faq6Title: '라이선스 키는 어떻게 받나요?', faq6Desc: '앱 안에서 Pro를 구매하세요 — 결제 직후 라이선스 키가 표시되고 이메일로도 전송됩니다. 앱에 붙여넣으면 활성화됩니다.' },
+      zh: { faq4Title: 'Paint.Cross 真的免费吗？', faq4Desc: '是的。核心编辑器永久免费——没有试用期，没有水印。Pro 是可选的一次性升级，可解锁高级导出、滤镜等功能。', faq5Title: 'Pro 是订阅制吗？', faq5Desc: '不是。Pro 只需一次性支付 $9.99，即可获得覆盖所有 v1.x 更新的终身许可。无需账号，没有周期性扣费。', faq6Title: '如何获取许可密钥？', faq6Desc: '在应用内购买 Pro——结账后许可密钥会立即显示，同时也会发送到你的邮箱。将密钥粘贴到应用中即可激活。' },
+      es: { faq4Title: '¿Paint.Cross es realmente gratis?', faq4Desc: 'Sí. El editor principal es gratis para siempre: sin prueba, sin marca de agua. Pro es una mejora opcional de pago único que desbloquea exportaciones avanzadas, filtros y más.', faq5Title: '¿Pro es una suscripción?', faq5Desc: 'No. Pro es una compra única de $9.99 con licencia de por vida para todas las actualizaciones v1.x. Sin cuenta, sin cargos recurrentes.', faq6Title: '¿Cómo obtengo mi clave de licencia?', faq6Desc: 'Compra Pro dentro de la app: tu clave de licencia aparece justo después del pago y también se envía a tu correo. Pégala en la app para activarla.' },
+      ar: { faq4Title: 'هل Paint.Cross مجاني حقًا؟', faq4Desc: 'نعم. المحرر الأساسي مجاني للأبد — بلا فترة تجريبية وبلا علامة مائية. أما Pro فهو ترقية اختيارية لمرة واحدة تفتح التصدير المتقدم والفلاتر والمزيد.', faq5Title: 'هل Pro اشتراك؟', faq5Desc: 'لا. Pro عملية شراء واحدة بقيمة $9.99 مع ترخيص مدى الحياة لجميع تحديثات v1.x. بلا حساب وبلا رسوم متكررة.', faq6Title: 'كيف أحصل على مفتاح الترخيص؟', faq6Desc: 'اشترِ Pro داخل التطبيق — يظهر مفتاح الترخيص مباشرة بعد الدفع ويصلك أيضًا عبر البريد الإلكتروني. الصقه في التطبيق للتفعيل.' },
+      hi: { faq4Title: 'क्या Paint.Cross सच में मुफ़्त है?', faq4Desc: 'हाँ। Core editor हमेशा के लिए मुफ़्त है — न trial, न watermark। Pro एक वैकल्पिक one-time upgrade है जो advanced exports, filters और बहुत कुछ अनलॉक करता है।', faq5Title: 'क्या Pro एक subscription है?', faq5Desc: 'नहीं। Pro सिर्फ़ $9.99 की एक बार की खरीद है, जिसमें सभी v1.x updates के लिए lifetime license मिलता है। न account, न बार-बार का शुल्क।', faq6Title: 'मुझे license key कैसे मिलेगी?', faq6Desc: 'App के अंदर Pro खरीदें — checkout के तुरंत बाद आपकी license key दिखती है और email से भी भेजी जाती है। Activate करने के लिए इसे app में paste करें।' },
+      ja: { faq4Title: 'Paint.Cross は本当に無料ですか？', faq4Desc: 'はい。コアエディタはずっと無料です — 体験版ではなく、ウォーターマークもありません。Pro は高度な書き出しやフィルタなどを解放する、任意の買い切りアップグレードです。', faq5Title: 'Pro はサブスクリプションですか？', faq5Desc: 'いいえ。Pro は $9.99 の一度きりの購入で、すべての v1.x アップデートに対する永続ライセンスが付きます。アカウントも定期課金もありません。', faq6Title: 'ライセンスキーはどうやって受け取れますか？', faq6Desc: 'アプリ内で Pro を購入すると、決済直後にライセンスキーが表示され、メールでも届きます。アプリに貼り付ければ有効化できます。' },
+      fr: { faq4Title: 'Paint.Cross est-il vraiment gratuit ?', faq4Desc: 'Oui. L’éditeur principal est gratuit pour toujours — sans période d’essai, sans filigrane. Pro est une mise à niveau optionnelle en achat unique qui débloque exports avancés, filtres et plus encore.', faq5Title: 'Pro est-il un abonnement ?', faq5Desc: 'Non. Pro est un achat unique de $9.99 avec une licence à vie pour toutes les mises à jour v1.x. Sans compte, sans prélèvement récurrent.', faq6Title: 'Comment recevoir ma clé de licence ?', faq6Desc: 'Achetez Pro dans l’app : votre clé de licence s’affiche juste après le paiement et vous est aussi envoyée par e-mail. Collez-la dans l’app pour l’activer.' },
+      de: { faq4Title: 'Ist Paint.Cross wirklich kostenlos?', faq4Desc: 'Ja. Der Kern-Editor ist für immer kostenlos — keine Testphase, kein Wasserzeichen. Pro ist ein optionales einmaliges Upgrade, das erweiterte Exporte, Filter und mehr freischaltet.', faq5Title: 'Ist Pro ein Abo?', faq5Desc: 'Nein. Pro ist ein einmaliger Kauf für $9.99 mit lebenslanger Lizenz für alle v1.x-Updates. Kein Konto, keine wiederkehrenden Kosten.', faq6Title: 'Wie erhalte ich meinen Lizenzschlüssel?', faq6Desc: 'Kaufe Pro direkt in der App — dein Lizenzschlüssel erscheint sofort nach dem Bezahlen und kommt zusätzlich per E-Mail. Füge ihn in der App ein, um zu aktivieren.' },
+      pt: { faq4Title: 'O Paint.Cross é mesmo grátis?', faq4Desc: 'Sim. O editor principal é grátis para sempre — sem período de teste, sem marca d’água. O Pro é um upgrade opcional de pagamento único que desbloqueia exportações avançadas, filtros e mais.', faq5Title: 'O Pro é uma assinatura?', faq5Desc: 'Não. O Pro é uma compra única de $9.99 com licença vitalícia para todas as atualizações v1.x. Sem conta, sem cobranças recorrentes.', faq6Title: 'Como recebo minha chave de licença?', faq6Desc: 'Compre o Pro dentro do app — sua chave de licença aparece logo após o pagamento e também é enviada por e-mail. Cole-a no app para ativar.' }
+    };
+    const EXAMPLES_GAP_I18N = {
+      zh: { navExamples: '示例', examplesLabel: '示例', examplesTitle: '看看工具的实际应用', examplesSub: '无需离开画布即可完成的几种日常工作流程。', example1Title: '快速绘制与打磨', example1Desc: '使用画笔、铅笔、橡皮擦、填充和取色工具，快速完成绘图、修改和视觉笔记。', example2Title: '将编辑分开管理', example2Desc: '叠加图层、调整不透明度，准备好后再合并，实验性修改不会覆盖底图。', example3Title: '标注屏幕截图', example3Desc: '需要说明修改或强调细节时，添加文字、箭头、轮廓和高亮。' },
+      es: { navExamples: 'Ejemplos', examplesLabel: 'Ejemplos', examplesTitle: 'Las herramientas en contexto', examplesSub: 'Algunos flujos de trabajo cotidianos que puedes resolver sin salir del lienzo.', example1Title: 'Dibuja y refina rápido', example1Desc: 'Usa pincel, lápiz, borrador, relleno y cuentagotas para dibujos rápidos, ediciones y notas visuales.', example2Title: 'Mantén las ediciones separadas', example2Desc: 'Apila capas, ajusta la opacidad y fusiona cuando estés listo, para que los experimentos no sobrescriban la imagen base.', example3Title: 'Anota capturas de pantalla', example3Desc: 'Añade texto, flechas, contornos y resaltados cuando necesites explicar un cambio o destacar un detalle.' },
+      ar: { navExamples: 'أمثلة', examplesLabel: 'أمثلة', examplesTitle: 'شاهد الأدوات في سياقها', examplesSub: 'بعض مهام العمل اليومية التي يمكنك إنجازها دون مغادرة لوحة الرسم.', example1Title: 'ارسم وحسّن بسرعة', example1Desc: 'استخدم أدوات الفرشاة والقلم والممحاة والتعبئة والقطّارة للرسومات السريعة والتعديلات والملاحظات البصرية.', example2Title: 'أبقِ التعديلات منفصلة', example2Desc: 'كدّس الطبقات واضبط الشفافية وادمجها عندما تكون جاهزًا، حتى لا تطغى التجارب على الصورة الأصلية.', example3Title: 'علّق على لقطات الشاشة', example3Desc: 'أضف نصوصًا وأسهمًا وحدودًا وتظليلات عندما تحتاج إلى شرح تغيير أو إبراز تفصيل.' },
+      hi: { navExamples: 'उदाहरण', examplesLabel: 'उदाहरण', examplesTitle: 'Tools को काम करते देखें', examplesSub: 'कुछ रोज़मर्रा के workflows जिन्हें आप canvas छोड़े बिना कर सकते हैं।', example1Title: 'जल्दी sketch करें और निखारें', example1Desc: 'Brush, pencil, eraser, fill और picker tools से जल्दी drawings, edits और rough visual notes बनाएँ।', example2Title: 'Edits को अलग-अलग रखें', example2Desc: 'Layers stack करें, opacity बदलें और तैयार होने पर merge करें, ताकि प्रयोग base image को overwrite न करें।', example3Title: 'Screenshots पर mark up करें', example3Desc: 'किसी बदलाव को समझाने या detail दिखाने के लिए text, arrows, outlines और highlights जोड़ें।' },
+      ja: { navExamples: '活用例', examplesLabel: '活用例', examplesTitle: 'ツールが活きる場面を見る', examplesSub: 'キャンバスを離れずにこなせる、日常のワークフローの例です。', example1Title: 'すばやく描いて仕上げる', example1Desc: 'ブラシ、鉛筆、消しゴム、塗りつぶし、スポイトツールで、素早いドローイングや修正、ラフなビジュアルメモを。', example2Title: '編集を分けて管理', example2Desc: 'レイヤーを重ね、不透明度を調整し、準備ができたら結合。試し描きが元画像を上書きしません。', example3Title: 'スクリーンショットに注釈', example3Desc: '変更点の説明や細部の強調が必要なときは、テキスト、矢印、枠線、ハイライトを追加できます。' },
+      fr: { navExamples: 'Exemples', examplesLabel: 'Exemples', examplesTitle: 'Les outils en contexte', examplesSub: 'Quelques flux de travail du quotidien, gérables sans quitter le canevas.', example1Title: 'Esquissez et affinez rapidement', example1Desc: 'Utilisez pinceau, crayon, gomme, remplissage et pipette pour des dessins rapides, des retouches et des notes visuelles.', example2Title: 'Gardez les modifications séparées', example2Desc: 'Empilez les calques, ajustez l’opacité et fusionnez quand vous êtes prêt : vos essais n’écrasent pas l’image de base.', example3Title: 'Annotez vos captures d’écran', example3Desc: 'Ajoutez texte, flèches, contours et surlignages quand il faut expliquer un changement ou signaler un détail.' },
+      de: { navExamples: 'Beispiele', examplesLabel: 'Beispiele', examplesTitle: 'Die Werkzeuge im Einsatz', examplesSub: 'Ein paar alltägliche Arbeitsabläufe, die du erledigst, ohne die Leinwand zu verlassen.', example1Title: 'Schnell skizzieren und verfeinern', example1Desc: 'Nutze Pinsel, Stift, Radierer, Füllen und Pipette für schnelle Zeichnungen, Korrekturen und grobe visuelle Notizen.', example2Title: 'Bearbeitungen getrennt halten', example2Desc: 'Staple Ebenen, passe die Deckkraft an und führe sie zusammen, wenn du bereit bist — Experimente überschreiben nie das Ausgangsbild.', example3Title: 'Screenshots markieren', example3Desc: 'Füge Text, Pfeile, Umrisse und Hervorhebungen hinzu, wenn du eine Änderung erklären oder ein Detail hervorheben willst.' },
+      pt: { navExamples: 'Exemplos', examplesLabel: 'Exemplos', examplesTitle: 'As ferramentas em contexto', examplesSub: 'Alguns fluxos de trabalho do dia a dia que você resolve sem sair da tela.', example1Title: 'Esboce e refine rapidamente', example1Desc: 'Use pincel, lápis, borracha, preenchimento e conta-gotas para desenhos rápidos, edições e notas visuais.', example2Title: 'Mantenha as edições separadas', example2Desc: 'Empilhe camadas, ajuste a opacidade e mescle quando estiver pronto, para que os testes não sobrescrevam a imagem original.', example3Title: 'Anote capturas de tela', example3Desc: 'Adicione texto, setas, contornos e destaques quando precisar explicar uma mudança ou apontar um detalhe.' }
+    };
+    const MISC_I18N = {
+      en: { trustFreeCore: 'Free core', trustNoSub: 'No subscription', statPro: 'Pro — one-time', footerPrivacy: 'Privacy', footerTerms: 'Terms', footerContact: 'Contact', mobileNoticeTitle: 'Paint.Cross is a desktop app', mobileNoticeDesc: "You're on a mobile device. Send yourself the link and grab it on your Mac, Windows, or Linux machine." },
+      ko: { trustFreeCore: '핵심 기능 무료', trustNoSub: '구독 없음', statPro: 'Pro — 1회 결제', footerPrivacy: '개인정보처리방침', footerTerms: '이용약관', footerContact: '문의', mobileNoticeTitle: 'Paint.Cross는 데스크톱 앱입니다', mobileNoticeDesc: '지금 모바일 기기로 보고 계시네요. 링크를 보내두었다가 Mac, Windows, Linux 컴퓨터에서 받아 주세요.' },
+      zh: { trustFreeCore: '核心功能免费', trustNoSub: '无订阅', statPro: 'Pro — 一次性', footerPrivacy: '隐私政策', footerTerms: '服务条款', footerContact: '联系我们', mobileNoticeTitle: 'Paint.Cross 是一款桌面应用', mobileNoticeDesc: '你正在使用移动设备。把链接发给自己，然后在 Mac、Windows 或 Linux 电脑上下载吧。' },
+      es: { trustFreeCore: 'Núcleo gratuito', trustNoSub: 'Sin suscripción', statPro: 'Pro — pago único', footerPrivacy: 'Privacidad', footerTerms: 'Términos', footerContact: 'Contacto', mobileNoticeTitle: 'Paint.Cross es una app de escritorio', mobileNoticeDesc: 'Estás en un dispositivo móvil. Envíate el enlace y descárgala en tu equipo Mac, Windows o Linux.' },
+      ar: { trustFreeCore: 'الأساسيات مجانية', trustNoSub: 'بدون اشتراك', statPro: 'Pro — دفعة واحدة', footerPrivacy: 'الخصوصية', footerTerms: 'الشروط', footerContact: 'اتصل بنا', mobileNoticeTitle: 'Paint.Cross تطبيق لسطح المكتب', mobileNoticeDesc: 'أنت تستخدم جهازًا محمولًا. أرسل الرابط لنفسك ونزّله على جهاز Mac أو Windows أو Linux.' },
+      hi: { trustFreeCore: 'Core मुफ़्त', trustNoSub: 'कोई subscription नहीं', statPro: 'Pro — एक बार', footerPrivacy: 'गोपनीयता', footerTerms: 'शर्तें', footerContact: 'संपर्क', mobileNoticeTitle: 'Paint.Cross एक desktop app है', mobileNoticeDesc: 'आप mobile device पर हैं। खुद को link भेजें और अपने Mac, Windows या Linux कंप्यूटर पर इसे डाउनलोड करें।' },
+      ja: { trustFreeCore: 'コア機能は無料', trustNoSub: 'サブスクなし', statPro: 'Pro — 買い切り', footerPrivacy: 'プライバシー', footerTerms: '利用規約', footerContact: 'お問い合わせ', mobileNoticeTitle: 'Paint.Cross はデスクトップアプリです', mobileNoticeDesc: 'モバイル端末でご覧のようです。リンクを自分宛てに送って、Mac、Windows、Linux のマシンで入手してください。' },
+      fr: { trustFreeCore: 'Cœur gratuit', trustNoSub: 'Sans abonnement', statPro: 'Pro — achat unique', footerPrivacy: 'Confidentialité', footerTerms: 'Conditions', footerContact: 'Contact', mobileNoticeTitle: 'Paint.Cross est une app de bureau', mobileNoticeDesc: 'Vous êtes sur un appareil mobile. Envoyez-vous le lien et récupérez l’app sur votre machine Mac, Windows ou Linux.' },
+      de: { trustFreeCore: 'Kern kostenlos', trustNoSub: 'Kein Abo', statPro: 'Pro — einmalig', footerPrivacy: 'Datenschutz', footerTerms: 'Bedingungen', footerContact: 'Kontakt', mobileNoticeTitle: 'Paint.Cross ist eine Desktop-App', mobileNoticeDesc: 'Du bist auf einem Mobilgerät. Schick dir den Link selbst und lade die App auf deinem Mac-, Windows- oder Linux-Rechner herunter.' },
+      pt: { trustFreeCore: 'Núcleo grátis', trustNoSub: 'Sem assinatura', statPro: 'Pro — pagamento único', footerPrivacy: 'Privacidade', footerTerms: 'Termos', footerContact: 'Contato', mobileNoticeTitle: 'O Paint.Cross é um app para desktop', mobileNoticeDesc: 'Você está em um dispositivo móvel. Envie o link para si mesmo e baixe no seu computador Mac, Windows ou Linux.' }
+    };
+
+  [PRICING_I18N, COMPARE_I18N, FAQ_PRICING_I18N, EXAMPLES_GAP_I18N, MISC_I18N].forEach(function(patch) {
+    Object.keys(patch).forEach(function(lang) {
+      if (I18N[lang]) Object.assign(I18N[lang], patch[lang]);
+    });
+  });
 
   var currentLang = 'en';
 
@@ -1599,17 +1902,20 @@
     currentLang = lang;
     var dict = Object.assign({}, I18N.en, I18N[lang] || {});
     document.documentElement.lang = dict.htmlLang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
     setText('nav-examples', dict.navExamples);
     setText('nav-features', dict.navFeatures);
+    setText('nav-pro', dict.navPro);
     setText('nav-download', dict.navDownload);
     setText('hero-badge-text', dict.heroBadge);
     setText('hero-title-line1', dict.heroTitleLine1);
     setText('hero-title-line2', dict.heroTitleLine2);
     setText('hero-sub', dict.heroSub);
     setText('hero-dl-label', dict.heroDownload);
-    setText('trust-free', dict.trustFree);
+    setText('trust-free', dict.trustFreeCore || dict.trustFree);
     setText('trust-account', dict.trustAccount);
+    setText('trust-nosub', dict.trustNoSub);
     setText('preview-title', dict.previewTitle);
     setText('preview-caption', dict.previewCaption);
     setText('examples-label', dict.examplesLabel);
@@ -1639,7 +1945,38 @@
     setText('stat-platforms', dict.statPlatforms);
     setText('stat-tools', dict.statTools);
     setText('stat-undo', dict.statUndo);
-    setText('stat-always', dict.statAlways);
+    setText('stat-always', dict.statPro || dict.statAlways);
+    setText('compare-title', dict.compareTitle);
+    setText('compare-line1', dict.compareLine1);
+    setText('compare-line2', dict.compareLine2);
+    setText('pricing-label', dict.pricingLabel);
+    setText('pricing-title', dict.pricingTitle);
+    setText('pricing-sub', dict.pricingSub);
+    setText('pricing-quip', dict.pricingQuip);
+    setText('plan-free-name', dict.planFreeName);
+    setText('plan-free-price', dict.planFreePrice);
+    setText('plan-free-desc', dict.planFreeDesc);
+    setText('plan-free-f1', dict.planFreeF1);
+    setText('plan-free-f2', dict.planFreeF2);
+    setText('plan-free-f3', dict.planFreeF3);
+    setText('plan-free-f4', dict.planFreeF4);
+    setText('plan-free-f5', dict.planFreeF5);
+    setText('plan-free-cta', dict.planFreeCta);
+    setText('plan-pro-name', dict.planProName);
+    setText('plan-pro-badge', dict.planProBadge);
+    setText('plan-pro-term', dict.planProTerm);
+    setText('plan-pro-desc', dict.planProDesc);
+    setText('plan-pro-f1', dict.planProF1);
+    setText('plan-pro-f2', dict.planProF2);
+    setText('plan-pro-f3', dict.planProF3);
+    setText('plan-pro-f4', dict.planProF4);
+    setText('plan-pro-f5', dict.planProF5);
+    setText('plan-pro-f6', dict.planProF6);
+    setText('plan-pro-license', dict.planProLicense);
+    setText('plan-pro-cta', dict.planProCta);
+    setText('plan-pro-note', dict.planProNote);
+    setText('mobile-notice-title', dict.mobileNoticeTitle);
+    setText('mobile-notice-desc', dict.mobileNoticeDesc);
     setText('download-label', dict.downloadLabel);
     setText('download-title', dict.downloadTitle);
     setText('download-sub', dict.downloadSub);
@@ -1660,7 +1997,16 @@
     setText('faq-2-desc', dict.faq2Desc);
     setText('faq-3-title', dict.faq3Title);
     setText('faq-3-desc', dict.faq3Desc);
+    setText('faq-4-title', dict.faq4Title);
+    setText('faq-4-desc', dict.faq4Desc);
+    setText('faq-5-title', dict.faq5Title);
+    setText('faq-5-desc', dict.faq5Desc);
+    setText('faq-6-title', dict.faq6Title);
+    setText('faq-6-desc', dict.faq6Desc);
     setText('footer-legal', dict.footerNotice);
+    setText('footer-privacy', dict.footerPrivacy);
+    setText('footer-terms', dict.footerTerms);
+    setText('footer-contact', dict.footerContact);
 
     setText('linux-arch-notice-title', dict.linuxArchNoticeTitle);
     setText('linux-arch-notice-text', dict.linuxArchNoticeText);
@@ -1675,8 +2021,6 @@
     setText('linux-appimage-title', dict.linuxAppimageTitle);
     setText('linux-appimage-desc', dict.linuxAppimageDesc);
 
-    var previewImage = document.getElementById('preview-image');
-    if (previewImage) previewImage.alt = dict.previewAlt;
     setText('lang-label', LANG_NAMES[lang] || LANG_NAMES.en);
     updatePreviewText();
 
@@ -1685,16 +2029,21 @@
 
   async function loadRelease() {
     try {
-      const res = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { cache: 'no-store' });
-      if (!res.ok) return;
+      const res = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest');
+      if (!res.ok) { showCachedDownloadCount(); return; }
       const data = await res.json();
       const ver = data.tag_name || 'v0.1.0';
 
       document.getElementById('dl-version-badge').textContent = ver;
 
       const assets = Array.isArray(data.assets) ? data.assets : [];
-      setDownloadCount(totalDownloadCount(assets));
-      loadTotalDownloadCount();
+      var cachedCount = readDownloadCountCache();
+      if (cachedCount !== null) {
+        setDownloadCount(cachedCount);
+      } else {
+        setDownloadCount(totalDownloadCount(assets));
+        loadTotalDownloadCount();
+      }
 
       function findAssetByArch(arch, exts) {
         return assets.find(function(a) {
@@ -1762,12 +2111,31 @@
     }, 0);
   }
 
+  var DL_COUNT_CACHE_KEY = 'paintcross_dlcount';
+  var DL_COUNT_TTL = 3600000; // 1h — keeps unauthenticated GitHub API usage under the 60 req/hr limit
+
+  function readDownloadCountCache(ignoreTtl) {
+    try {
+      var raw = localStorage.getItem(DL_COUNT_CACHE_KEY);
+      if (!raw) return null;
+      var entry = JSON.parse(raw);
+      if (typeof entry.v !== 'number') return null;
+      if (!ignoreTtl && Date.now() - entry.t > DL_COUNT_TTL) return null;
+      return entry.v;
+    } catch (_) { return null; }
+  }
+
+  function showCachedDownloadCount() {
+    var stale = readDownloadCountCache(true);
+    if (stale !== null) setDownloadCount(stale);
+  }
+
   async function loadTotalDownloadCount() {
     try {
       var total = 0;
       for (var page = 1; page <= 10; page += 1) {
-        const res = await fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=100&page=' + page, { cache: 'no-store' });
-        if (!res.ok) return;
+        const res = await fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=100&page=' + page);
+        if (!res.ok) { console.warn('[Downloads] GitHub API responded ' + res.status); showCachedDownloadCount(); return; }
         const releases = await res.json();
         if (!Array.isArray(releases) || !releases.length) break;
         total += releases.reduce(function(sum, release) {
@@ -1776,7 +2144,8 @@
         if (releases.length < 100) break;
       }
       setDownloadCount(total);
-    } catch (e) { /* keep latest-release fallback count */ }
+      try { localStorage.setItem(DL_COUNT_CACHE_KEY, JSON.stringify({ v: total, t: Date.now() })); } catch (_) {}
+    } catch (e) { console.warn('[Downloads] count fetch failed:', e); showCachedDownloadCount(); }
   }
 
   function setDownloadCount(count) {
@@ -1812,7 +2181,7 @@
       try { localStorage.setItem('paintcross_arch', arch); } catch (_) {}
       userOSInfo = { os: 'linux', arch: arch };
       highlightPlatform(userOSInfo);
-      console.log('[DetectOS] User selected Linux arch:', arch);
+      dbg('[DetectOS] User selected Linux arch:', arch);
     });
   });
 
@@ -1822,7 +2191,7 @@
   tabBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       var targetTab = btn.getAttribute('data-linux-tab');
-      console.log('[LinuxGuide] Tab switch:', targetTab);
+      dbg('[LinuxGuide] Tab switch:', targetTab);
       tabBtns.forEach(function(b) { b.classList.toggle('active', b === btn); });
       tabPanes.forEach(function(pane) {
         var paneId = pane.getAttribute('id');
@@ -1834,6 +2203,8 @@
   var previewIndex = 0;
   var previewTimer = null;
   var previewLeaveTimer = null;
+  var previewPaused = false;
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function previewDict() {
     return Object.assign({}, I18N.en, I18N[currentLang] || {});
@@ -1888,6 +2259,9 @@
       });
     }
     previewIndex = nextIndex;
+    slides.forEach(function(slide, i) {
+      slide.setAttribute('aria-hidden', i === previewIndex ? 'false' : 'true');
+    });
     dots.forEach(function(dot, i) {
       var active = i === previewIndex;
       dot.classList.toggle('active', active);
@@ -1898,11 +2272,14 @@
 
   function startPreviewCarousel() {
     var slides = document.querySelectorAll('.preview-slide');
-    if (slides.length < 2) return;
-    if (previewTimer) clearInterval(previewTimer);
-    previewTimer = setInterval(function() {
+    if (previewTimer) clearTimeout(previewTimer);
+    if (slides.length < 2 || previewPaused || prefersReducedMotion) return;
+    // 라이브 데모 영상 슬라이드(0)는 영상 길이만큼 보여준다
+    var delay = previewIndex === 0 && slides[0].tagName === 'VIDEO' ? 16500 : 7600;
+    previewTimer = setTimeout(function() {
       setPreviewSlide(previewIndex + 1);
-    }, 7600);
+      startPreviewCarousel();
+    }, delay);
   }
 
   function initPreviewCarousel() {
@@ -1914,6 +2291,31 @@
         startPreviewCarousel();
       });
     });
+    var demoVideo = document.querySelector('video.preview-slide');
+    var pauseBtn = document.getElementById('preview-pause');
+    if (pauseBtn) {
+      if (prefersReducedMotion) {
+        previewPaused = true;
+        if (demoVideo) demoVideo.pause();
+        pauseBtn.textContent = '▶';
+        pauseBtn.setAttribute('aria-pressed', 'true');
+        pauseBtn.setAttribute('aria-label', 'Play slideshow');
+      }
+      pauseBtn.addEventListener('click', function() {
+        previewPaused = !previewPaused;
+        pauseBtn.textContent = previewPaused ? '▶' : '⏸';
+        pauseBtn.setAttribute('aria-pressed', previewPaused ? 'true' : 'false');
+        pauseBtn.setAttribute('aria-label', previewPaused ? 'Play slideshow' : 'Pause slideshow');
+        if (previewPaused) {
+          if (previewTimer) { clearTimeout(previewTimer); previewTimer = null; }
+          if (demoVideo) demoVideo.pause();
+        } else {
+          prefersReducedMotion = false;
+          if (demoVideo) demoVideo.play().catch(function() {});
+          startPreviewCarousel();
+        }
+      });
+    }
     setPreviewSlide(0);
     startPreviewCarousel();
   }
@@ -1932,14 +2334,23 @@
   currentLang = initialLang;
   loadRelease();
 
-  console.log('[Init] App Starting. Initial userOSInfo check...');
+  dbg('[Init] App Starting. Initial userOSInfo check...');
+  var isMobileVisitor = (navigator.userAgentData && navigator.userAgentData.mobile) ||
+    /Android|iPhone|iPod|Mobile/i.test(navigator.userAgent) ||
+    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1); // iPad in desktop mode
   var userOSInfo = detectOS();
-  highlightPlatform(userOSInfo);
-  if (userOSInfo.os === 'linux') {
-    if (typeof window.toggleLinuxGuide === 'function') {
-      window.toggleLinuxGuide(true);
-    } else {
-      console.error('[Init] toggleLinuxGuide is NOT defined at runtime!');
+  if (isMobileVisitor) {
+    // Mobile devices can't run the desktop app — show a notice instead of a wrong OS guess
+    var mobileNotice = document.getElementById('mobile-notice');
+    if (mobileNotice) mobileNotice.classList.add('visible');
+  } else {
+    highlightPlatform(userOSInfo);
+    if (userOSInfo.os === 'linux') {
+      if (typeof window.toggleLinuxGuide === 'function') {
+        window.toggleLinuxGuide(true);
+      } else {
+        console.error('[Init] toggleLinuxGuide is NOT defined at runtime!');
+      }
     }
   }
 
@@ -1963,27 +2374,53 @@
         langTrigger.setAttribute('aria-expanded', 'false');
       }
     });
+
+    function closeLangMenu(refocus) {
+      langMenu.classList.remove('open');
+      langTrigger.setAttribute('aria-expanded', 'false');
+      if (refocus) langTrigger.focus();
+    }
+
+    langTrigger.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowDown' || (e.key === 'Enter' && !langMenu.classList.contains('open'))) {
+        e.preventDefault();
+        langMenu.classList.add('open');
+        langTrigger.setAttribute('aria-expanded', 'true');
+        var first = langMenu.querySelector('.lang-item');
+        if (first) first.focus();
+      }
+    });
+
+    langMenu.addEventListener('keydown', function(e) {
+      var items = Array.prototype.slice.call(langMenu.querySelectorAll('.lang-item'));
+      var idx = items.indexOf(document.activeElement);
+      if (e.key === 'Escape') { e.preventDefault(); closeLangMenu(true); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length].focus(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length].focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); items[items.length - 1].focus(); }
+    });
   }
   initPreviewCarousel();
   applyLanguage(initialLang);
 
   
   if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
-    console.log('[UAData] HighEntropyValues available. Fetching architecture...');
+    dbg('[UAData] HighEntropyValues available. Fetching architecture...');
     navigator.userAgentData.getHighEntropyValues(['architecture']).then(function(values) {
-      console.log('[UAData] Received values:', JSON.stringify(values));
+      dbg('[UAData] Received values:', JSON.stringify(values));
       if ((values.architecture === 'arm' || values.architecture === 'arm64') && userOSInfo.arch !== 'arm64') {
-        console.log('[UAData] ARM confirmed via HighEntropyValues. Updating from ' + userOSInfo.arch + ' to arm64');
+        dbg('[UAData] ARM confirmed via HighEntropyValues. Updating from ' + userOSInfo.arch + ' to arm64');
         userOSInfo.arch = 'arm64';
         highlightPlatform(userOSInfo);
       } else {
-        console.log('[UAData] No architecture update needed. Current arch:', userOSInfo.arch);
+        dbg('[UAData] No architecture update needed. Current arch:', userOSInfo.arch);
       }
     }).catch(function(e) { 
       console.error('[UAData] Error fetching high entropy values:', e); 
     });
   } else {
-    console.log('[UAData] navigator.userAgentData or getHighEntropyValues not available on this browser.');
+    dbg('[UAData] navigator.userAgentData or getHighEntropyValues not available on this browser.');
   }
 </script>
 </body>
