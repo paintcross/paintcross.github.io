@@ -13,6 +13,7 @@
  * repo intentionally has no install step.
  */
 import { createRequire } from 'module';
+import crypto from 'crypto';
 import fs from 'fs';
 import http from 'http';
 import path from 'path';
@@ -38,6 +39,12 @@ const server = http.createServer((req, res) => {
 });
 await new Promise((r) => server.listen(PORT, r));
 
+// Fingerprint of the source page, baked into every generated page so CI can
+// detect a stale build without rerunning the browser (see i18n-freshness.yml).
+const SOURCE_HASH = crypto.createHash('sha256')
+  .update(fs.readFileSync(path.join(ROOT, 'index.html')))
+  .digest('hex');
+
 const langUrl = (lang) => (lang === 'en' ? `${SITE}/` : `${SITE}/${lang}/`);
 const hreflangBlock = () =>
   ALL.map((l) => `<link rel="alternate" hreflang="${l}" href="${langUrl(l)}" />`).join('\n  ')
@@ -52,7 +59,7 @@ await page.route('**/api.github.com/**', (route) => route.abort());
 for (const lang of LANGS) {
   await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(300);
-  const html = await page.evaluate(([lang, hreflangs, pageUrl]) => {
+  const html = await page.evaluate(([lang, hreflangs, pageUrl, sourceHash]) => {
     applyLanguage(lang);
     const dict = Object.assign({}, I18N.en, I18N[lang] || {});
     const q = (sel) => document.head.querySelector(sel);
@@ -85,8 +92,15 @@ for (const lang of LANGS) {
     // Build-machine locale must not leak into the output
     document.querySelectorAll('.lang-suggest').forEach((el) => el.remove());
 
+    // Freshness marker for CI
+    document.querySelectorAll('meta[name="i18n-source-hash"]').forEach((el) => el.remove());
+    const marker = document.createElement('meta');
+    marker.setAttribute('name', 'i18n-source-hash');
+    marker.setAttribute('content', sourceHash);
+    document.head.appendChild(marker);
+
     return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-  }, [lang, hreflangBlock(), langUrl(lang)]);
+  }, [lang, hreflangBlock(), langUrl(lang), SOURCE_HASH]);
 
   const dir = path.join(ROOT, lang);
   fs.mkdirSync(dir, { recursive: true });

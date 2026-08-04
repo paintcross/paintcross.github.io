@@ -1,0 +1,19 @@
+#!/bin/sh
+# Rebuilds the per-language static pages whenever index.html is part of the
+# commit, then stages the regenerated output — so /ko/, /ja/, … can never go
+# stale by accident.
+#
+# One-time activation per clone:  git config core.hooksPath .githooks
+#
+# Note: the build reads the WORKING-TREE index.html. If you partially staged
+# index.html (git add -p), unstage or finish staging before committing.
+
+if git diff --cached --name-only | grep -qx "index.html"; then
+  echo "[pre-commit] index.html is in this commit — rebuilding language pages…"
+  PLAYWRIGHT_BROWSERS_PATH=0 node scripts/build-i18n.mjs || {
+    echo "[pre-commit] i18n build FAILED — commit aborted." >&2
+    exit 1
+  }
+  git add ko zh es ar hi ja fr de pt
+  echo "[pre-commit] language pages rebuilt and staged."
+fi

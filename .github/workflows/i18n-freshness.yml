@@ -1,0 +1,35 @@
+name: i18n freshness
+
+# Fails the push if index.html changed but the prerendered language pages were
+# not regenerated. Every generated page carries a <meta name="i18n-source-hash">
+# stamped by scripts/build-i18n.mjs with the sha256 of the index.html it was
+# built from — so this check needs no browser, just a hash comparison.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify language pages were built from the current index.html
+        run: |
+          expected="$(sha256sum index.html | cut -d' ' -f1)"
+          stale=0
+          for lang in ko zh es ar hi ja fr de pt; do
+            actual="$(sed -n 's/.*name="i18n-source-hash" content="\([a-f0-9]*\)".*/\1/p' "$lang/index.html" | head -1)"
+            if [ "$actual" != "$expected" ]; then
+              echo "::error file=$lang/index.html::stale build (source hash $actual != $expected)"
+              stale=1
+            fi
+          done
+          if [ "$stale" = "1" ]; then
+            echo ""
+            echo "index.html changed but the language pages were not regenerated."
+            echo "Run: PLAYWRIGHT_BROWSERS_PATH=0 node scripts/build-i18n.mjs  and commit the output."
+            exit 1
+          fi
+          echo "All 9 language pages are fresh."
