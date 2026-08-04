@@ -945,19 +945,10 @@
       <span class="chrome-title" id="preview-title">Paint.Cross — Untitled.paintx</span>
     </div>
     <div class="preview-carousel" id="preview-carousel">
-      <video class="preview-screenshot preview-slide active" autoplay loop muted playsinline preload="metadata" poster="hero-preview-markers.webp" src="demo.mp4" data-title-key="previewSlide0Title" data-caption-key="previewSlide0Caption" aria-label="Paint.Cross live demo — gradient, brush, symmetry, shapes, callouts, text, selection, and layers in real time"></video>
-      <img class="preview-screenshot preview-slide" src="hero-preview-markers.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross numbered callouts and screenshot markup preview" data-title-key="previewSlide1Title" data-caption-key="previewSlide1Caption" />
-      <img class="preview-screenshot preview-slide" src="hero-preview-layers.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross layered edits preview" data-title-key="previewSlide2Title" data-caption-key="previewSlide2Caption" />
-      <img class="preview-screenshot preview-slide" src="hero-preview-brush.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross brush and color tools preview" data-title-key="previewSlide3Title" data-caption-key="previewSlide3Caption" />
-      <img class="preview-screenshot preview-slide" src="hero-preview-selection.webp" width="1280" height="800" loading="lazy" alt="Paint.Cross selection mask preview" data-title-key="previewSlide4Title" data-caption-key="previewSlide4Caption" />
+      <video class="preview-screenshot preview-slide active" autoplay loop muted playsinline preload="metadata" poster="hero-preview-brush.webp" src="demo.mp4" data-title-key="previewSlide0Title" data-caption-key="previewSlide0Caption" aria-label="Paint.Cross live demo — open a file, brush, symmetry, selection, tabs, callouts, shapes, text, and layers in real time"></video>
     </div>
-    <div class="preview-dots" aria-label="Preview screenshots">
-      <button class="preview-dot active" type="button" data-preview-index="0" aria-label="Show live demo"></button>
-      <button class="preview-dot" type="button" data-preview-index="1" aria-label="Show marker preview"></button>
-      <button class="preview-dot" type="button" data-preview-index="2" aria-label="Show layers preview"></button>
-      <button class="preview-dot" type="button" data-preview-index="3" aria-label="Show brush preview"></button>
-      <button class="preview-dot" type="button" data-preview-index="4" aria-label="Show selection preview"></button>
-      <button class="preview-pause" type="button" id="preview-pause" aria-label="Pause slideshow" aria-pressed="false">⏸</button>
+    <div class="preview-dots" aria-label="Demo controls">
+      <button class="preview-pause" type="button" id="preview-pause" aria-label="Pause demo video" aria-pressed="false">⏸</button>
     </div>
   </div>
   <p class="preview-caption" id="preview-caption">Native window — no browser shell, no Electron overhead</p>
@@ -1879,13 +1870,13 @@
   });
   const PREVIEW_SLIDES_I18N = {
     en: {
-      previewSlide0Title: 'Paint.Cross — Live Demo', previewSlide0Caption: 'Real recording: gradient, brush, symmetry, shapes, callouts, text, selection, and layers — in seconds.',
+      previewSlide0Title: 'Paint.Cross — Live Demo', previewSlide0Caption: 'Real recording: open a file, brush, symmetry, selection, tabs, callouts, shapes, text, and layers — in seconds.',
       previewSlide2Title: 'Paint.Cross — Layered Edits.paintx', previewSlide2Caption: 'Sketch, color, markers, and notes stay separated with multiple layers.',
       previewSlide3Title: 'Paint.Cross — Brush Tools.paintx', previewSlide3Caption: 'Brush, pencil, fill, and color picker tools stay close to the canvas.',
       previewSlide4Title: 'Paint.Cross — Selection Mask.paintx', previewSlide4Caption: 'Select, move, copy, and refine only the area that matters.'
     },
     ko: {
-      previewSlide0Title: 'Paint.Cross — 라이브 데모', previewSlide0Caption: '실제 녹화: 그라데이션, 브러시, 대칭 그리기, 도형, 번호 마커, 텍스트, 선택, 레이어까지 — 단 몇 초.',
+      previewSlide0Title: 'Paint.Cross — 라이브 데모', previewSlide0Caption: '실제 녹화: 파일 열기, 브러시, 대칭 그리기, 선택, 탭, 번호 마커, 도형, 텍스트, 레이어까지 — 단 몇 초.',
       previewSlide2Title: 'Paint.Cross — 레이어 편집.paintx', previewSlide2Caption: '스케치, 색상, 마커, 메모를 여러 레이어로 분리해 관리합니다.',
       previewSlide3Title: 'Paint.Cross — 브러시 도구.paintx', previewSlide3Caption: '브러시, 연필, 채우기, 스포이드 도구가 캔버스 곁에 머뭅니다.',
       previewSlide4Title: 'Paint.Cross — 선택 마스크.paintx', previewSlide4Caption: '필요한 영역만 선택해 이동, 복사, 보정합니다.'
